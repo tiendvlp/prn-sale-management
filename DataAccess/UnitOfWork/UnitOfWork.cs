@@ -7,6 +7,7 @@ using DataAccess.repositories.Members;
 using DataAccess.repositories.OrderDetails;
 using DataAccess.repositories.Orders;
 using DataAccess.repositories.Products;
+using System;
 
 namespace DataAccess.UnitOfWork
 {
@@ -38,11 +39,13 @@ namespace DataAccess.UnitOfWork
 
         public void Dispose()
         {
+            Console.WriteLine("Unit of work has been dispose");
             _db.Dispose();
         }
 
         public void Save()
         {
+            Console.WriteLine("Unit of work has been saved");
             _db.SaveChanges();
         }
     }
