@@ -1,4 +1,5 @@
 ﻿using BusinessObject;
+using Desktop.Products;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,6 +20,7 @@ namespace Desktop.MainForm
         private int _mode;
         
         private ColumnHeader ProductNameColumn = new ColumnHeader("Name");
+        private ColumnHeader ProductPriceColumn = new ColumnHeader("Price");
         private ColumnHeader ProductCategoryColumn = new ColumnHeader("Category");
         private ColumnHeader ProducWeightColumn = new ColumnHeader("Weight");
         private ColumnHeader ProductQuantityColumn = new ColumnHeader("Quantity");
@@ -42,6 +44,7 @@ namespace Desktop.MainForm
             lvProduct.FullRowSelect = true;
             lvProduct.GridLines = true; 
             lvProduct.Columns.Add(ProductNameColumn);
+            lvProduct.Columns.Add(ProductPriceColumn);
             lvProduct.Columns.Add(ProductCategoryColumn);
             lvProduct.Columns.Add(ProductQuantityColumn);
             lvProduct.Columns.Add(ProducWeightColumn);
@@ -59,6 +62,10 @@ namespace Desktop.MainForm
             newItem.SubItems.Add(new ListViewItem.ListViewSubItem()
             {
                 Text = product.Name
+            });
+            newItem.SubItems.Add(new ListViewItem.ListViewSubItem()
+            {
+                Text = product.Price + ""
             });
             newItem.SubItems.Add(new ListViewItem.ListViewSubItem() {
                 Text = product.Category.Name
@@ -83,8 +90,33 @@ namespace Desktop.MainForm
                 var focusedItem = lvProduct.FocusedItem;
                 if (focusedItem != null && focusedItem.Bounds.Contains(e.Location))
                 {
-                    menuStripAdmin.Show(Cursor.Position);
+                    if (_mode == ADMIN_MODE)
+                    {
+                        menuStripAdmin.Show(Cursor.Position);
+                    } else
+                    {
+                        menuStripMember.Show(Cursor.Position);
+                    }
                 }
+            }
+        }
+
+        private void OnMemberMenu_click(object sender, EventArgs e)
+        {
+            var focusedItem = lvProduct.FocusedItem;
+            if (focusedItem != null)
+            {
+                Product focusedProduct = (Product)focusedItem.Tag;
+            }
+        }
+
+        private void OnAdminMenu_click(object sender, EventArgs e)
+        {
+            var focusedItem = lvProduct.FocusedItem;
+            if (focusedItem != null)
+            {
+                Product focusedProduct = (Product)focusedItem.Tag;
+                new FormCreateProduct().ShowDialog();
             }
         }
     }

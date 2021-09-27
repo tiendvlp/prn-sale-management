@@ -13,6 +13,7 @@ namespace BusinessObject
         public String Password { get; set; }
         public String City { get; set; }
         public String Country { get; set; }
+        public String CompanyName { get; set; }
 
         public Member()
         {

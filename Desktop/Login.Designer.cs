@@ -30,6 +30,7 @@ namespace Desktop
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnLogin = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.Welcome = new System.Windows.Forms.Label();
             this.flpUserName = new System.Windows.Forms.FlowLayoutPanel();
@@ -39,7 +40,6 @@ namespace Desktop
             this.label2 = new System.Windows.Forms.Label();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.btnLogin = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.flpUserName.SuspendLayout();
@@ -56,6 +56,22 @@ namespace Desktop
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(446, 450);
             this.panel1.TabIndex = 1;
+            // 
+            // btnLogin
+            // 
+            this.btnLogin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.btnLogin.FlatAppearance.BorderSize = 0;
+            this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLogin.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnLogin.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.btnLogin.Location = new System.Drawing.Point(44, 333);
+            this.btnLogin.Margin = new System.Windows.Forms.Padding(0);
+            this.btnLogin.Name = "btnLogin";
+            this.btnLogin.Size = new System.Drawing.Size(350, 32);
+            this.btnLogin.TabIndex = 3;
+            this.btnLogin.Text = "Login";
+            this.btnLogin.UseVisualStyleBackColor = false;
+            this.btnLogin.Click += new System.EventHandler(this.OnBtnLoginClicked);
             // 
             // panel2
             // 
@@ -111,6 +127,7 @@ namespace Desktop
             this.txtUserName.Name = "txtUserName";
             this.txtUserName.Size = new System.Drawing.Size(271, 23);
             this.txtUserName.TabIndex = 3;
+            this.txtUserName.TextChanged += new System.EventHandler(this.txtUserName_TextChanged);
             // 
             // flpPassword
             // 
@@ -151,22 +168,6 @@ namespace Desktop
             this.lblTitle.Size = new System.Drawing.Size(320, 107);
             this.lblTitle.TabIndex = 2;
             this.lblTitle.Text = "Welcome, this is my assignment";
-            // 
-            // btnLogin
-            // 
-            this.btnLogin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.btnLogin.FlatAppearance.BorderSize = 0;
-            this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLogin.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnLogin.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnLogin.Location = new System.Drawing.Point(44, 333);
-            this.btnLogin.Margin = new System.Windows.Forms.Padding(0);
-            this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(350, 32);
-            this.btnLogin.TabIndex = 3;
-            this.btnLogin.Text = "Login";
-            this.btnLogin.UseVisualStyleBackColor = false;
-            this.btnLogin.Click += new System.EventHandler(this.OnBtnLoginClicked);
             // 
             // Login
             // 

@@ -63,7 +63,6 @@ namespace Desktop
                 if (isAdmin)
                 {
                     _appRole.CurrentRole = new UserRole.Admin();
-                    MessageBox.Show("Welcome host", "Login Success", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     MainForm.MainForm mainForm = _serviceProvider.GetRequiredService<MainForm.MainForm>();
                     mainForm.Show();
                     this.Hide();
@@ -81,6 +80,11 @@ namespace Desktop
                     Console.WriteLine("Login success");
                 }
             }
+        }
+
+        private void txtUserName_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

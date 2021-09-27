@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -31,8 +31,6 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.10" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="repositories\" />
-    <Folder Include="Dao\" />
     <Folder Include="MSSQL_Intergration\" />
     <Folder Include="Dao\Members\" />
     <Folder Include="repositories\Members\" />

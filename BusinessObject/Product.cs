@@ -13,6 +13,7 @@ namespace BusinessObject
         public virtual Category Category { get; set; }
         public String Name { get; set; }
         public Double Weight { get; set; }
+        public Double Price { get; set; }
         public String Unit { get; set; }
         public long Quantity { get; set; }
 
@@ -20,7 +21,7 @@ namespace BusinessObject
         {
         }
 
-        public Product(String id, string categoryId, string name, double weight, string unit , long quantity)
+        public Product(String id, string categoryId, string name, double weight, string unit, long quantity, double price)
         {
             Id = id;
             CategoryId = categoryId;
@@ -28,9 +29,10 @@ namespace BusinessObject
             Weight = weight;
             Unit = unit;
             Quantity = quantity;
+            Price = price;
         }
 
-        public Product(string id, Category category, string name, double weight, string unit, long quantity)
+        public Product(string id, Category category, string name, double weight, string unit, long quantity, double price)
         {
             Id = id;
             CategoryId = category.Id;
@@ -39,6 +41,7 @@ namespace BusinessObject
             Weight = weight;
             Unit = unit;
             Quantity = quantity;
+            Price = price;
         }
     }
 }
