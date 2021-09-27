@@ -14,16 +14,30 @@ namespace Desktop.MainForm
 {
     public partial class UCProducts : UserControl
     {
+        public enum EVENT
+        {
+            DELETE, UPDATE, BUY
+        }
+
+        public enum TASK_BAR_EVENT
+        {
+            CREATE, DELETE
+        }
+
+        public delegate void OnActionOccurs (EVENT e, Product product);
+        public delegate void OnTaskBarActionOccurs (TASK_BAR_EVENT e, List<Product> product);
+
+        public OnActionOccurs CallBack = null;
+        public OnTaskBarActionOccurs TaskBarActionCallBack = null;
+
         public static int ADMIN_MODE = 1;
         public static int MEMBER_MODE = 2;
-
         private int _mode;
-        
-        private ColumnHeader ProductNameColumn = new ColumnHeader("Name");
-        private ColumnHeader ProductPriceColumn = new ColumnHeader("Price");
-        private ColumnHeader ProductCategoryColumn = new ColumnHeader("Category");
-        private ColumnHeader ProducWeightColumn = new ColumnHeader("Weight");
-        private ColumnHeader ProductQuantityColumn = new ColumnHeader("Quantity");
+        private ColumnHeader ProductNameColumn = new ColumnHeader("Name") {Text = "Name"};
+        private ColumnHeader ProductPriceColumn = new ColumnHeader("Price") { Text = "Price" };
+        private ColumnHeader ProductCategoryColumn = new ColumnHeader("Category") { Text = "Category" };
+        private ColumnHeader ProducWeightColumn = new ColumnHeader("Weight") { Text = "Weight" };
+        private ColumnHeader ProductQuantityColumn = new ColumnHeader("Quantity") { Text = "Quantity" };
 
         public UCProducts(int mode)
         {
@@ -59,10 +73,7 @@ namespace Desktop.MainForm
         {
             var newItem = new ListViewItem();
             newItem.Tag = product;
-            newItem.SubItems.Add(new ListViewItem.ListViewSubItem()
-            {
-                Text = product.Name
-            });
+            newItem.Text = product.Name;
             newItem.SubItems.Add(new ListViewItem.ListViewSubItem()
             {
                 Text = product.Price + ""
@@ -103,21 +114,72 @@ namespace Desktop.MainForm
 
         private void OnMemberMenu_click(object sender, EventArgs e)
         {
+            if (CallBack == null)
+            {
+                return;
+            }
             var focusedItem = lvProduct.FocusedItem;
             if (focusedItem != null)
             {
                 Product focusedProduct = (Product)focusedItem.Tag;
+                string eventName = (sender as ToolStripItem).Text;
+                if (eventName == "Buy")
+                {
+                    CallBack(EVENT.BUY, focusedProduct);
+                    return;
+                }
             }
         }
 
         private void OnAdminMenu_click(object sender, EventArgs e)
         {
+            if (CallBack == null)
+            {
+                return;
+            }
             var focusedItem = lvProduct.FocusedItem;
             if (focusedItem != null)
             {
                 Product focusedProduct = (Product)focusedItem.Tag;
-                new FormCreateProduct().ShowDialog();
+
+                string eventName = (sender as ToolStripItem).Text;
+                if (eventName == "Delete")
+                {
+                    CallBack(EVENT.DELETE, focusedProduct);
+                    return;
+                }
+                if (eventName == "Update")
+                {
+                    CallBack(EVENT.UPDATE, focusedProduct);
+                    return;
+                }
             }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (TaskBarActionCallBack == null) { return; }
+            List<Product> selectedProduct = new List<Product>();
+            for (int i = 0; i < lvProduct.SelectedItems.Count; i++)
+            {
+                var item = lvProduct.SelectedItems[i];
+                selectedProduct.Add((Product)item.Tag);
+            }
+
+            TaskBarActionCallBack(TASK_BAR_EVENT.DELETE, selectedProduct);
+        }
+
+        private void btnCreate_Click(object sender, EventArgs e)
+        {
+            if (TaskBarActionCallBack == null) { return; }
+            List<Product> selectedProduct = new List<Product>();
+            for (int i =0; i < lvProduct.SelectedItems.Count; i++)
+            {
+                var item = lvProduct.SelectedItems[i];
+                selectedProduct.Add((Product)item.Tag);
+            }
+
+            TaskBarActionCallBack(TASK_BAR_EVENT.CREATE, selectedProduct);
         }
     }
 }

@@ -1,4 +1,7 @@
-﻿using DataAccess.UnitOfWork;
+﻿using BusinessObject;
+using DataAccess.UnitOfWork;
+using Desktop.Products;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,11 +16,13 @@ namespace Desktop.MainForm
 {
     public partial class MainForm : Form
     {
-        UnitOfWorkFactory _unitOfWorkFactory;
+        private UnitOfWorkFactory _unitOfWorkFactory;
+        private IServiceProvider serviceProvider;
 
-        public MainForm(UnitOfWorkFactory unitOfWorkFactory)
+        public MainForm(UnitOfWorkFactory unitOfWorkFactory, IServiceProvider serviceProvider)
         {
             _unitOfWorkFactory = unitOfWorkFactory;
+            this.serviceProvider = serviceProvider;
             InitializeComponent();
         }
 
@@ -43,20 +48,35 @@ namespace Desktop.MainForm
 
         private void btnProducts_Click(object sender, EventArgs e)
         {
+            UCProducts uc = null;
             if (!tbnContainer.Controls.ContainsKey(nameof(UCProducts)))
             {
-                var uc = new UCProducts(UCProducts.ADMIN_MODE);
+                uc = new UCProducts(UCProducts.ADMIN_MODE);
                 uc.Dock = DockStyle.Fill;
                 tbnContainer.Controls.Add(uc);
-                // shows products
-                using (var work = _unitOfWorkFactory.UnitOfWork)
-                {
-                    uc.AddProduct(work.ProductRepository.GetAll().ToList());
-                }
             }
 
-            tbnContainer.Controls[nameof(UCProducts)].BringToFront();
+            uc = (UCProducts)tbnContainer.Controls[nameof(UCProducts)];
+            uc.CallBack = OnActionOccursProductList;
+            uc.TaskBarActionCallBack = OnTaskBarActionCallBack;
+            using (var work = _unitOfWorkFactory.UnitOfWork)
+            {
+                uc.AddProduct(work.ProductRepository.GetAll().ToList());
+            }
+            uc.BringToFront();
+        }
 
+        private void OnTaskBarActionCallBack(UCProducts.TASK_BAR_EVENT e, List<Product> product)
+        {
+            if (e == UCProducts.TASK_BAR_EVENT.CREATE)
+            {
+                FormCreateProduct createProductForm = serviceProvider.GetRequiredService<FormCreateProduct>();
+                createProductForm.ShowDialog();
+            }
+        }
+
+        private void OnActionOccursProductList (UCProducts.EVENT e, Product product )
+        {
 
         }
 

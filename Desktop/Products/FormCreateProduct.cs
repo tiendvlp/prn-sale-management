@@ -62,7 +62,7 @@ namespace Desktop.Products
                 
                 using (var work = _unitOfWorkFactory.UnitOfWork)
                 {
-                    work.ProductRepository.Add(value.category);
+                 //   work.ProductRepository.Add(value.category);
 
                     work.Save();
                 }
