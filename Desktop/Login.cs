@@ -1,24 +1,29 @@
 ﻿using BusinessObject;
 using DataAccess.UnitOfWork;
+using Desktop.common;
+using Desktop.common.Roles;
+using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
 namespace Desktop
 {
     public partial class Login : Form
     {
         private UnitOfWorkFactory _unitOfWorkFactory;
-        public Login()
+        private AppSetting _appSetting;
+        private AppRoles _appRole;
+        private IServiceProvider _serviceProvider;
+        public Login(IServiceProvider serviceProvider, UnitOfWorkFactory unitOfWorkFactory, AppSetting appSetting, AppRoles appRole)
         {
-            _unitOfWorkFactory = (UnitOfWorkFactory)Program.ServiceProvider.GetService(typeof(UnitOfWorkFactory));
+            _serviceProvider = serviceProvider;
+            _unitOfWorkFactory = unitOfWorkFactory;
+            _appSetting = appSetting;
+            _appRole = appRole;
             InitializeComponent();
             LoadLoginLayout();
             AllocConsole();
@@ -44,6 +49,24 @@ namespace Desktop
                 if (String.IsNullOrWhiteSpace(email) || String.IsNullOrWhiteSpace(email))
                 {
                     MessageBox.Show( "Your email or password can not be empty", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                // check admins
+                bool isAdmin = false;
+                _appSetting.Admins.ToList().ForEach(admin => { 
+                    if (admin.Email.Equals(email) && admin.Password.Equals(password))
+                    {
+                        isAdmin = true;
+                    }
+                });
+
+                if (isAdmin)
+                {
+                    _appRole.CurrentRole = new UserRole.Admin();
+                    MessageBox.Show("Welcome host", "Login Success", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MainForm.MainForm mainForm = _serviceProvider.GetRequiredService<MainForm.MainForm>();
+                    mainForm.Show();
+                    this.Hide();
                     return;
                 }
 

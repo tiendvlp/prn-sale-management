@@ -1,34 +1,42 @@
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using DataAccess.Data;
 using DataAccess.UnitOfWork;
-using DataAccess.Dao.Members;
+using Microsoft.Extensions.Configuration;
+using Desktop.common;
+using Microsoft.Extensions.Hosting;
+using Desktop.common.Roles;
 
 namespace Desktop
 {
     static class Program
     {
-        public static IServiceProvider ServiceProvider { get; set; }
-
-        static void ConfigureServices()
+        private static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
-            var services = new ServiceCollection();
+            services.AddSingleton
+                    (configuration.GetSection(nameof(AppSetting)).Get<AppSetting>());
+            services.AddTransient<Login>();
+            services.AddTransient<MainForm.MainForm>();
             services.AddSingleton<UnitOfWorkFactory>();
-            ServiceProvider = services.BuildServiceProvider();
+            services.AddSingleton<AppRoles>();
         }
 
         [STAThread]
         static void Main()
         {
+            var host = Host.CreateDefaultBuilder().ConfigureAppConfiguration((context, builder) =>
+            {
+                builder.AddJsonFile("appsettings.local.json", optional: true);
+            }).ConfigureServices((context, service) => {
+                ConfigureServices(service,context.Configuration);
+            }).Build();
+            
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
-            ConfigureServices();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Login());
+
+            var servicesProvider = host.Services;
+            Application.Run(servicesProvider.GetRequiredService<Login>());
         }
     }
 }

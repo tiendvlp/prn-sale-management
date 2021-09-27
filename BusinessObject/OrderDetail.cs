@@ -10,9 +10,11 @@ namespace BusinessObject
         public String Id { get; set; }
         [ForeignKey("Order")]
         public String OrderId { get; set; }
+        [ForeignKey("OrderId")]
         public virtual Order Order { get; set; }
         [ForeignKey("Product")]
         public String ProductId { get; set; }
+        [ForeignKey("ProductId")]
         public virtual Product Product { get; set; }
         public Double UnitPrice { get; set; }
         public int Quantity { get; set; }

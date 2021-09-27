@@ -18,6 +18,7 @@ namespace DataAccess.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            optionsBuilder.UseLazyLoadingProxies();
             optionsBuilder.UseSqlServer(@"server=127.0.0.1,1533;Database=PRN_Assignment;User=SA;Password=Password123;Trusted_Connection=False;MultipleActiveResultSets=True");
         }
     }
