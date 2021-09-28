@@ -14,32 +14,35 @@ namespace BusinessObject
         public String Name { get; set; }
         public Double Weight { get; set; }
         public Double Price { get; set; }
-        public String Unit { get; set; }
+        public string Unit { get; private set; }
+        public void setWeightUnit (WeightUnit value )  { 
+            Unit = value.ToString();
+        }
         public long Quantity { get; set; }
 
         public Product()
         {
         }
 
-        public Product(String id, string categoryId, string name, double weight, string unit, long quantity, double price)
+        public Product(String id, string categoryId, string name, double weight, WeightUnit unit, long quantity, double price)
         {
             Id = id;
             CategoryId = categoryId;
             Name = name;
             Weight = weight;
-            Unit = unit;
+            Unit = Enum.GetName(unit);
             Quantity = quantity;
             Price = price;
         }
 
-        public Product(string id, Category category, string name, double weight, string unit, long quantity, double price)
+        public Product(string id, Category category, string name, double weight, WeightUnit unit, long quantity, double price)
         {
             Id = id;
             CategoryId = category.Id;
             Category = category;
             Name = name;
             Weight = weight;
-            Unit = unit;
+            Unit = Enum.GetName(unit);
             Quantity = quantity;
             Price = price;
         }

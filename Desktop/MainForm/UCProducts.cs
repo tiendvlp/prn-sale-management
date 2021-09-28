@@ -94,6 +94,11 @@ namespace Desktop.MainForm
             lvProduct.Items.Add(newItem);
         }
 
+        internal void ClearProducts()
+        {
+            lvProduct.Items.Clear();
+        }
+
         private void lvProducts_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
@@ -160,9 +165,11 @@ namespace Desktop.MainForm
         {
             if (TaskBarActionCallBack == null) { return; }
             List<Product> selectedProduct = new List<Product>();
-            for (int i = 0; i < lvProduct.SelectedItems.Count; i++)
+            
+            for (int i = 0; i < lvProduct.CheckedItems.Count; i++)
             {
-                var item = lvProduct.SelectedItems[i];
+                Console.WriteLine("hihi selected");
+                var item = lvProduct.CheckedItems[i];
                 selectedProduct.Add((Product)item.Tag);
             }
 

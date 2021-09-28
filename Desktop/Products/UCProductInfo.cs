@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessObject;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,12 @@ namespace Desktop.Products
         public UCProductInfo()
         {
             InitializeComponent();
+            _initUnitComboBox();
+        }
+
+        private void _initUnitComboBox()
+        {
+            cbxWeightUnits.DataSource = new List<String> () { "Kg", "Gram", "" };
         }
 
         private void OnTxtProductName_KeyDown(object sender, KeyPressEventArgs e)
@@ -22,7 +29,7 @@ namespace Desktop.Products
 
         }
 
-        public (string name, string category, float price, float weight, string unit, int quantity)? GetProductInput ()
+        public (string name, Category category, float price, float weight, WeightUnit unit, int quantity)? GetProductInput ()
         {
             if (String.IsNullOrWhiteSpace(txtProductName.Text))
             {
@@ -44,14 +51,35 @@ namespace Desktop.Products
                 MessageBox.Show("Your product price can not be empty", "Missing info", MessageBoxButtons.OK);
                 return null;
             }
+
             string name = txtProductName.Text;
             int quantity = int.Parse(txtProductQuantity.Text);
-            string unit = cbxWeightUnits.Text;
+            WeightUnit unit = (WeightUnit)cbxWeightUnits.SelectedItem;
             float weight = float.Parse(txtProductWeight.Text);
             float price = float.Parse(txtProductPrice.Text);
-            string category = cbxCategories.Text;
+            Category category = (Category)cbxCategories.SelectedItem;
 
             return (name, category,price, weight, unit, quantity);
+        }
+
+        internal void ClearInput()
+        {
+            txtProductName.Focus();
+            txtProductName.Clear();
+            txtProductPrice.Clear();
+            txtProductQuantity.Clear();
+            txtProductWeight.Clear();
+        }
+
+        internal void SetWeightUnit(IEnumerable<WeightUnit> units)
+        {
+            cbxWeightUnits.DataSource = units;
+        }
+
+        internal void SetCategories(IEnumerable<Category> categories)
+        {
+            cbxCategories.DataSource = categories;
+            cbxCategories.DisplayMember = "Name";
         }
 
         private void OnTxtProductWeight_KeyDown(object sender, KeyPressEventArgs e)
@@ -107,6 +135,11 @@ namespace Desktop.Products
             {
                 e.Handled = true;
             }
+        }
+
+        private void txtProductWeight_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

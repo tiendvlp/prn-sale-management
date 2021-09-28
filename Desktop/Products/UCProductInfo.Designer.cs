@@ -30,6 +30,8 @@ namespace Desktop.Products
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.txtProductPrice = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.txtProductQuantity = new System.Windows.Forms.TextBox();
             this.cbxWeightUnits = new System.Windows.Forms.ComboBox();
@@ -40,8 +42,6 @@ namespace Desktop.Products
             this.label1 = new System.Windows.Forms.Label();
             this.cbxCategories = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.txtProductPrice = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -76,6 +76,28 @@ namespace Desktop.Products
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(555, 411);
             this.tableLayoutPanel1.TabIndex = 2;
+            // 
+            // txtProductPrice
+            // 
+            this.txtProductPrice.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtProductPrice.Location = new System.Drawing.Point(400, 337);
+            this.txtProductPrice.MaxLength = 9;
+            this.txtProductPrice.Name = "txtProductPrice";
+            this.txtProductPrice.Size = new System.Drawing.Size(119, 23);
+            this.txtProductPrice.TabIndex = 13;
+            this.txtProductPrice.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnTxtProductPrice_KeyPress);
+            // 
+            // label6
+            // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label6.Location = new System.Drawing.Point(354, 287);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(31, 124);
+            this.label6.TabIndex = 12;
+            this.label6.Text = "Price";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label5
             // 
@@ -153,6 +175,7 @@ namespace Desktop.Products
             this.txtProductWeight.Name = "txtProductWeight";
             this.txtProductWeight.Size = new System.Drawing.Size(216, 23);
             this.txtProductWeight.TabIndex = 1;
+            this.txtProductWeight.TextChanged += new System.EventHandler(this.txtProductWeight_TextChanged);
             this.txtProductWeight.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnTxtProductWeight_KeyDown);
             // 
             // label1
@@ -187,28 +210,6 @@ namespace Desktop.Products
             this.label4.TabIndex = 10;
             this.label4.Text = "Unit";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label6
-            // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label6.Location = new System.Drawing.Point(354, 287);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(31, 124);
-            this.label6.TabIndex = 12;
-            this.label6.Text = "Price";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // txtProductPrice
-            // 
-            this.txtProductPrice.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtProductPrice.Location = new System.Drawing.Point(400, 337);
-            this.txtProductPrice.MaxLength = 9;
-            this.txtProductPrice.Name = "txtProductPrice";
-            this.txtProductPrice.Size = new System.Drawing.Size(119, 23);
-            this.txtProductPrice.TabIndex = 13;
-            this.txtProductPrice.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnTxtProductPrice_KeyPress);
             // 
             // UCProductInfo
             // 

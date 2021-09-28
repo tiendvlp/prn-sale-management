@@ -1,4 +1,5 @@
-﻿using DataAccess.UnitOfWork;
+﻿using BusinessObject;
+using DataAccess.UnitOfWork;
 using Desktop.common;
 using Desktop.common.Roles;
 using System;
@@ -35,16 +36,14 @@ namespace Desktop.Products
         {
             using (var work = _unitOfWorkFactory.UnitOfWork)
             {
-                work.CategoryRepository.GetAll();
+                var categories = work.CategoryRepository.GetAll();
+                ucProductInfo.SetCategories(categories);
             }
         }
 
         private void _setWeightUnit ()
         {
-            using (var work = _unitOfWorkFactory.UnitOfWork)
-            {
-
-            }
+            ucProductInfo.SetWeightUnit(Enum.GetValues(typeof(WeightUnit)).Cast<WeightUnit>());
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -62,10 +61,13 @@ namespace Desktop.Products
                 
                 using (var work = _unitOfWorkFactory.UnitOfWork)
                 {
-                 //   work.ProductRepository.Add(value.category);
-
+                    work.ProductRepository.Add(value.category.Id, value.name, value.weight, value.unit, value.quantity, value.price);
                     work.Save();
                 }
+
+                MessageBox.Show("Add product successfully !!", "Create product", MessageBoxButtons.OK);
+
+                ucProductInfo.ClearInput();
             }
 
         }

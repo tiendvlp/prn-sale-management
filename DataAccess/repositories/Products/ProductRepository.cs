@@ -18,7 +18,7 @@ namespace DataAccess.repositories.Products
         }
 
 
-        public Product Add(string categoryId, string name, double weight, string unit, long quantity, double price)
+        public Product Add(string categoryId, string name, double weight, WeightUnit unit, long quantity, double price)
         {
             string uuid = System.Guid.NewGuid().ToString().Substring(0, 8);
             Product newProduct = new Product(uuid, categoryId, name, weight, unit, quantity, price);

@@ -8,7 +8,7 @@ namespace DataAccess.repositories.Products
     {
         public IEnumerable<Product> GetAll();
         public Product GetById(String id);
-        public Product Add ( string categoryId, string name, double weight, string unit, long quantity, double price);
+        public Product Add ( string categoryId, string name, double weight, WeightUnit unit, long quantity, double price);
         public Product RemoveById(String id);
         public Product RemoveProduct(Product product);
     }
