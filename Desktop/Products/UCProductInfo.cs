@@ -29,7 +29,7 @@ namespace Desktop.Products
 
         }
 
-        public (string name, Category category, float price, float weight, WeightUnit unit, int quantity)? GetProductInput ()
+        public (string name, Category category, double price, double weight, WeightUnit unit, int quantity)? GetProductInput ()
         {
             if (String.IsNullOrWhiteSpace(txtProductName.Text))
             {
@@ -55,8 +55,8 @@ namespace Desktop.Products
             string name = txtProductName.Text;
             int quantity = int.Parse(txtProductQuantity.Text);
             WeightUnit unit = (WeightUnit)cbxWeightUnits.SelectedItem;
-            float weight = float.Parse(txtProductWeight.Text);
-            float price = float.Parse(txtProductPrice.Text);
+            double weight = double.Parse(txtProductWeight.Text);
+            double price = double.Parse(txtProductPrice.Text);
             Category category = (Category)cbxCategories.SelectedItem;
 
             return (name, category,price, weight, unit, quantity);
