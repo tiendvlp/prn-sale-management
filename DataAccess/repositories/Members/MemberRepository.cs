@@ -23,7 +23,7 @@ namespace DataAccess.repositories.Members
 
         public IEnumerable<Member> GetAll()
         {
-            return _memberDao.GetAll();
+            return _memberDao.GetAll().ToList();
         }
 
         public Member GetByEmail(string email)

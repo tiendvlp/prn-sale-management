@@ -3,10 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BusinessObject
 {
-    public class Category
+    public class Category : Entity
     {
-        [Key]
-        public String Id { get; set; }
         public String Name { get; set; }
 
         public Category()

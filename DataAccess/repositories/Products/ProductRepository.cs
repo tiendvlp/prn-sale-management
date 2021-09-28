@@ -11,9 +11,11 @@ namespace DataAccess.repositories.Products
     public class ProductRepository : IProductRepository
     {
         private IProductDao _productDao;
+        private ICategoryDao _categoryDao;
 
-        public ProductRepository(IProductDao productDao)
+        public ProductRepository(IProductDao productDao, ICategoryDao categoryDao)
         {
+            _categoryDao = categoryDao;
             _productDao = productDao;
         }
 
@@ -28,7 +30,7 @@ namespace DataAccess.repositories.Products
 
         public IEnumerable<Product> GetAll()
         {
-            IEnumerable<Product> result =  _productDao.GetAll();
+            IEnumerable<Product> result =  _productDao.GetAll().ToList();
 
             return result;
         }
@@ -49,6 +51,24 @@ namespace DataAccess.repositories.Products
         {
             _productDao.Remove(product);
             return product;
+        }
+
+        public Product Update(Product product)
+        {
+            Product updatedProduct = _productDao.Get(product.Id);
+            Category newCategory = _categoryDao.Get(product.CategoryId);
+
+            if (updatedProduct == null)
+            {
+                return null;
+            }
+            updatedProduct.Name = product.Name;
+            updatedProduct.SetCategory(newCategory);
+            updatedProduct.Price = product.Price;
+            updatedProduct.Quantity = product.Quantity;
+            updatedProduct.Weight = product.Weight;
+            updatedProduct.setWeightUnit(product.GetWeightUnitInEnum());
+            return updatedProduct;
         }
     }
 }

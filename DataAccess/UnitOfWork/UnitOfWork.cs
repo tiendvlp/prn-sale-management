@@ -28,7 +28,7 @@ namespace DataAccess.UnitOfWork
             _db = db;
             _orderRepository = new OrderRepository(new OrderDao(_db));
             _orderDetailRepository = new OrderDetailRespository(new OrderDetailDao(db));
-            _productRepository = new ProductRepository(new ProductDao(db));
+            _productRepository = new ProductRepository(new ProductDao(db), new CategoryDao(db));
             _categoryRepository = new CategoryRepository(new CategoryDao(db));
             _memberRepository = new MemberRepository(new MemberDao(db));
         }

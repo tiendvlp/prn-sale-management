@@ -28,7 +28,7 @@ namespace DataAccess.Dao
             return dbSet.Find(Id);
         }
 
-        public IEnumerable<TDto> GetAll(Expression<Func<TDto, bool>> filter = null, Func<IQueryable, IOrderedQueryable<TDto>> orderBy = null, string includeProperties = null)
+        public IQueryable<TDto> GetAll(Expression<Func<TDto, bool>> filter = null, Func<IQueryable, IOrderedQueryable<TDto>> orderBy = null, string includeProperties = null)
         {
             IQueryable<TDto> query = dbSet;
 
@@ -47,9 +47,9 @@ namespace DataAccess.Dao
 
             if (orderBy != null)
             {
-                return orderBy(query).ToList();
+                return orderBy(query);
             }
-            return query.ToList();
+            return query;
 
         }
 

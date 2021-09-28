@@ -1,6 +1,7 @@
 ﻿using System;
 using BusinessObject;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace DataAccess.Data
 {
@@ -19,6 +20,7 @@ namespace DataAccess.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseLazyLoadingProxies();
+            optionsBuilder.ConfigureWarnings(warnings => warnings.Ignore(CoreEventId.DetachedLazyLoadingWarning));
             optionsBuilder.UseSqlServer(@"server=127.0.0.1,1533;Database=PRN_Assignment;User=SA;Password=Password123;Trusted_Connection=False;MultipleActiveResultSets=True");
         }
     }

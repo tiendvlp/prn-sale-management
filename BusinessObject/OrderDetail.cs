@@ -4,10 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BusinessObject
 {
-    public class OrderDetail
+    public class OrderDetail : Entity
     {
-        [Key]
-        public String Id { get; set; }
         [ForeignKey("Order")]
         public String OrderId { get; set; }
         [ForeignKey("OrderId")]

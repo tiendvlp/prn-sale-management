@@ -127,7 +127,13 @@ namespace Desktop.MainForm
                     }
 
                     _reloadProduct();
-                } 
+                }
+            }
+            if (e == UCProducts.EVENT.UPDATE)
+            {
+                FormUpdateProduct updateProductForm = ActivatorUtilities.CreateInstance<FormUpdateProduct>(serviceProvider, product);
+                updateProductForm.ShowDialog();
+                _reloadProduct();
             }
         }
 

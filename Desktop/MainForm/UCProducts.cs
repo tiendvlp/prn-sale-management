@@ -74,7 +74,8 @@ namespace Desktop.MainForm
             var newItem = new ListViewItem();
             newItem.Tag = product;
             newItem.Text = product.Name;
-            newItem.SubItems.Add(new ListViewItem.ListViewSubItem()
+            newItem.SubItems.Add
+                (new ListViewItem.ListViewSubItem()
             {
                 Text = product.Price + ""
             });

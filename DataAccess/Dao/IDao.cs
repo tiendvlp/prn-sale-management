@@ -10,7 +10,7 @@ namespace DataAccess.Dao
     {
         TDto Get(String Id);
 
-        IEnumerable<TDto> GetAll(
+        IQueryable<TDto> GetAll(
             Expression<Func<TDto, bool>> filter = null,
             Func<IQueryable, IOrderedQueryable<TDto>> orderBy = null,
             string includeProperties = null

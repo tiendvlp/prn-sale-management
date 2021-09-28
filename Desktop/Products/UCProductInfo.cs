@@ -65,10 +65,25 @@ namespace Desktop.Products
         internal void ClearInput()
         {
             txtProductName.Focus();
-            txtProductName.Clear();
             txtProductPrice.Clear();
             txtProductQuantity.Clear();
             txtProductWeight.Clear();
+        }
+
+        internal void SetContent(Product product)
+        {
+            txtProductName.Text = product.Name;
+            txtProductWeight.Text = product.Weight + "";
+            txtProductQuantity.Text = product.Quantity + "";
+            txtProductPrice.Text = product.Price + "";
+            cbxCategories.SelectedItem = product.Category;
+            ///    for (int i = 0; i < cbxCategories.Items.Count; i++)
+            //    {
+            //        if (cbxCategories.Items[i].Equals(product.Category.Name))
+            //       {
+            //           cbxCategories.SelectedIndex = i;
+            //       }
+            //    }
         }
 
         internal void SetWeightUnit(IEnumerable<WeightUnit> units)
