@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Desktop.common.MessageBoxHelper;
 
 namespace Desktop.Members
 {
@@ -46,6 +47,11 @@ namespace Desktop.Members
 
                 using (var work = _unitOfWorkFactory.UnitOfWork)
                 {
+                    if (work.MemberRepository.GetByEmail(value.email) != null)
+                    {
+                        this.ShowOkErrorMessageBox("Email: " + value.email + " already exist!");
+                        return; 
+                    }
                     work.MemberRepository.Add(value.country, value.city, value.password, value.email, value.name, value.companyName);
                     work.Save();
                 }
