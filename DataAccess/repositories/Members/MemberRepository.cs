@@ -21,6 +21,10 @@ namespace DataAccess.repositories.Members
             _memberDao.Add(member);
         }
 
+        public IEnumerable<Member> GetWithFilters(string name, string id, string country, string city) {
+            return _memberDao.GetWithFilters(name, id, country, city).ToList();
+        }
+
         public void Add(string country, string city, string password, string email, string name, string companyName)
         {
             string id = System.Guid.NewGuid().ToString().Substring(0, 8);

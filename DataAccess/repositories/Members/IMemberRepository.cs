@@ -13,6 +13,7 @@ namespace DataAccess.repositories.Members
         public Member GetByEmail(String email);
         public IEnumerable<Member> GetAll();
         void Update(Member member);
+        public IEnumerable<Member> GetWithFilters(string name, string id, string country, string city);
         void RemoveById(string id);
     }
 }

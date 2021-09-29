@@ -22,7 +22,6 @@ namespace Desktop.Members
         private ColumnHeader UserCityColumn = new ColumnHeader("City") { Text = "City" };
         private ColumnHeader UserCountryColumn = new ColumnHeader("Country") { Text = "Country" };
         private ColumnHeader UserCompanyColumn = new ColumnHeader("Company name") { Text = "Company name" };
-
         private UnitOfWorkFactory _unitOfWorkFactory;
         private IServiceProvider serviceProvider;
 
@@ -32,8 +31,18 @@ namespace Desktop.Members
             this.serviceProvider = serviceProvider;
             InitializeComponent();
             _initListView();
+            _restoreFilterInput();
+            _reloadMembers();
         }
 
+        private void _restoreFilterInput() {
+            txtFilterCity.Text = Filter.city;
+            txtFilterCountry.Text = Filter.country;
+            txtFilterName.Text = Filter.name;
+            txtFilterId.Text = Filter.id;
+        }
+
+        private static (string id, string name, string city, string country) Filter;
 
         private void _initListView()
         {
@@ -47,19 +56,14 @@ namespace Desktop.Members
             lvMembers.Columns.Add(UserCityColumn);
             lvMembers.Columns.Add(UserCountryColumn);
             lvMembers.Columns.Add(UserCompanyColumn);
-
-            using (var work = _unitOfWorkFactory.UnitOfWork)
-            {
-                AddMembers(work.MemberRepository.GetAll().ToList());
-            }
         }
 
-        public void AddMembers(List<Member> members)
+        private void AddMembers(List<Member> members)
         {
             members.ForEach(member => AddMember(member));
         }
 
-        public void AddMember(Member member)
+        private void AddMember(Member member)
         {
             var newItem = new ListViewItem();
             newItem.Tag = member;
@@ -184,8 +188,14 @@ namespace Desktop.Members
                 lvMembers.Items.Clear();
                 using (var work = _unitOfWorkFactory.UnitOfWork)
                 {
-                    AddMembers(work.MemberRepository.GetAll().ToList());
+                    AddMembers(work.MemberRepository.GetWithFilters(Filter.name, Filter.id, Filter.country, Filter.city).ToList());
                 }
-            }
         }
+
+        private void btnFilter_Click(object sender, EventArgs e)
+        {
+            Filter = (txtFilterId.Text, txtFilterName.Text, txtFilterCity.Text, txtFilterCountry.Text);
+            _reloadMembers();
+        }
+    }
 }
