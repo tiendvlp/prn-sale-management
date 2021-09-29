@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Desktop.common.MessageBoxHelper;
 using Desktop.Members;
+using Desktop.common.Roles;
 
 namespace Desktop.MainForm
 {
@@ -21,17 +22,48 @@ namespace Desktop.MainForm
         private UnitOfWorkFactory _unitOfWorkFactory;
         private IServiceProvider serviceProvider;
         private Form _activeForm;
-        public MainForm(UnitOfWorkFactory unitOfWorkFactory, IServiceProvider serviceProvider)
+        private AppRoles appRoles;
+        public MainForm(UnitOfWorkFactory unitOfWorkFactory, IServiceProvider serviceProvider, AppRoles appRoles)
         {
+            this.appRoles = appRoles;
             _unitOfWorkFactory = unitOfWorkFactory;
             this.serviceProvider = serviceProvider;
             InitializeComponent();
+            _setupRole();
         }
 
+        private void _setupRole ()
+        {
+            if (appRoles.IsAdmin)
+            {
+                btnMembers.Enabled = true;
+                btnMembers.Visible = true;
+                btnUserInfo.Enabled = false;
+                btnUserInfo.Visible = false;
+            } else
+            {
+                btnMembers.Enabled = false;
+                btnMembers.Visible = false;
+
+                btnUserInfo.Enabled = true;
+                btnUserInfo.Visible = true;
+            }
+        }
 
         private void btnUserInfo_Click(object sender, EventArgs e)
         {
-
+            using (var work = _unitOfWorkFactory.UnitOfWork)
+            {
+                FormUpdateMember updateMembers = ActivatorUtilities.CreateInstance<FormUpdateMember>(serviceProvider, (appRoles.CurrentRole as UserRole.Member).Info);
+                updateMembers.ShowDialog();
+            }
+            using (var work = _unitOfWorkFactory.UnitOfWork)
+            {
+                Member m = work.MemberRepository.GetById((appRoles.CurrentRole as UserRole.Member).Info.Id);
+                appRoles.CurrentRole = new UserRole.Member(m);
+                lblUserName.Text = m.Name;
+            }
+            
         }
 
         private void btnProducts_Click(object sender, EventArgs e)
@@ -43,8 +75,6 @@ namespace Desktop.MainForm
             }
             _openChildForm(serviceProvider.GetRequiredService<FormProducts>(), e);
         }
-
-
       
 
         private void btnMembers_Click(object sender, EventArgs e)

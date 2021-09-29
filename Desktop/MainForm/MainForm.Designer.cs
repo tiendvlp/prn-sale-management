@@ -112,6 +112,7 @@ namespace Desktop.MainForm
             this.btnUserInfo.TabIndex = 1;
             this.btnUserInfo.Text = "View Info";
             this.btnUserInfo.UseVisualStyleBackColor = false;
+            this.btnUserInfo.Click += new System.EventHandler(this.btnUserInfo_Click);
             // 
             // tableLayoutPanel3
             // 

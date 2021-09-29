@@ -81,7 +81,7 @@ namespace Desktop.Members
             // 
             this.txtCity.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.txtCity.Location = new System.Drawing.Point(362, 214);
-            this.txtCity.MaxLength = 9;
+            this.txtCity.MaxLength = 25;
             this.txtCity.Name = "txtCity";
             this.txtCity.Size = new System.Drawing.Size(174, 23);
             this.txtCity.TabIndex = 15;
@@ -90,7 +90,7 @@ namespace Desktop.Members
             // 
             this.txtCompanyName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.txtCompanyName.Location = new System.Drawing.Point(362, 337);
-            this.txtCompanyName.MaxLength = 9;
+            this.txtCompanyName.MaxLength = 25;
             this.txtCompanyName.Name = "txtCompanyName";
             this.txtCompanyName.Size = new System.Drawing.Size(174, 23);
             this.txtCompanyName.TabIndex = 14;
@@ -99,7 +99,7 @@ namespace Desktop.Members
             // 
             this.txtEmail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.txtEmail.Location = new System.Drawing.Point(362, 91);
-            this.txtEmail.MaxLength = 9;
+            this.txtEmail.MaxLength = 35;
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(174, 23);
             this.txtEmail.TabIndex = 13;
@@ -132,7 +132,7 @@ namespace Desktop.Members
             // 
             this.txtCountry.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.txtCountry.Location = new System.Drawing.Point(99, 337);
-            this.txtCountry.MaxLength = 9;
+            this.txtCountry.MaxLength = 35;
             this.txtCountry.Name = "txtCountry";
             this.txtCountry.Size = new System.Drawing.Size(174, 23);
             this.txtCountry.TabIndex = 9;
@@ -177,7 +177,7 @@ namespace Desktop.Members
             // 
             this.txtPassword.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.txtPassword.Location = new System.Drawing.Point(99, 214);
-            this.txtPassword.MaxLength = 9;
+            this.txtPassword.MaxLength = 25;
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(174, 23);
             this.txtPassword.TabIndex = 1;

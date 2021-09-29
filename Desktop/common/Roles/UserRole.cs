@@ -10,12 +10,12 @@ namespace Desktop.common.Roles
     {
         public class Member : UserRole
         {
-            public Member(Member info)
+            public Member(BusinessObject.Member info)
             {
                 Info = info;
             }
 
-            public Member Info { get; }
+            public BusinessObject.Member Info { get; }
         }
 
         public class Admin : UserRole

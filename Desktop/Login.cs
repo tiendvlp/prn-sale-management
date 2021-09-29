@@ -77,7 +77,10 @@ namespace Desktop
                 }
                 if (member.Password.Equals(password))
                 {
-                    Console.WriteLine("Login success");
+                    _appRole.CurrentRole = new UserRole.Member(member);
+                    MainForm.MainForm mainForm = _serviceProvider.GetRequiredService<MainForm.MainForm>();
+                    mainForm.Show();
+                    this.Hide();
                 }
             }
         }
