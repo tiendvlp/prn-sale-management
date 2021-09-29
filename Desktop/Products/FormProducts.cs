@@ -1,5 +1,9 @@
 ﻿using BusinessObject;
+using DataAccess.UnitOfWork;
+using Desktop.common.MessageBoxHelper;
+using Desktop.common.Roles;
 using Desktop.Products;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,24 +16,8 @@ using System.Windows.Forms;
 
 namespace Desktop.Products
 {
-    public partial class UCProducts : UserControl
+    public partial class FormProducts : Form
     {
-        public enum EVENT
-        {
-            DELETE, UPDATE, BUY
-        }
-
-        public enum TASK_BAR_EVENT
-        {
-            CREATE, DELETE
-        }
-
-        public delegate void OnActionOccurs(EVENT e, Product product);
-        public delegate void OnTaskBarActionOccurs(TASK_BAR_EVENT e, List<Product> product);
-
-        public OnActionOccurs CallBack = null;
-        public OnTaskBarActionOccurs TaskBarActionCallBack = null;
-
         public static int ADMIN_MODE = 1;
         public static int MEMBER_MODE = 2;
         private int _mode;
@@ -39,7 +27,27 @@ namespace Desktop.Products
         private ColumnHeader ProducWeightColumn = new ColumnHeader("Weight") { Text = "Weight" };
         private ColumnHeader ProductQuantityColumn = new ColumnHeader("Quantity") { Text = "Quantity" };
 
-        public UCProducts(int mode)
+
+        private UnitOfWorkFactory _unitOfWorkFactory;
+        private IServiceProvider serviceProvider;
+        private Form _activeForm;
+        public FormProducts(UnitOfWorkFactory unitOfWorkFactory, IServiceProvider serviceProvider, AppRoles appRoles)
+        {
+            _unitOfWorkFactory = unitOfWorkFactory;
+            this.serviceProvider = serviceProvider;
+            if (appRoles.IsAdmin)
+            {
+                _mode = ADMIN_MODE;
+            } else
+            {
+                _mode = MEMBER_MODE;
+            }
+
+            InitializeComponent();
+            _initListView();
+        }
+
+        public FormProducts(int mode)
         {
             if (mode != ADMIN_MODE && mode != MEMBER_MODE)
             {
@@ -62,6 +70,11 @@ namespace Desktop.Products
             lvProduct.Columns.Add(ProductCategoryColumn);
             lvProduct.Columns.Add(ProductQuantityColumn);
             lvProduct.Columns.Add(ProducWeightColumn);
+
+            using (var work = _unitOfWorkFactory.UnitOfWork)
+            {
+                AddProduct(work.ProductRepository.GetAll().ToList());
+            }
         }
 
         public void AddProduct(List<Product> product)
@@ -122,10 +135,6 @@ namespace Desktop.Products
 
         private void OnMemberMenu_click(object sender, EventArgs e)
         {
-            if (CallBack == null)
-            {
-                return;
-            }
             var focusedItem = lvProduct.FocusedItem;
             if (focusedItem != null)
             {
@@ -133,7 +142,7 @@ namespace Desktop.Products
                 string eventName = (sender as ToolStripItem).Text;
                 if (eventName == "Buy")
                 {
-                    CallBack(EVENT.BUY, focusedProduct);
+                    // TODO: Implement buy here
                     return;
                 }
             }
@@ -141,10 +150,6 @@ namespace Desktop.Products
 
         private void OnAdminMenu_click(object sender, EventArgs e)
         {
-            if (CallBack == null)
-            {
-                return;
-            }
             var focusedItem = lvProduct.FocusedItem;
             if (focusedItem != null)
             {
@@ -153,12 +158,24 @@ namespace Desktop.Products
                 string eventName = (sender as ToolStripItem).Text;
                 if (eventName == "Delete")
                 {
-                    CallBack(EVENT.DELETE, focusedProduct);
-                    return;
+                    DialogResult result = this.ShowYesNoInfoMessageBox("Are you sure to delete " + focusedProduct.Name, "Confirm");
+
+                    if (result == DialogResult.Yes)
+                    {
+                        using (var work = _unitOfWorkFactory.UnitOfWork)
+                        {
+                            work.ProductRepository.RemoveById(focusedProduct.Id);
+                            work.Save();
+                        }
+
+                        _reloadProduct();
+                    }
                 }
                 if (eventName == "Update")
                 {
-                    CallBack(EVENT.UPDATE, focusedProduct);
+                    FormUpdateProduct updateProductForm = ActivatorUtilities.CreateInstance<FormUpdateProduct>(serviceProvider, focusedProduct);
+                    updateProductForm.ShowDialog();
+                    _reloadProduct();
                     return;
                 }
             }
@@ -166,7 +183,6 @@ namespace Desktop.Products
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (TaskBarActionCallBack == null) { return; }
             List<Product> selectedProduct = new List<Product>();
 
             for (int i = 0; i < lvProduct.CheckedItems.Count; i++)
@@ -175,21 +191,44 @@ namespace Desktop.Products
                 var item = lvProduct.CheckedItems[i];
                 selectedProduct.Add((Product)item.Tag);
             }
+            DialogResult result = this.ShowYesNoInfoMessageBox("Are you sure to delete " + selectedProduct.Count + " products", "Confirm");
 
-            TaskBarActionCallBack(TASK_BAR_EVENT.DELETE, selectedProduct);
+            if (result == DialogResult.Yes)
+            {
+                // delete all selected products
+                using (var work = _unitOfWorkFactory.UnitOfWork)
+                {
+                    selectedProduct.ForEach(p => work.ProductRepository.RemoveById(p.Id));
+
+                    work.Save();
+                }
+
+                _reloadProduct();
+                return;
+            }
         }
 
         private void btnCreate_Click(object sender, EventArgs e)
         {
-            if (TaskBarActionCallBack == null) { return; }
             List<Product> selectedProduct = new List<Product>();
             for (int i = 0; i < lvProduct.SelectedItems.Count; i++)
             {
                 var item = lvProduct.SelectedItems[i];
                 selectedProduct.Add((Product)item.Tag);
             }
-
-            TaskBarActionCallBack(TASK_BAR_EVENT.CREATE, selectedProduct);
+            FormCreateProduct createProductForm = serviceProvider.GetRequiredService<FormCreateProduct>();
+            createProductForm.ShowDialog();
+            _reloadProduct();
         }
+
+        private void _reloadProduct()
+        {
+            ClearProducts();
+                using (var work = _unitOfWorkFactory.UnitOfWork)
+                {
+                    AddProduct(work.ProductRepository.GetAll().ToList());
+                }
+            }
+       
     }
 }

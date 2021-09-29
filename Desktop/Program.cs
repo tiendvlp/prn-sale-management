@@ -20,6 +20,7 @@ namespace Desktop
             services.AddTransient<Login>();
             services.AddTransient<MainForm.MainForm>();
             services.AddTransient<FormCreateProduct>();
+            services.AddTransient<FormProducts>();
             services.AddTransient<FormUpdateProduct>();
             services.AddTransient<FormCreateMember>();
             services.AddTransient<FormUpdateMember>();

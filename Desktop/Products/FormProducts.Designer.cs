@@ -1,7 +1,7 @@
 ﻿
 namespace Desktop.Products
 {
-    partial class UCProducts
+    partial class FormProducts
     {
         /// <summary> 
         /// Required designer variable.
