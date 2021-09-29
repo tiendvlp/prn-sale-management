@@ -21,6 +21,13 @@ namespace DataAccess.repositories.Members
             _memberDao.Add(member);
         }
 
+        public void Add(string country, string city, string password, string email, string name, string companyName)
+        {
+            string id = System.Guid.NewGuid().ToString().Substring(0, 8);
+            Member newMember = new Member(country, city, password, email, name, id, companyName);
+            _memberDao.Add(newMember);
+        }
+
         public IEnumerable<Member> GetAll()
         {
             return _memberDao.GetAll().ToList();
@@ -39,6 +46,23 @@ namespace DataAccess.repositories.Members
         public void Remove(Member member)
         {
             _memberDao.Remove(member);
+        }
+
+        public void RemoveById(string id)
+        {
+            _memberDao.Remove(id);
+        }
+
+        public void Update(Member member)
+        {
+            Member updatedMember = _memberDao.Get(member.Id);
+
+            updatedMember.Name = member.Name;
+            updatedMember.Password = member.Password;
+            updatedMember.Email = member.Email;
+            updatedMember.Country = member.Country;
+            updatedMember.City = member.City;
+            updatedMember.CompanyName = member.CompanyName;
         }
     }
 }

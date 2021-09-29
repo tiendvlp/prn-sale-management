@@ -7,6 +7,7 @@ using Desktop.common;
 using Microsoft.Extensions.Hosting;
 using Desktop.common.Roles;
 using Desktop.Products;
+using Desktop.Members;
 
 namespace Desktop
 {
@@ -19,6 +20,10 @@ namespace Desktop
             services.AddTransient<Login>();
             services.AddTransient<MainForm.MainForm>();
             services.AddTransient<FormCreateProduct>();
+            services.AddTransient<FormUpdateProduct>();
+            services.AddTransient<FormCreateMember>();
+            services.AddTransient<FormUpdateMember>();
+            services.AddTransient<FormMembers>();
             services.AddSingleton<UnitOfWorkFactory>();
             services.AddSingleton<AppRoles>();
         }

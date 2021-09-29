@@ -41,7 +41,7 @@ namespace Desktop.MainForm
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.tbnContainer = new System.Windows.Forms.TableLayoutPanel();
+            this.tbnContainer = new System.Windows.Forms.Panel();
             this.tableMember.SuspendLayout();
             this.tableUser.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -228,19 +228,12 @@ namespace Desktop.MainForm
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel4.Size = new System.Drawing.Size(600, 450);
             this.tableLayoutPanel4.TabIndex = 3;
-            this.tableLayoutPanel4.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel4_Paint);
             // 
             // tbnContainer
             // 
-            this.tbnContainer.ColumnCount = 1;
-            this.tbnContainer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tbnContainer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tbnContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbnContainer.Location = new System.Drawing.Point(3, 3);
             this.tbnContainer.Name = "tbnContainer";
-            this.tbnContainer.RowCount = 1;
-            this.tbnContainer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tbnContainer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tbnContainer.Size = new System.Drawing.Size(594, 444);
             this.tbnContainer.TabIndex = 0;
             // 
@@ -283,6 +276,6 @@ namespace Desktop.MainForm
         private System.Windows.Forms.Button btnHello;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TableLayoutPanel tbnContainer;
+        private System.Windows.Forms.Panel tbnContainer;
     }
 }

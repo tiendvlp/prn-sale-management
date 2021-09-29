@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Desktop.common.MessageBoxHelper;
+using Desktop.Members;
 
 namespace Desktop.MainForm
 {
@@ -19,7 +20,7 @@ namespace Desktop.MainForm
     {
         private UnitOfWorkFactory _unitOfWorkFactory;
         private IServiceProvider serviceProvider;
-
+        private Form _activeForm;
         public MainForm(UnitOfWorkFactory unitOfWorkFactory, IServiceProvider serviceProvider)
         {
             _unitOfWorkFactory = unitOfWorkFactory;
@@ -27,22 +28,8 @@ namespace Desktop.MainForm
             InitializeComponent();
         }
 
-        private void lblUserName_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void btnUserInfo_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lvProducts_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tableLayoutPanel4_Paint(object sender, PaintEventArgs e)
         {
 
         }
@@ -99,7 +86,7 @@ namespace Desktop.MainForm
 
         }
 
-        private void _reloadProduct ()
+        private void _reloadProduct()
         {
             UCProducts uc = (UCProducts)tbnContainer.Controls[nameof(UCProducts)];
             if (uc != null)
@@ -112,7 +99,7 @@ namespace Desktop.MainForm
             }
         }
 
-        private void OnActionOccursProductList (UCProducts.EVENT e, Product product )
+        private void OnActionOccursProductList(UCProducts.EVENT e, Product product)
         {
             if (e == UCProducts.EVENT.DELETE)
             {
@@ -139,7 +126,28 @@ namespace Desktop.MainForm
 
         private void btnMembers_Click(object sender, EventArgs e)
         {
+            if (_activeForm is FormMembers)
+            {
+                return;
+            }
+            _openChildForm(serviceProvider.GetRequiredService<FormMembers>(), e);
+        }
 
+        private void _openChildForm(Form childForm, object btnSender)
+        {
+            if (_activeForm != null)
+            {
+                _activeForm.Close();
+            }
+
+            _activeForm = childForm;
+            childForm.TopLevel = false;
+            childForm.FormBorderStyle = FormBorderStyle.None;
+            childForm.Dock = DockStyle.Fill;
+            tbnContainer.Controls.Add(childForm);
+            tbnContainer.Tag = childForm;
+            childForm.BringToFront();
+            childForm.Show();
         }
     }
 }

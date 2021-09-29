@@ -1,5 +1,5 @@
 ﻿
-namespace Desktop.MainForm
+namespace Desktop.Products
 {
     partial class UCProducts
     {

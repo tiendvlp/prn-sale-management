@@ -18,7 +18,7 @@ namespace BusinessObject
 
         }
 
-        public Member(string country, string city, string password, string email, string name, string id)
+        public Member(string country, string city, string password, string email, string name, string id, string companyName)
         {
             Country = country;
             City = city;
@@ -26,6 +26,7 @@ namespace BusinessObject
             Email = email;
             Name = name;
             Id = id;
+            CompanyName = companyName;
         }
     }
 }

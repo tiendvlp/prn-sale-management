@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Desktop.MainForm
+namespace Desktop.Products
 {
     public partial class UCProducts : UserControl
     {
@@ -24,8 +24,8 @@ namespace Desktop.MainForm
             CREATE, DELETE
         }
 
-        public delegate void OnActionOccurs (EVENT e, Product product);
-        public delegate void OnTaskBarActionOccurs (TASK_BAR_EVENT e, List<Product> product);
+        public delegate void OnActionOccurs(EVENT e, Product product);
+        public delegate void OnTaskBarActionOccurs(TASK_BAR_EVENT e, List<Product> product);
 
         public OnActionOccurs CallBack = null;
         public OnTaskBarActionOccurs TaskBarActionCallBack = null;
@@ -33,7 +33,7 @@ namespace Desktop.MainForm
         public static int ADMIN_MODE = 1;
         public static int MEMBER_MODE = 2;
         private int _mode;
-        private ColumnHeader ProductNameColumn = new ColumnHeader("Name") {Text = "Name"};
+        private ColumnHeader ProductNameColumn = new ColumnHeader("Name") { Text = "Name" };
         private ColumnHeader ProductPriceColumn = new ColumnHeader("Price") { Text = "Price" };
         private ColumnHeader ProductCategoryColumn = new ColumnHeader("Category") { Text = "Category" };
         private ColumnHeader ProducWeightColumn = new ColumnHeader("Weight") { Text = "Weight" };
@@ -56,7 +56,7 @@ namespace Desktop.MainForm
             lvProduct.View = View.Details;
             lvProduct.CheckBoxes = true;
             lvProduct.FullRowSelect = true;
-            lvProduct.GridLines = true; 
+            lvProduct.GridLines = true;
             lvProduct.Columns.Add(ProductNameColumn);
             lvProduct.Columns.Add(ProductPriceColumn);
             lvProduct.Columns.Add(ProductCategoryColumn);
@@ -64,22 +64,23 @@ namespace Desktop.MainForm
             lvProduct.Columns.Add(ProducWeightColumn);
         }
 
-        public void AddProduct (List<Product> product)
+        public void AddProduct(List<Product> product)
         {
             product.ForEach(product => AddProduct(product));
         }
 
-        public void AddProduct (Product product)
+        public void AddProduct(Product product)
         {
             var newItem = new ListViewItem();
             newItem.Tag = product;
             newItem.Text = product.Name;
             newItem.SubItems.Add
                 (new ListViewItem.ListViewSubItem()
+                {
+                    Text = product.Price + ""
+                });
+            newItem.SubItems.Add(new ListViewItem.ListViewSubItem()
             {
-                Text = product.Price + ""
-            });
-            newItem.SubItems.Add(new ListViewItem.ListViewSubItem() {
                 Text = product.Category.Name
             });
 
@@ -110,7 +111,8 @@ namespace Desktop.MainForm
                     if (_mode == ADMIN_MODE)
                     {
                         menuStripAdmin.Show(Cursor.Position);
-                    } else
+                    }
+                    else
                     {
                         menuStripMember.Show(Cursor.Position);
                     }
@@ -166,7 +168,7 @@ namespace Desktop.MainForm
         {
             if (TaskBarActionCallBack == null) { return; }
             List<Product> selectedProduct = new List<Product>();
-            
+
             for (int i = 0; i < lvProduct.CheckedItems.Count; i++)
             {
                 Console.WriteLine("hihi selected");
@@ -181,7 +183,7 @@ namespace Desktop.MainForm
         {
             if (TaskBarActionCallBack == null) { return; }
             List<Product> selectedProduct = new List<Product>();
-            for (int i =0; i < lvProduct.SelectedItems.Count; i++)
+            for (int i = 0; i < lvProduct.SelectedItems.Count; i++)
             {
                 var item = lvProduct.SelectedItems[i];
                 selectedProduct.Add((Product)item.Tag);
