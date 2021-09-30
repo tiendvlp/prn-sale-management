@@ -6,24 +6,22 @@ using System.Linq.Expressions;
 
 namespace DataAccess.Dao
 {
-    public interface IDao<TDto> where TDto : class
+    public interface IDao<Entity> where Entity : BusinessObject.Entity
     {
-        TDto Get(String Id);
+        Entity Get(String Id);
 
-        IQueryable<TDto> GetAll(
-            Expression<Func<TDto, bool>> filter = null,
-            Func<IQueryable, IOrderedQueryable<TDto>> orderBy = null,
-            string includeProperties = null
+        IEnumerable<Entity> GetAll(
+            Func<Entity, bool> filter = null,
+            Func<IEnumerable<Entity>, IOrderedEnumerable<Entity>> orderBy = null
             );
 
-        TDto GetFirstOrDefault(
-            Expression<Func<TDto, bool>> filter = null,
-            string includeProperties = null
+        Entity GetFirstOrDefault(
+             Func<Entity, bool> filter = null,
+            Func<IEnumerable<Entity>, IOrderedEnumerable<Entity>> orderBy = null
             );
 
-        void Add(TDto dto);
-        void Remove(TDto dto);
+        void Add(Entity dto);
+        void Remove(Entity dto);
         void Remove(String id);
-        void RemoveRange(IEnumerable<TDto> dto);
     }
 }

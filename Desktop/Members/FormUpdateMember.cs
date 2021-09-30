@@ -1,5 +1,5 @@
 ﻿using BusinessObject;
-using DataAccess.UnitOfWork;
+using DataAccess.repositories.Members;
 using Desktop.common;
 using Desktop.common.Roles;
 using System;
@@ -9,16 +9,16 @@ namespace Desktop.Members
 {
     public partial class FormUpdateMember : Form
     {
-        private UnitOfWorkFactory _unitOfWorkFactory;
+        private IMemberRepository MemberRepository;
         private AppSetting _appSetting;
         private AppRoles _appRole;
         private IServiceProvider _serviceProvider;
         private Member _member;
-        public FormUpdateMember(IServiceProvider serviceProvider, UnitOfWorkFactory unitOfWorkFactory, AppSetting appSetting, AppRoles appRole, Member member)
+        public FormUpdateMember(IServiceProvider serviceProvider, AppSetting appSetting, AppRoles appRole, Member member, IMemberRepository memberRepository)
         {
             _member = member;
             _serviceProvider = serviceProvider;
-            _unitOfWorkFactory = unitOfWorkFactory;
+            MemberRepository = memberRepository;
             _appSetting = appSetting;
             _appRole = appRole;
             InitializeComponent();
@@ -44,8 +44,6 @@ namespace Desktop.Members
             if (productInfo != null)
             {
                 var value = productInfo.Value;
-                using (var work = _unitOfWorkFactory.UnitOfWork)
-                {
                     _member.Name = value.name;
                     _member.Password = value.password;
                     _member.Email = value.email;
@@ -53,14 +51,9 @@ namespace Desktop.Members
                     _member.City = value.city;
                     _member.CompanyName = value.companyName;
 
-                    work.MemberRepository.Update(_member);
-                    work.Save();
-                }
-                using (var work = _unitOfWorkFactory.UnitOfWork)
-                {
-                    _member = work.MemberRepository.GetById(_member.Id);
+                    MemberRepository.Update(_member);
+                    _member = MemberRepository.GetById(_member.Id);
                     _setUpdateMember();
-                }
 
                 MessageBox.Show("Update member successfully !!", "Update member", MessageBoxButtons.OK);
             }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using BusinessObject;
 using DataAccess.Dao.Members;
-using DataAccess.UnitOfWork;
 
 namespace DataAccess.repositories.Members
 {

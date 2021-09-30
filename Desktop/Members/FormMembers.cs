@@ -1,5 +1,5 @@
 ﻿using BusinessObject;
-using DataAccess.UnitOfWork;
+using DataAccess.repositories.Members;
 using Desktop.common.MessageBoxHelper;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -16,19 +16,20 @@ namespace Desktop.Members
 {
     public partial class FormMembers : Form
     {
+        private ColumnHeader UserIdColumn = new ColumnHeader("ID") { Text = "ID" };
         private ColumnHeader UserNameColumn = new ColumnHeader("Name") { Text = "Name" };
         private ColumnHeader UserEmailColumn = new ColumnHeader("Email") { Text = "Email" };
         private ColumnHeader UserPasswordColumn = new ColumnHeader("Password") { Text = "Password" };
         private ColumnHeader UserCityColumn = new ColumnHeader("City") { Text = "City" };
         private ColumnHeader UserCountryColumn = new ColumnHeader("Country") { Text = "Country" };
         private ColumnHeader UserCompanyColumn = new ColumnHeader("Company name") { Text = "Company name" };
-        private UnitOfWorkFactory _unitOfWorkFactory;
         private IServiceProvider serviceProvider;
+        private IMemberRepository MemberRepository;
 
-        public FormMembers(UnitOfWorkFactory unitOfWorkFactory, IServiceProvider serviceProvider)
+        public FormMembers(IServiceProvider serviceProvider, IMemberRepository memberRepository)
         {
-            _unitOfWorkFactory = unitOfWorkFactory;
             this.serviceProvider = serviceProvider;
+            MemberRepository = memberRepository;
             InitializeComponent();
             _initListView();
             _restoreFilterInput();
@@ -50,12 +51,22 @@ namespace Desktop.Members
             lvMembers.CheckBoxes = true;
             lvMembers.FullRowSelect = true;
             lvMembers.GridLines = true;
+            lvMembers.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            lvMembers.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+
+            lvMembers.Columns.Add(UserIdColumn);
             lvMembers.Columns.Add(UserNameColumn);
             lvMembers.Columns.Add(UserEmailColumn);
             lvMembers.Columns.Add(UserPasswordColumn);
             lvMembers.Columns.Add(UserCityColumn);
             lvMembers.Columns.Add(UserCountryColumn);
             lvMembers.Columns.Add(UserCompanyColumn);
+
+            UserNameColumn.Width = 130;
+            UserEmailColumn.Width = 130;
+            UserCountryColumn.Width = 80;
+            UserCityColumn.Width = 70;
+            UserCompanyColumn.Width = 70;
         }
 
         private void AddMembers(List<Member> members)
@@ -67,7 +78,12 @@ namespace Desktop.Members
         {
             var newItem = new ListViewItem();
             newItem.Tag = member;
-            newItem.Text = member.Name;
+            newItem.Text = member.Id;
+            newItem.SubItems.Add
+               (new ListViewItem.ListViewSubItem()
+               {
+                   Text = member.Name
+               }); ;
             newItem.SubItems.Add
                 (new ListViewItem.ListViewSubItem()
                 {
@@ -93,10 +109,11 @@ namespace Desktop.Members
                 Text = member.CompanyName
             });
 
-
             lvMembers.Items.Add(newItem);
+
         }
 
+        
         internal void ClearMembers()
         {
             lvMembers.Items.Clear();
@@ -128,11 +145,7 @@ namespace Desktop.Members
 
                     if (result == DialogResult.Yes)
                     {
-                        using (var work = _unitOfWorkFactory.UnitOfWork)
-                        {
-                            work.MemberRepository.RemoveById(focusedMember.Id);
-                            work.Save();
-                        }
+                            MemberRepository.RemoveById(focusedMember.Id);
 
                         _reloadMembers();
                     }
@@ -162,12 +175,7 @@ namespace Desktop.Members
             if (result == DialogResult.Yes)
             {
                 // delete all selected members
-                using (var work = _unitOfWorkFactory.UnitOfWork)
-                {
-                    selectedMember.ForEach(p => work.MemberRepository.RemoveById(p.Id));
-
-                    work.Save();
-                }
+               selectedMember.ForEach(p => MemberRepository.RemoveById(p.Id));
 
                 _reloadMembers();
                 return;
@@ -186,10 +194,7 @@ namespace Desktop.Members
         private void _reloadMembers()
         {
                 lvMembers.Items.Clear();
-                using (var work = _unitOfWorkFactory.UnitOfWork)
-                {
-                    AddMembers(work.MemberRepository.GetWithFilters(Filter.name, Filter.id, Filter.country, Filter.city).ToList());
-                }
+                    AddMembers(MemberRepository.GetWithFilters(Filter.name, Filter.id, Filter.country, Filter.city).ToList());
         }
 
         private void btnFilter_Click(object sender, EventArgs e)

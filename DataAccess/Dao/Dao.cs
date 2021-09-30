@@ -2,47 +2,38 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Dao
 {
-    public class Dao<TDto> : IDao<TDto> where TDto : class
+    public class Dao<Entity> : IDao<Entity> where Entity : BusinessObject.Entity
     {
-        private readonly ApplicationDbContext _dbContext;
-        internal DbSet<TDto> dbSet;
+        protected readonly ApplicationDbContext _dbContext;
+        internal List<Entity> dbSet;
 
         public Dao(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
-            this.dbSet = _dbContext.Set<TDto>();
+            this.dbSet = _dbContext.List<Entity>();
         }
 
-        public void Add(TDto dto)
+        public void Add(Entity dto)
         {
             dbSet.Add(dto);
         }
 
-        public TDto Get(string Id)
+        public Entity Get(string Id)
         {
-            return dbSet.Find(Id);
+            return dbSet.Find(x => x.Id == Id);
         }
 
-        public IQueryable<TDto> GetAll(Expression<Func<TDto, bool>> filter = null, Func<IQueryable, IOrderedQueryable<TDto>> orderBy = null, string includeProperties = null)
+        public IEnumerable<Entity> GetAll(Func<Entity, bool> filter = null, Func<IEnumerable<Entity>, IOrderedEnumerable<Entity>> orderBy = null)
         {
-            IQueryable<TDto> query = dbSet;
+            IEnumerable<Entity> query = dbSet;
 
             if (filter != null)
             {
                 query = query.Where(filter);
-            }
-
-            if (includeProperties != null)
-            {
-                foreach (var includedProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-                {
-                    query = query.Include(includedProp);
-                }
             }
 
             if (orderBy != null)
@@ -53,44 +44,32 @@ namespace DataAccess.Dao
 
         }
 
-        public TDto GetFirstOrDefault(Expression<Func<TDto, bool>> filter = null, string includeProperties = null)
+        public Entity GetFirstOrDefault(Func<Entity, bool> filter = null, Func<IEnumerable<Entity>, IOrderedEnumerable<Entity>> orderBy = null)
         {
-            IQueryable<TDto> query = dbSet;
+            IEnumerable<Entity> query = dbSet;
 
             if (filter != null)
             {
                 query.Where(filter);
             }
 
-            if (includeProperties != null)
-            {
-                foreach (var includedProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-                {
-                    query = query.Include(includedProp);
-                }
-            }
-
             return query.FirstOrDefault();
 
         }
 
-        public void Remove(TDto dto)
+        public void Remove(Entity dto)
         {
             dbSet.Remove(dto);
         }
 
         public void Remove(string id)
         {
-            TDto deletedDto = dbSet.Find(id);
+            Entity deletedDto = dbSet.Find(entity => entity.Id == id);
             if (deletedDto != null)
             {
                 dbSet.Remove(deletedDto);
             }
         }
 
-        public void RemoveRange(IEnumerable<TDto> dto)
-        {
-            dbSet.RemoveRange(dto);
-        }
     }
 }

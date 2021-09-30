@@ -1,12 +1,13 @@
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows.Forms;
-using DataAccess.UnitOfWork;
 using Microsoft.Extensions.Configuration;
 using Desktop.common;
 using Microsoft.Extensions.Hosting;
 using Desktop.common.Roles;
 using Desktop.Members;
+using DataAccess.repositories.Members;
+using DataAccess.Dao.Members;
 
 namespace Desktop
 {
@@ -16,12 +17,13 @@ namespace Desktop
         {
             services.AddSingleton
                     (configuration.GetSection(nameof(AppSetting)).Get<AppSetting>());
-            services.AddTransient<Login>();
+            services.AddTransient<Desktop.Login.Login>();
             services.AddTransient<MainForm.MainForm>();
             services.AddTransient<FormCreateMember>();
             services.AddTransient<FormUpdateMember>();
             services.AddTransient<FormMembers>();
-            services.AddSingleton<UnitOfWorkFactory>();
+            services.AddScoped<MemberDao>();
+            services.AddScoped<IMemberRepository, MemberRepository>();
             services.AddSingleton<AppRoles>();
         }
 
@@ -40,7 +42,7 @@ namespace Desktop
             Application.SetCompatibleTextRenderingDefault(false);
 
             var servicesProvider = host.Services;
-            Application.Run(servicesProvider.GetRequiredService<Login>());
+            Application.Run(servicesProvider.GetRequiredService<Desktop.Login.Login>());
         }
     }
 }

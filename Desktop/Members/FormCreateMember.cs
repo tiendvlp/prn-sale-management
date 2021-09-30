@@ -1,5 +1,4 @@
 ﻿using BusinessObject;
-using DataAccess.UnitOfWork;
 using Desktop.common;
 using Desktop.common.Roles;
 using System;
@@ -12,23 +11,23 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Desktop.common.MessageBoxHelper;
+using DataAccess.repositories.Members;
 
 namespace Desktop.Members
 {
     public partial class FormCreateMember : Form
     {
-        private UnitOfWorkFactory _unitOfWorkFactory;
+        private IMemberRepository MemberRepository;
         private AppSetting _appSetting;
         private AppRoles _appRole;
         private IServiceProvider _serviceProvider;
-        public FormCreateMember(IServiceProvider serviceProvider, UnitOfWorkFactory unitOfWorkFactory, AppSetting appSetting, AppRoles appRole)
+        public FormCreateMember(IServiceProvider serviceProvider, AppSetting appSetting, AppRoles appRole, IMemberRepository memberRepository)
         {
             _serviceProvider = serviceProvider;
-            _unitOfWorkFactory = unitOfWorkFactory;
+            MemberRepository = memberRepository;
             _appSetting = appSetting;
             _appRole = appRole;
             InitializeComponent();
-
         }
 
 
@@ -45,16 +44,12 @@ namespace Desktop.Members
             {
                 var value = memberInfo.Value;
 
-                using (var work = _unitOfWorkFactory.UnitOfWork)
-                {
-                    if (work.MemberRepository.GetByEmail(value.email) != null)
+                    if (MemberRepository.GetByEmail(value.email) != null)
                     {
                         this.ShowOkErrorMessageBox("Email: " + value.email + " already exist!");
                         return; 
                     }
-                    work.MemberRepository.Add(value.country, value.city, value.password, value.email, value.name, value.companyName);
-                    work.Save();
-                }
+                    MemberRepository.Add(value.country, value.city, value.password, value.email, value.name, value.companyName);
 
                 MessageBox.Show("Add member successfully !!", "Create member", MessageBoxButtons.OK);
 

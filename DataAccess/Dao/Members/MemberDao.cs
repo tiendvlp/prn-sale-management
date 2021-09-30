@@ -1,5 +1,4 @@
 ﻿using System;
-using DataAccess.Data;
 using BusinessObject;
 using System.Linq;
 using System.Collections.Generic;
@@ -9,22 +8,19 @@ namespace DataAccess.Dao.Members
 {
     public class MemberDao : Dao<Member>, IMemberDao
     {
-        private readonly ApplicationDbContext _dbContext;
-
-        public MemberDao(ApplicationDbContext dbContext) : base(dbContext)
+        public MemberDao() : base(ApplicationDbContext.Instance)
         {
-            _dbContext = dbContext;
         }
 
         public Member getByEmail(string email)
         {
-            IQueryable<Member> result = from mem in _dbContext.Members where mem.Email == email select mem;
+            IEnumerable<Member> result = from mem in _dbContext.List<Member>() where mem.Email == email select mem;
             return result.FirstOrDefault();
         }
 
-        public IQueryable<Member> GetWithFilters(string name, string id, string country, string city)
+        public IEnumerable<Member> GetWithFilters(string name, string id, string country, string city)
         {
-            IQueryable<Member> result = from mem in _dbContext.Members select mem;
+            IEnumerable<Member> result = from mem in _dbContext.List<Member>() select mem;
 
             if (!String.IsNullOrWhiteSpace(name))
             {

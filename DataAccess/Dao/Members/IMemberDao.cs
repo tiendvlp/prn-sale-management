@@ -8,6 +8,6 @@ namespace DataAccess.Dao.Members
     public interface IMemberDao : IDao<Member>
     {
         public Member getByEmail(String email);
-        public IQueryable<Member> GetWithFilters(string name, string id, string country, string city);
+        public IEnumerable<Member> GetWithFilters(string name, string id, string country, string city);
     }
 }

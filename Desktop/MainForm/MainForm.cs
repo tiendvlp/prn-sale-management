@@ -1,25 +1,27 @@
 ﻿using BusinessObject;
-using DataAccess.UnitOfWork;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows.Forms;
 using Desktop.common.MessageBoxHelper;
 using Desktop.Members;
 using Desktop.common.Roles;
+using DataAccess.repositories.Members;
+using Desktop.Login;
 
 namespace Desktop.MainForm
 {
     public partial class MainForm : Form
     {
-        private UnitOfWorkFactory _unitOfWorkFactory;
         private IServiceProvider serviceProvider;
         private Form _activeForm;
         private AppRoles appRoles;
-        public MainForm(UnitOfWorkFactory unitOfWorkFactory, IServiceProvider serviceProvider, AppRoles appRoles)
+
+        private IMemberRepository MemberRepository;
+        public MainForm(IServiceProvider serviceProvider, AppRoles appRoles, IMemberRepository memberRepository)
         {
             this.appRoles = appRoles;
-            _unitOfWorkFactory = unitOfWorkFactory;
             this.serviceProvider = serviceProvider;
+            MemberRepository = memberRepository;
             InitializeComponent();
             _setupRole();
             _showDefaultForm();
@@ -47,7 +49,7 @@ namespace Desktop.MainForm
             {
                 btnMembers.Enabled = false;
                 btnMembers.Visible = false;
-
+                lblUserName.Text = (appRoles.CurrentRole as UserRole.Member).Info.Name;
                 btnUserInfo.Enabled = true;
                 btnUserInfo.Visible = true;
             }
@@ -55,17 +57,11 @@ namespace Desktop.MainForm
 
         private void btnUserInfo_Click(object sender, EventArgs e)
         {
-            using (var work = _unitOfWorkFactory.UnitOfWork)
-            {
                 FormUpdateMember updateMembers = ActivatorUtilities.CreateInstance<FormUpdateMember>(serviceProvider, (appRoles.CurrentRole as UserRole.Member).Info);
                 updateMembers.ShowDialog();
-            }
-            using (var work = _unitOfWorkFactory.UnitOfWork)
-            {
-                Member m = work.MemberRepository.GetById((appRoles.CurrentRole as UserRole.Member).Info.Id);
+                Member m = MemberRepository.GetById((appRoles.CurrentRole as UserRole.Member).Info.Id);
                 appRoles.CurrentRole = new UserRole.Member(m);
                 lblUserName.Text = m.Name;
-            }
             
         }
 
@@ -76,7 +72,7 @@ namespace Desktop.MainForm
             // go back to login screen
             this.Hide();
             appRoles.CurrentRole = null;
-            Login loginForm = serviceProvider.GetRequiredService<Login>();
+            Login.Login loginForm = serviceProvider.GetRequiredService<Login.Login>();
             loginForm.Closed += (s, args) => this.Close();
             loginForm.Show();
             return;
