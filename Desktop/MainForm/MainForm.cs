@@ -1,15 +1,7 @@
 ﻿using BusinessObject;
 using DataAccess.UnitOfWork;
-using Desktop.Products;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Desktop.common.MessageBoxHelper;
 using Desktop.Members;
@@ -30,6 +22,15 @@ namespace Desktop.MainForm
             this.serviceProvider = serviceProvider;
             InitializeComponent();
             _setupRole();
+            _showDefaultForm();
+        }
+
+        private void _showDefaultForm ()
+        {
+            if (appRoles.IsAdmin)
+            {
+                _openChildForm(serviceProvider.GetRequiredService<FormMembers>());
+            }
         }
 
         private void _setupRole ()
@@ -81,27 +82,16 @@ namespace Desktop.MainForm
             return;
         }
 
-        private void btnProducts_Click(object sender, EventArgs e)
-        {
-
-            if (_activeForm is FormProducts)
-            {
-                return;
-            }
-            _openChildForm(serviceProvider.GetRequiredService<FormProducts>(), e);
-        }
-      
-
         private void btnMembers_Click(object sender, EventArgs e)
         {
             if (_activeForm is FormMembers)
             {
                 return;
             }
-            _openChildForm(serviceProvider.GetRequiredService<FormMembers>(), e);
+            _openChildForm(serviceProvider.GetRequiredService<FormMembers>());
         }
 
-        private void _openChildForm(Form childForm, object btnSender)
+        private void _openChildForm(Form childForm)
         {
             if (_activeForm != null)
             {

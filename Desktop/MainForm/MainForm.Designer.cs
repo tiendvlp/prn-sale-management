@@ -31,18 +31,16 @@ namespace Desktop.MainForm
         {
             this.tableMember = new System.Windows.Forms.TableLayoutPanel();
             this.tableUser = new System.Windows.Forms.TableLayoutPanel();
+            this.btnUserInfo = new System.Windows.Forms.Button();
             this.lblUserName = new System.Windows.Forms.Label();
+            this.btnSignout = new System.Windows.Forms.Button();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.btnOrders = new System.Windows.Forms.Button();
-            this.btnProducts = new System.Windows.Forms.Button();
             this.btnMembers = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.tbnContainer = new System.Windows.Forms.Panel();
-            this.btnSignout = new System.Windows.Forms.Button();
-            this.btnUserInfo = new System.Windows.Forms.Button();
             this.tableMember.SuspendLayout();
             this.tableUser.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -85,6 +83,22 @@ namespace Desktop.MainForm
             this.tableUser.Size = new System.Drawing.Size(165, 172);
             this.tableUser.TabIndex = 2;
             // 
+            // btnUserInfo
+            // 
+            this.btnUserInfo.BackColor = System.Drawing.Color.Maroon;
+            this.btnUserInfo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnUserInfo.FlatAppearance.BorderSize = 0;
+            this.btnUserInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUserInfo.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnUserInfo.Location = new System.Drawing.Point(10, 78);
+            this.btnUserInfo.Margin = new System.Windows.Forms.Padding(10);
+            this.btnUserInfo.Name = "btnUserInfo";
+            this.btnUserInfo.Size = new System.Drawing.Size(145, 26);
+            this.btnUserInfo.TabIndex = 2;
+            this.btnUserInfo.Text = "View Info";
+            this.btnUserInfo.UseVisualStyleBackColor = false;
+            this.btnUserInfo.Click += new System.EventHandler(this.btnUserInfo_Click);
+            // 
             // lblUserName
             // 
             this.lblUserName.AutoSize = true;
@@ -99,13 +113,27 @@ namespace Desktop.MainForm
             this.lblUserName.Text = "Name";
             this.lblUserName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // btnSignout
+            // 
+            this.btnSignout.BackColor = System.Drawing.Color.Gray;
+            this.btnSignout.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnSignout.FlatAppearance.BorderSize = 0;
+            this.btnSignout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSignout.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnSignout.Location = new System.Drawing.Point(10, 129);
+            this.btnSignout.Margin = new System.Windows.Forms.Padding(10);
+            this.btnSignout.Name = "btnSignout";
+            this.btnSignout.Size = new System.Drawing.Size(145, 26);
+            this.btnSignout.TabIndex = 1;
+            this.btnSignout.Text = "Sign out";
+            this.btnSignout.UseVisualStyleBackColor = false;
+            this.btnSignout.Click += new System.EventHandler(this.btnSignout_Click);
+            // 
             // tableLayoutPanel3
             // 
             this.tableLayoutPanel3.ColumnCount = 1;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Controls.Add(this.btnOrders, 0, 2);
-            this.tableLayoutPanel3.Controls.Add(this.btnProducts, 0, 1);
             this.tableLayoutPanel3.Controls.Add(this.btnMembers, 0, 0);
             this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 181);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -115,37 +143,6 @@ namespace Desktop.MainForm
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel3.Size = new System.Drawing.Size(165, 191);
             this.tableLayoutPanel3.TabIndex = 3;
-            // 
-            // btnOrders
-            // 
-            this.btnOrders.BackColor = System.Drawing.Color.SeaGreen;
-            this.btnOrders.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnOrders.FlatAppearance.BorderSize = 0;
-            this.btnOrders.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnOrders.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnOrders.Location = new System.Drawing.Point(10, 129);
-            this.btnOrders.Margin = new System.Windows.Forms.Padding(10);
-            this.btnOrders.Name = "btnOrders";
-            this.btnOrders.Size = new System.Drawing.Size(145, 32);
-            this.btnOrders.TabIndex = 4;
-            this.btnOrders.Text = "Orders";
-            this.btnOrders.UseVisualStyleBackColor = false;
-            // 
-            // btnProducts
-            // 
-            this.btnProducts.BackColor = System.Drawing.Color.SeaGreen;
-            this.btnProducts.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnProducts.FlatAppearance.BorderSize = 0;
-            this.btnProducts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnProducts.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnProducts.Location = new System.Drawing.Point(10, 77);
-            this.btnProducts.Margin = new System.Windows.Forms.Padding(10);
-            this.btnProducts.Name = "btnProducts";
-            this.btnProducts.Size = new System.Drawing.Size(145, 32);
-            this.btnProducts.TabIndex = 3;
-            this.btnProducts.Text = "Products";
-            this.btnProducts.UseVisualStyleBackColor = false;
-            this.btnProducts.Click += new System.EventHandler(this.btnProducts_Click);
             // 
             // btnMembers
             // 
@@ -223,38 +220,6 @@ namespace Desktop.MainForm
             this.tbnContainer.Size = new System.Drawing.Size(757, 505);
             this.tbnContainer.TabIndex = 0;
             // 
-            // btnSignout
-            // 
-            this.btnSignout.BackColor = System.Drawing.Color.Gray;
-            this.btnSignout.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnSignout.FlatAppearance.BorderSize = 0;
-            this.btnSignout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSignout.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnSignout.Location = new System.Drawing.Point(10, 129);
-            this.btnSignout.Margin = new System.Windows.Forms.Padding(10);
-            this.btnSignout.Name = "btnSignout";
-            this.btnSignout.Size = new System.Drawing.Size(145, 26);
-            this.btnSignout.TabIndex = 1;
-            this.btnSignout.Text = "Sign out";
-            this.btnSignout.UseVisualStyleBackColor = false;
-            this.btnSignout.Click += new System.EventHandler(this.btnSignout_Click);
-            // 
-            // btnUserInfo
-            // 
-            this.btnUserInfo.BackColor = System.Drawing.Color.Maroon;
-            this.btnUserInfo.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnUserInfo.FlatAppearance.BorderSize = 0;
-            this.btnUserInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUserInfo.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnUserInfo.Location = new System.Drawing.Point(10, 78);
-            this.btnUserInfo.Margin = new System.Windows.Forms.Padding(10);
-            this.btnUserInfo.Name = "btnUserInfo";
-            this.btnUserInfo.Size = new System.Drawing.Size(145, 26);
-            this.btnUserInfo.TabIndex = 2;
-            this.btnUserInfo.Text = "View Info";
-            this.btnUserInfo.UseVisualStyleBackColor = false;
-            this.btnUserInfo.Click += new System.EventHandler(this.btnUserInfo_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -286,8 +251,6 @@ namespace Desktop.MainForm
         private System.Windows.Forms.TableLayoutPanel tableUser;
         private System.Windows.Forms.Label lblUserName;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        private System.Windows.Forms.Button btnOrders;
-        private System.Windows.Forms.Button btnProducts;
         private System.Windows.Forms.Button btnMembers;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Label label1;

@@ -6,7 +6,6 @@ using Microsoft.Extensions.Configuration;
 using Desktop.common;
 using Microsoft.Extensions.Hosting;
 using Desktop.common.Roles;
-using Desktop.Products;
 using Desktop.Members;
 
 namespace Desktop
@@ -19,9 +18,6 @@ namespace Desktop
                     (configuration.GetSection(nameof(AppSetting)).Get<AppSetting>());
             services.AddTransient<Login>();
             services.AddTransient<MainForm.MainForm>();
-            services.AddTransient<FormCreateProduct>();
-            services.AddTransient<FormProducts>();
-            services.AddTransient<FormUpdateProduct>();
             services.AddTransient<FormCreateMember>();
             services.AddTransient<FormUpdateMember>();
             services.AddTransient<FormMembers>();
