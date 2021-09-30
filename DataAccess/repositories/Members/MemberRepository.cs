@@ -22,7 +22,7 @@ namespace DataAccess.repositories.Members
         }
 
         public IEnumerable<Member> GetWithFilters(string name, string id, string country, string city) {
-            return _memberDao.GetWithFilters(name, id, country, city).ToList();
+            return _memberDao.GetWithFilters(name, id, country, city).ToList().OrderBy(m=>m.Name);
         }
 
         public void Add(string country, string city, string password, string email, string name, string companyName)
@@ -34,7 +34,7 @@ namespace DataAccess.repositories.Members
 
         public IEnumerable<Member> GetAll()
         {
-            return _memberDao.GetAll().ToList();
+            return _memberDao.GetAll().ToList().OrderBy(m => m.Name);
         }
 
         public Member GetByEmail(string email)

@@ -40,7 +40,9 @@ namespace Desktop.MainForm
                 btnMembers.Visible = true;
                 btnUserInfo.Enabled = false;
                 btnUserInfo.Visible = false;
-            } else
+                lblUserName.Text = "Welcome admin";
+            }
+            else
             {
                 btnMembers.Enabled = false;
                 btnMembers.Visible = false;
@@ -64,6 +66,19 @@ namespace Desktop.MainForm
                 lblUserName.Text = m.Name;
             }
             
+        }
+
+        private void btnSignout_Click(object sender, EventArgs e)
+        {
+            // clear app roles
+            appRoles.CurrentRole = null;
+            // go back to login screen
+            this.Hide();
+            appRoles.CurrentRole = null;
+            Login loginForm = serviceProvider.GetRequiredService<Login>();
+            loginForm.Closed += (s, args) => this.Close();
+            loginForm.Show();
+            return;
         }
 
         private void btnProducts_Click(object sender, EventArgs e)

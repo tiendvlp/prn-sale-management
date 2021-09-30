@@ -167,6 +167,7 @@ namespace Desktop.Members
             this.txtName.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtName.Location = new System.Drawing.Point(99, 81);
             this.txtName.Margin = new System.Windows.Forms.Padding(3, 40, 3, 40);
+            this.txtName.MinimumSize = new System.Drawing.Size(100, 32);
             this.txtName.Multiline = true;
             this.txtName.Name = "txtName";
             this.txtName.ScrollBars = System.Windows.Forms.ScrollBars.Both;

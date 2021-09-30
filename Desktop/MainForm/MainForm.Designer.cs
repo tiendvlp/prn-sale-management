@@ -32,7 +32,6 @@ namespace Desktop.MainForm
             this.tableMember = new System.Windows.Forms.TableLayoutPanel();
             this.tableUser = new System.Windows.Forms.TableLayoutPanel();
             this.lblUserName = new System.Windows.Forms.Label();
-            this.btnUserInfo = new System.Windows.Forms.Button();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.btnOrders = new System.Windows.Forms.Button();
             this.btnProducts = new System.Windows.Forms.Button();
@@ -42,6 +41,8 @@ namespace Desktop.MainForm
             this.label1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.tbnContainer = new System.Windows.Forms.Panel();
+            this.btnSignout = new System.Windows.Forms.Button();
+            this.btnUserInfo = new System.Windows.Forms.Button();
             this.tableMember.SuspendLayout();
             this.tableUser.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -61,8 +62,8 @@ namespace Desktop.MainForm
             this.tableMember.Location = new System.Drawing.Point(0, 0);
             this.tableMember.Name = "tableMember";
             this.tableMember.RowCount = 3;
-            this.tableMember.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableMember.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableMember.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 35F));
+            this.tableMember.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
             this.tableMember.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableMember.Size = new System.Drawing.Size(171, 511);
             this.tableMember.TabIndex = 2;
@@ -70,18 +71,18 @@ namespace Desktop.MainForm
             // tableUser
             // 
             this.tableUser.ColumnCount = 1;
-            this.tableUser.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableUser.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableUser.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableUser.Controls.Add(this.btnUserInfo, 0, 0);
             this.tableUser.Controls.Add(this.lblUserName, 0, 0);
-            this.tableUser.Controls.Add(this.btnUserInfo, 0, 1);
+            this.tableUser.Controls.Add(this.btnSignout, 1, 1);
             this.tableUser.Dock = System.Windows.Forms.DockStyle.Top;
             this.tableUser.Location = new System.Drawing.Point(3, 3);
             this.tableUser.Name = "tableUser";
-            this.tableUser.RowCount = 2;
-            this.tableUser.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableUser.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableUser.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableUser.Size = new System.Drawing.Size(165, 92);
+            this.tableUser.RowCount = 3;
+            this.tableUser.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableUser.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableUser.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableUser.Size = new System.Drawing.Size(165, 172);
             this.tableUser.TabIndex = 2;
             // 
             // lblUserName
@@ -95,24 +96,8 @@ namespace Desktop.MainForm
             this.lblUserName.Name = "lblUserName";
             this.lblUserName.Size = new System.Drawing.Size(159, 20);
             this.lblUserName.TabIndex = 0;
-            this.lblUserName.Text = "Dang minh tien";
+            this.lblUserName.Text = "Name";
             this.lblUserName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // btnUserInfo
-            // 
-            this.btnUserInfo.BackColor = System.Drawing.Color.Maroon;
-            this.btnUserInfo.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnUserInfo.FlatAppearance.BorderSize = 0;
-            this.btnUserInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUserInfo.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnUserInfo.Location = new System.Drawing.Point(10, 56);
-            this.btnUserInfo.Margin = new System.Windows.Forms.Padding(10);
-            this.btnUserInfo.Name = "btnUserInfo";
-            this.btnUserInfo.Size = new System.Drawing.Size(145, 26);
-            this.btnUserInfo.TabIndex = 1;
-            this.btnUserInfo.Text = "View Info";
-            this.btnUserInfo.UseVisualStyleBackColor = false;
-            this.btnUserInfo.Click += new System.EventHandler(this.btnUserInfo_Click);
             // 
             // tableLayoutPanel3
             // 
@@ -122,7 +107,7 @@ namespace Desktop.MainForm
             this.tableLayoutPanel3.Controls.Add(this.btnOrders, 0, 2);
             this.tableLayoutPanel3.Controls.Add(this.btnProducts, 0, 1);
             this.tableLayoutPanel3.Controls.Add(this.btnMembers, 0, 0);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 130);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 181);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 3;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -238,6 +223,38 @@ namespace Desktop.MainForm
             this.tbnContainer.Size = new System.Drawing.Size(757, 505);
             this.tbnContainer.TabIndex = 0;
             // 
+            // btnSignout
+            // 
+            this.btnSignout.BackColor = System.Drawing.Color.Gray;
+            this.btnSignout.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnSignout.FlatAppearance.BorderSize = 0;
+            this.btnSignout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSignout.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnSignout.Location = new System.Drawing.Point(10, 129);
+            this.btnSignout.Margin = new System.Windows.Forms.Padding(10);
+            this.btnSignout.Name = "btnSignout";
+            this.btnSignout.Size = new System.Drawing.Size(145, 26);
+            this.btnSignout.TabIndex = 1;
+            this.btnSignout.Text = "Sign out";
+            this.btnSignout.UseVisualStyleBackColor = false;
+            this.btnSignout.Click += new System.EventHandler(this.btnSignout_Click);
+            // 
+            // btnUserInfo
+            // 
+            this.btnUserInfo.BackColor = System.Drawing.Color.Maroon;
+            this.btnUserInfo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnUserInfo.FlatAppearance.BorderSize = 0;
+            this.btnUserInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUserInfo.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnUserInfo.Location = new System.Drawing.Point(10, 78);
+            this.btnUserInfo.Margin = new System.Windows.Forms.Padding(10);
+            this.btnUserInfo.Name = "btnUserInfo";
+            this.btnUserInfo.Size = new System.Drawing.Size(145, 26);
+            this.btnUserInfo.TabIndex = 2;
+            this.btnUserInfo.Text = "View Info";
+            this.btnUserInfo.UseVisualStyleBackColor = false;
+            this.btnUserInfo.Click += new System.EventHandler(this.btnUserInfo_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -268,7 +285,6 @@ namespace Desktop.MainForm
         private System.Windows.Forms.TableLayoutPanel tableMember;
         private System.Windows.Forms.TableLayoutPanel tableUser;
         private System.Windows.Forms.Label lblUserName;
-        private System.Windows.Forms.Button btnUserInfo;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.Button btnOrders;
         private System.Windows.Forms.Button btnProducts;
@@ -279,5 +295,7 @@ namespace Desktop.MainForm
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel tbnContainer;
+        private System.Windows.Forms.Button btnUserInfo;
+        private System.Windows.Forms.Button btnSignout;
     }
 }

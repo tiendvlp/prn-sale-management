@@ -14,6 +14,7 @@ namespace Desktop
 {
     public partial class Login : Form
     {
+
         private UnitOfWorkFactory _unitOfWorkFactory;
         private AppSetting _appSetting;
         private AppRoles _appRole;
@@ -62,10 +63,11 @@ namespace Desktop
 
                 if (isAdmin)
                 {
+                    this.Hide();
                     _appRole.CurrentRole = new UserRole.Admin();
                     MainForm.MainForm mainForm = _serviceProvider.GetRequiredService<MainForm.MainForm>();
+                    mainForm.Closed += (s, args) => this.Close();
                     mainForm.Show();
-                    this.Hide();
                     return;
                 }
 
