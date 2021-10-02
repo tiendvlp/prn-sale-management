@@ -325,6 +325,7 @@ namespace Desktop.Products
             this.btnDelete.TabIndex = 1;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnCreate
             // 
@@ -334,6 +335,7 @@ namespace Desktop.Products
             this.btnCreate.TabIndex = 0;
             this.btnCreate.Text = "New Product";
             this.btnCreate.UseVisualStyleBackColor = true;
+            this.btnCreate.Click += new System.EventHandler(this.btnCreate_Click);
             // 
             // FormProducts
             // 

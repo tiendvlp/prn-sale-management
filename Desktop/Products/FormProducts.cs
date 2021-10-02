@@ -21,11 +21,12 @@ namespace Desktop.Products
         public static int ADMIN_MODE = 1;
         public static int MEMBER_MODE = 2;
         private int _mode;
+        private ColumnHeader ProductIdColumn = new ColumnHeader("Id") { Text = "Id" };
         private ColumnHeader ProductNameColumn = new ColumnHeader("Name") { Text = "Name" };
         private ColumnHeader ProductPriceColumn = new ColumnHeader("Price") { Text = "Price" };
         private ColumnHeader ProductCategoryColumn = new ColumnHeader("Category") { Text = "Category" };
         private ColumnHeader ProducWeightColumn = new ColumnHeader("Weight") { Text = "Weight" };
-        private ColumnHeader ProductQuantityColumn = new ColumnHeader("Quantity") { Text = "Quantity" };
+        private ColumnHeader ProductUnitColumn = new ColumnHeader("Unit") { Text = "Unit" };
         private UnitOfWorkFactory _unitOfWorkFactory;
         private IServiceProvider serviceProvider;
 
@@ -85,11 +86,19 @@ namespace Desktop.Products
             lvProduct.CheckBoxes = true;
             lvProduct.FullRowSelect = true;
             lvProduct.GridLines = true;
+            lvProduct.Columns.Add(ProductIdColumn);
             lvProduct.Columns.Add(ProductNameColumn);
             lvProduct.Columns.Add(ProductPriceColumn);
             lvProduct.Columns.Add(ProductCategoryColumn);
-            lvProduct.Columns.Add(ProductQuantityColumn);
+            lvProduct.Columns.Add(ProductUnitColumn);
             lvProduct.Columns.Add(ProducWeightColumn);
+
+            ProductIdColumn.Width = 100;
+            ProductNameColumn.Width = 130;
+            ProductPriceColumn.Width = 80;
+            ProductCategoryColumn.Width = 100;
+            ProductUnitColumn.Width = 80;
+            ProducWeightColumn.Width = 90;
 
         }
 
@@ -102,7 +111,12 @@ namespace Desktop.Products
         {
             var newItem = new ListViewItem();
             newItem.Tag = product;
-            newItem.Text = product.Name;
+            newItem.Text = product.Id;
+            newItem.SubItems.Add
+               (new ListViewItem.ListViewSubItem()
+               {
+                   Text = product.Name + ""
+               });
             newItem.SubItems.Add
                 (new ListViewItem.ListViewSubItem()
                 {
