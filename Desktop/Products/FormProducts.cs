@@ -13,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Desktop.common.MessageBoxHelper;
 
 namespace Desktop.Products
 {
@@ -48,6 +49,24 @@ namespace Desktop.Products
             _initListView();
             _initLayoutFilter();
             _reloadProduct();
+            _setupLayoutDependOnRole();
+        }
+
+        private void _setupLayoutDependOnRole ()
+        {
+            if (_mode == ADMIN_MODE)
+            {
+                btnCreate.Enabled = true;
+                btnCreate.Visible = true;
+                btnDelete.Visible = true;
+                btnDelete.Enabled = true;
+            } else
+            {
+                btnCreate.Enabled = false;
+                btnCreate.Visible = false;
+                btnDelete.Visible = false;
+                btnDelete.Enabled = false;
+            }
         }
 
         private void _initLayoutFilter ()
@@ -172,10 +191,20 @@ namespace Desktop.Products
                 string eventName = (sender as ToolStripItem).Text;
                 if (eventName == "Buy")
                 {
-                    // TODO: Implement buy here
+                    DialogResult result = this.ShowYesNoInfoMessageBox("Are you sure to buy: " + focusedProduct.Name);
+                    
+                    if (result.Equals(DialogResult.Yes))
+                    {
+                        _buyProduct(focusedProduct);
+                    }
                     return;
                 }
             }
+        }
+
+        private void _buyProduct (Product product)
+        {
+
         }
 
         private void OnAdminMenu_click(object sender, EventArgs e)

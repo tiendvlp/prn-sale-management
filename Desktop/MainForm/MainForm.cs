@@ -30,7 +30,18 @@ namespace Desktop.MainForm
             this.serviceProvider = serviceProvider;
             InitializeComponent();
             _setupRole();
-            _openChildForm(serviceProvider.GetRequiredService<FormMembers>());
+            _setDefaultTab();
+        }
+
+        private void _setDefaultTab()
+        {
+            if (appRoles.IsAdmin)
+            {
+                _openChildForm(serviceProvider.GetRequiredService<FormMembers>());
+            } else
+            {
+                _openChildForm(serviceProvider.GetRequiredService<FormProducts>());
+            }
         }
 
         private void _setupRole ()
