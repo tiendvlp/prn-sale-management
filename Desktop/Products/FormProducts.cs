@@ -26,11 +26,11 @@ namespace Desktop.Products
         private ColumnHeader ProductCategoryColumn = new ColumnHeader("Category") { Text = "Category" };
         private ColumnHeader ProducWeightColumn = new ColumnHeader("Weight") { Text = "Weight" };
         private ColumnHeader ProductQuantityColumn = new ColumnHeader("Quantity") { Text = "Quantity" };
-
-
         private UnitOfWorkFactory _unitOfWorkFactory;
         private IServiceProvider serviceProvider;
-        private Form _activeForm;
+
+        private static (string id, string name, int unitMax, int unitMin, double priceMax, double priceMin) Filters = ("", "", 1000, 0, 1000, 0);
+        
         public FormProducts(UnitOfWorkFactory unitOfWorkFactory, IServiceProvider serviceProvider, AppRoles appRoles)
         {
             _unitOfWorkFactory = unitOfWorkFactory;
@@ -45,6 +45,25 @@ namespace Desktop.Products
 
             InitializeComponent();
             _initListView();
+            _initLayoutFilter();
+            _reloadProduct();
+        }
+
+        private void _initLayoutFilter ()
+        {
+            txtPriceMax.Text = Filters.priceMax + "";
+            txtPriceMin.Text = Filters.priceMin + "";
+            txtUnitMax.Text = Filters.unitMax + "";
+            txtUnitMin.Text = Filters.unitMin + "";
+
+            chkPriceFilter.Checked = true;
+            chkUnitFilter.Checked = true;
+
+            txtPriceMax.TextChanged += new System.EventHandler(this.onPriceTextChanged);
+            txtPriceMin.TextChanged += new System.EventHandler(this.onPriceTextChanged);
+
+            txtUnitMax.TextChanged += new System.EventHandler(this.onUnitTextChanged);
+            txtUnitMin.TextChanged += new System.EventHandler(this.onUnitTextChanged);
         }
 
         public FormProducts(int mode)
@@ -56,6 +75,7 @@ namespace Desktop.Products
             _mode = mode;
             InitializeComponent();
             _initListView();
+            _reloadProduct();
         }
 
 
@@ -71,10 +91,6 @@ namespace Desktop.Products
             lvProduct.Columns.Add(ProductQuantityColumn);
             lvProduct.Columns.Add(ProducWeightColumn);
 
-            using (var work = _unitOfWorkFactory.UnitOfWork)
-            {
-                AddProduct(work.ProductRepository.GetAll().ToList());
-            }
         }
 
         public void AddProduct(List<Product> product)
@@ -224,11 +240,119 @@ namespace Desktop.Products
         private void _reloadProduct()
         {
             ClearProducts();
-                using (var work = _unitOfWorkFactory.UnitOfWork)
-                {
-                    AddProduct(work.ProductRepository.GetAll().ToList());
-                }
+            int unitMax = Filters.unitMax;
+            int unitMin = Filters.unitMin;
+            double priceMax = Filters.priceMax;
+            double priceMin = Filters.priceMin;
+
+            if (!chkUnitFilter.Checked)
+            {
+                unitMax = -1;
+                unitMin = -1;
             }
-       
+
+            if (!chkPriceFilter.Checked)
+            {
+                priceMax = -1;
+                priceMin = -1;
+            }
+
+            using (var work = _unitOfWorkFactory.UnitOfWork)
+            {
+                AddProduct(work.ProductRepository.GetWIthFilter(Filters.id, Filters.name, unitMax, unitMin, priceMax, priceMin).ToList());
+            }
+        }
+
+        private void btnFilter_Click(object sender, EventArgs e)
+        {
+            Filters.name = txtProductName.Text;
+            Filters.id = txtProductId.Text;
+            Filters.priceMax = Double.Parse(txtPriceMax.Text);
+            Filters.priceMin = Double.Parse(txtPriceMin.Text);
+            Filters.unitMax = int.Parse(txtUnitMax.Text);
+            Filters.unitMin = int.Parse(txtUnitMin.Text);
+            _reloadProduct();
+        }
+
+        private void onPriceKeyDown(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == '-')
+            {
+                e.Handled = true;
+            }
+
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void onUnitKeyDown(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == '-')
+            {
+                e.Handled = true;
+            }
+
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+
+            // only allow one decimal point
+            if ((e.KeyChar == '.'))
+            {
+                e.Handled = true;
+            }
+        }
+
+
+        private void onPriceTextChanged(object sender, EventArgs e)
+        {   
+            if (sender == txtPriceMax && String.IsNullOrWhiteSpace(txtPriceMax.Text))
+            {
+                return;
+            }
+            if (sender == txtPriceMin && String.IsNullOrWhiteSpace(txtPriceMin.Text))
+            {
+                return;
+            }
+            if (Double.Parse(txtPriceMin.Text) > Double.Parse(txtPriceMax.Text))
+            {
+                txtPriceMin.ForeColor = Color.Red;
+                txtPriceMax.ForeColor = Color.Red;
+            } else
+            {
+                txtPriceMin.ForeColor = Color.Black;
+                txtPriceMax.ForeColor = Color.Black;
+            }
+        }
+
+        private void onUnitTextChanged(object sender, EventArgs e)
+        {
+            if (sender == txtUnitMin && String.IsNullOrWhiteSpace(txtUnitMin.Text))
+            {
+                return;
+            }
+            if (sender == txtUnitMax && String.IsNullOrWhiteSpace(txtUnitMax.Text))
+            {
+                return;
+            }
+            if (Double.Parse(txtUnitMin.Text) > Double.Parse(txtUnitMax.Text))
+            {
+                txtUnitMax.ForeColor = Color.Red;
+                txtUnitMin.ForeColor = Color.Red;
+            }
+            else
+            {
+                txtUnitMin.ForeColor = Color.Black;
+                txtUnitMax.ForeColor = Color.Black;
+            }
+        }
     }
 }

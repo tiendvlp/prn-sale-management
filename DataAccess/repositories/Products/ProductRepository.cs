@@ -40,6 +40,12 @@ namespace DataAccess.repositories.Products
             return _productDao.Get(id); 
         }
 
+        public IEnumerable<Product> GetWIthFilter(string id, string name, int unitMax, int unitMin, double priceMax, double priceMin)
+        {
+            IQueryable<Product> result = _productDao.GetWithFilters(id, name, unitMax, unitMin, priceMax, priceMin);
+            return result.ToList();
+        }
+
         public Product RemoveById(string id)
         {
             var removedProduct = _productDao.Get(id);

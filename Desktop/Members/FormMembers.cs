@@ -24,6 +24,7 @@ namespace Desktop.Members
         private ColumnHeader UserCompanyColumn = new ColumnHeader("Company name") { Text = "Company name" };
         private UnitOfWorkFactory _unitOfWorkFactory;
         private IServiceProvider serviceProvider;
+        private static (string id, string name, string city, string country) Filter;
 
         public FormMembers(UnitOfWorkFactory unitOfWorkFactory, IServiceProvider serviceProvider)
         {
@@ -42,7 +43,6 @@ namespace Desktop.Members
             txtFilterId.Text = Filter.id;
         }
 
-        private static (string id, string name, string city, string country) Filter;
 
         private void _initListView()
         {

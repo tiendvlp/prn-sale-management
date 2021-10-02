@@ -30,6 +30,7 @@ namespace Desktop.MainForm
             this.serviceProvider = serviceProvider;
             InitializeComponent();
             _setupRole();
+            _openChildForm(serviceProvider.GetRequiredService<FormMembers>());
         }
 
         private void _setupRole ()
@@ -88,7 +89,7 @@ namespace Desktop.MainForm
             {
                 return;
             }
-            _openChildForm(serviceProvider.GetRequiredService<FormProducts>(), e);
+            _openChildForm(serviceProvider.GetRequiredService<FormProducts>());
         }
       
 
@@ -98,10 +99,10 @@ namespace Desktop.MainForm
             {
                 return;
             }
-            _openChildForm(serviceProvider.GetRequiredService<FormMembers>(), e);
+            _openChildForm(serviceProvider.GetRequiredService<FormMembers>());
         }
 
-        private void _openChildForm(Form childForm, object btnSender)
+        private void _openChildForm(Form childForm )
         {
             if (_activeForm != null)
             {
