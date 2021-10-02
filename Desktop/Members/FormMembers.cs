@@ -16,6 +16,7 @@ namespace Desktop.Members
 {
     public partial class FormMembers : Form
     {
+        private ColumnHeader UserIdColumn = new ColumnHeader("Id") { Text = "Id" };
         private ColumnHeader UserNameColumn = new ColumnHeader("Name") { Text = "Name" };
         private ColumnHeader UserEmailColumn = new ColumnHeader("Email") { Text = "Email" };
         private ColumnHeader UserPasswordColumn = new ColumnHeader("Password") { Text = "Password" };
@@ -36,13 +37,13 @@ namespace Desktop.Members
             _reloadMembers();
         }
 
-        private void _restoreFilterInput() {
+        private void _restoreFilterInput()
+        {
             txtFilterCity.Text = Filter.city;
             txtFilterCountry.Text = Filter.country;
             txtFilterName.Text = Filter.name;
             txtFilterId.Text = Filter.id;
         }
-
 
         private void _initListView()
         {
@@ -50,12 +51,23 @@ namespace Desktop.Members
             lvMembers.CheckBoxes = true;
             lvMembers.FullRowSelect = true;
             lvMembers.GridLines = true;
+            lvMembers.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            lvMembers.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+
+            lvMembers.Columns.Add(UserIdColumn);
             lvMembers.Columns.Add(UserNameColumn);
             lvMembers.Columns.Add(UserEmailColumn);
             lvMembers.Columns.Add(UserPasswordColumn);
             lvMembers.Columns.Add(UserCityColumn);
             lvMembers.Columns.Add(UserCountryColumn);
             lvMembers.Columns.Add(UserCompanyColumn);
+
+            UserNameColumn.Width = 130;
+            UserIdColumn.Width = 100;
+            UserEmailColumn.Width = 130;
+            UserCountryColumn.Width = 80;
+            UserCityColumn.Width = 70;
+            UserCompanyColumn.Width = 70;
         }
 
         private void AddMembers(List<Member> members)
@@ -67,7 +79,12 @@ namespace Desktop.Members
         {
             var newItem = new ListViewItem();
             newItem.Tag = member;
-            newItem.Text = member.Name;
+            newItem.Text = member.Id;
+            newItem.SubItems.Add
+               (new ListViewItem.ListViewSubItem()
+               {
+                   Text = member.Name
+               }); ;
             newItem.SubItems.Add
                 (new ListViewItem.ListViewSubItem()
                 {
@@ -93,8 +110,8 @@ namespace Desktop.Members
                 Text = member.CompanyName
             });
 
-
             lvMembers.Items.Add(newItem);
+
         }
 
         internal void ClearMembers()
