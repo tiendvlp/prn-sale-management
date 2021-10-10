@@ -32,7 +32,6 @@
     <PackageReference Include="NHibernate" Version="5.3.10" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="MSSQL_Intergration\" />
     <Folder Include="Dao\Members\" />
     <Folder Include="repositories\Members\" />
     <Folder Include="repositories\OrderDetails\" />
