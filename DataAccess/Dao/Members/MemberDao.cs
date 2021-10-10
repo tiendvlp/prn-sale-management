@@ -3,6 +3,7 @@ using BusinessObject;
 using System.Linq;
 using System.Collections.Generic;
 using NHibernate.Linq;
+using DataAccess.Data;
 
 namespace DataAccess.Dao.Members
 {
