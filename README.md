@@ -1,5 +1,8 @@
 # prn-sale-management
 
+1. Cách Filter Members:
+  - Gõ thông tin cần filter, sau đó nhấn nút filter
+  - Nếu muốn LẤY HẾT TẤT CẢ MEMBER chọn nút clear filter
 1. Cách Update Members:
   - Nhấn chuột phải vào member muốn update và chọn update
 2. Cách xóa 1 member:
