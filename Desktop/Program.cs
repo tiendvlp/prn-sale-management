@@ -32,7 +32,7 @@ namespace Desktop
         {
             var host = Host.CreateDefaultBuilder().ConfigureAppConfiguration((context, builder) =>
             {
-                builder.AddJsonFile("appsettings.local.json", optional: true);
+                builder.AddJsonFile("appsettings.json", optional: true);
             }).ConfigureServices((context, service) => {
                 ConfigureServices(service,context.Configuration);
             }).Build();

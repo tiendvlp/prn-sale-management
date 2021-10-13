@@ -36,6 +36,7 @@ namespace Desktop.Members
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lvMembers = new System.Windows.Forms.ListView();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnClearFilter = new System.Windows.Forms.Button();
             this.btnFilter = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
@@ -106,6 +107,7 @@ namespace Desktop.Members
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnClearFilter);
             this.panel1.Controls.Add(this.btnFilter);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.lblName);
@@ -122,13 +124,25 @@ namespace Desktop.Members
             this.panel1.Size = new System.Drawing.Size(762, 92);
             this.panel1.TabIndex = 2;
             // 
+            // btnClearFilter
+            // 
+            this.btnClearFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClearFilter.Location = new System.Drawing.Point(559, 53);
+            this.btnClearFilter.Name = "btnClearFilter";
+            this.btnClearFilter.Size = new System.Drawing.Size(87, 27);
+            this.btnClearFilter.TabIndex = 19;
+            this.btnClearFilter.Text = "Clear Filter";
+            this.btnClearFilter.UseVisualStyleBackColor = true;
+            this.btnClearFilter.Click += new System.EventHandler(this.btnClearFilter_Click);
+            // 
             // btnFilter
             // 
             this.btnFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFilter.Location = new System.Drawing.Point(561, 36);
+            this.btnFilter.Location = new System.Drawing.Point(559, 19);
             this.btnFilter.Name = "btnFilter";
-            this.btnFilter.Size = new System.Drawing.Size(75, 23);
+            this.btnFilter.Size = new System.Drawing.Size(87, 27);
             this.btnFilter.TabIndex = 18;
             this.btnFilter.Text = "Filter";
             this.btnFilter.UseVisualStyleBackColor = true;
@@ -254,5 +268,6 @@ namespace Desktop.Members
         private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.TextBox txtFilterId;
         private System.Windows.Forms.Button btnFilter;
+        private System.Windows.Forms.Button btnClearFilter;
     }
 }

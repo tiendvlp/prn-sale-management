@@ -36,6 +36,7 @@ namespace Desktop.Login
 
         private void LoadLoginLayout ()
         {
+            txtPassword.PasswordChar = '*';
             txtUserName.AutoSize = false;
         }
 

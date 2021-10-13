@@ -202,5 +202,15 @@ namespace Desktop.Members
             Filter = (txtFilterId.Text, txtFilterName.Text, txtFilterCity.Text, txtFilterCountry.Text);
             _reloadMembers();
         }
+
+        private void btnClearFilter_Click(object sender, EventArgs e)
+        {
+            txtFilterId.Text = "";
+            txtFilterName.Text = "";
+            txtFilterCity.Text = "";
+            txtFilterCountry.Text = "";
+            Filter = ("", "", "", "");
+            _reloadMembers();
+        }
     }
 }
