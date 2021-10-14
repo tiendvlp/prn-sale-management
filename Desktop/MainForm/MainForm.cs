@@ -40,7 +40,7 @@ namespace Desktop.MainForm
                 _openChildForm(serviceProvider.GetRequiredService<FormMembers>());
             } else
             {
-                _openChildForm(serviceProvider.GetRequiredService<FormProducts>());
+                // orders form
             }
         }
 
@@ -52,13 +52,16 @@ namespace Desktop.MainForm
                 btnMembers.Visible = true;
                 btnUserInfo.Enabled = false;
                 btnUserInfo.Visible = false;
+                btnProducts.Visible = true;
+                btnProducts.Enabled = true;
                 lblUserName.Text = "Welcome admin";
             }
             else
             {
                 btnMembers.Enabled = false;
                 btnMembers.Visible = false;
-
+                btnProducts.Visible = false;
+                btnProducts.Enabled = false;
                 btnUserInfo.Enabled = true;
                 btnUserInfo.Visible = true;
             }

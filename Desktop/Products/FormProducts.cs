@@ -20,7 +20,6 @@ namespace Desktop.Products
 {
     public partial class FormProducts : Form
     {
-        public static int ADMIN_MODE = 1;
         public static int MEMBER_MODE = 2;
         private int _mode;
         private ColumnHeader ProductIdColumn = new ColumnHeader("Id") { Text = "Id" };
@@ -40,22 +39,6 @@ namespace Desktop.Products
             this.serviceProvider = serviceProvider;
             InitializeComponent();
 
-            if (appRoles.IsAdmin)
-            {
-                _mode = ADMIN_MODE;
-                btnBuyProducts.Enabled = false;
-                btnBuyProducts.Visible = false;
-                btnCreate.Enabled = true;
-                btnCreate.Visible = true;
-            } else
-            {
-                btnBuyProducts.Enabled = true;
-                btnBuyProducts.Visible = true;
-                btnCreate.Enabled = false;
-                btnCreate.Visible = false;
-                _mode = MEMBER_MODE;
-            }
-
             _initListView();
             _initLayoutFilter();
             _reloadProduct();
@@ -64,19 +47,11 @@ namespace Desktop.Products
 
         private void _setupLayoutDependOnRole ()
         {
-            if (_mode == ADMIN_MODE)
-            {
+           
                 btnCreate.Enabled = true;
                 btnCreate.Visible = true;
                 btnDelete.Visible = true;
                 btnDelete.Enabled = true;
-            } else
-            {
-                btnCreate.Enabled = false;
-                btnCreate.Visible = false;
-                btnDelete.Visible = false;
-                btnDelete.Enabled = false;
-            }
         }
 
         private void _initLayoutFilter ()
@@ -98,11 +73,6 @@ namespace Desktop.Products
 
         public FormProducts(int mode)
         {
-            if (mode != ADMIN_MODE && mode != MEMBER_MODE)
-            {
-                throw new Exception("Your mode is invalid: " + mode);
-            }
-            _mode = mode;
             InitializeComponent();
             _initListView();
             _reloadProduct();
@@ -180,14 +150,7 @@ namespace Desktop.Products
                 var focusedItem = lvProduct.FocusedItem;
                 if (focusedItem != null && focusedItem.Bounds.Contains(e.Location))
                 {
-                    if (_mode == ADMIN_MODE)
-                    {
                         menuStripAdmin.Show(Cursor.Position);
-                    }
-                    else
-                    {
-                        menuStripMember.Show(Cursor.Position);
-                    }
                 }
             }
         }
@@ -402,13 +365,18 @@ namespace Desktop.Products
             }
         }
 
-        private void btnBuyProducts_Click(object sender, EventArgs e)
+        private void btnCreateOrder_Click(object sender, EventArgs e)
         {
             List<Product> selectedProduct = new List<Product>();
             for (int i = 0; i < lvProduct.CheckedItems.Count; i++)
             {
                 var item = lvProduct.CheckedItems[i];
                 selectedProduct.Add((Product)item.Tag);
+            }
+            if (selectedProduct.Count == 0)
+            {
+                 MessageBox.Show("You have not select any product", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
             }
             FormCreateOrder formCreateOrder = ActivatorUtilities.CreateInstance<FormCreateOrder>(serviceProvider, selectedProduct);
             formCreateOrder.ShowDialog();

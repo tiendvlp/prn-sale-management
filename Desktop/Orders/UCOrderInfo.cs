@@ -18,12 +18,14 @@ namespace Desktop.Orders
         public class DataBinding
         {
            public List<Product> Products { get; internal set; }
+           public String memberEmail { get; internal set; }
            public DateTime RequiredDate { get; internal set; }
            public Dictionary<String, int> Quantity { get; internal set; }
             public double freight;
 
-            public DataBinding(List<Product> Products, Dictionary<String, int> Quantity, double freight)
+            public DataBinding(List<Product> Products, Dictionary<String, int> Quantity, double freight, String email)
            {
+                this.memberEmail = email;
                 this.freight = freight;
                 this.Products = Products;
                 this.Quantity = Quantity;
@@ -83,7 +85,7 @@ namespace Desktop.Orders
                 }
             }
 
-            var result = new DataBinding(_boughtProduct, Quantity, _freight);
+            var result = new DataBinding(_boughtProduct, Quantity, _freight, txtEmail.Text);
             result.RequiredDate = datePickerRequiredDate.Value;
             return result;
         }
@@ -141,13 +143,6 @@ namespace Desktop.Orders
             lblFreight.Text = _freight + "$";
         }
 
-        internal void SetUserInfo(String city, String company, String country, String email)
-        {
-            lblCity.Text = city;
-            lblCompany.Text = company;
-            lblCountry.Text = country;
-            lblEmail.Text = email;
-        }
 
         internal void SetOrderInfo (DateTime orderDate, DateTime shippedDate )
         {

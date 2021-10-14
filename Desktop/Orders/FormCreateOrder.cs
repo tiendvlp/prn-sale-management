@@ -43,13 +43,15 @@ namespace Desktop.Orders
             _initUcLayout();
             if (_appRole.IsAdmin)
             {
-
-            } else
+                OrderInfo.SetProducts(_boughtProducts);
+                OrderInfo.CallBack = _onUcCEvent;
+                OrderInfo.SetOrderInfo(_orderDate, _shippedDate);
+            }
+            else
             {
                 OrderInfo.SetProducts(_boughtProducts);
                 OrderInfo.CallBack = _onUcCEvent;
                 Member m = (_appRole.CurrentRole as UserRole.Member).Info;
-                OrderInfo.SetUserInfo(m.City,m.CompanyName, m.Country, m.Email);
                 OrderInfo.SetOrderInfo(_orderDate, _shippedDate);
             }
         }
@@ -81,7 +83,15 @@ namespace Desktop.Orders
 
             using (var work = _unitOfWorkFactory.UnitOfWork)
             {
-                Order newOrder = work.OrderRepository.Add((_appRole.CurrentRole as UserRole.Member).Info.Id, _orderDate, data.RequiredDate,_shippedDate,data.freight);
+                Member member = work.MemberRepository.GetByEmail(data.memberEmail);
+
+                if (member == null)
+                {
+                    MessageBox.Show("Your member does not exist", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                Order newOrder = work.OrderRepository.Add(member.Email, _orderDate, data.RequiredDate,_shippedDate,data.freight);
 
                 data.Products.ForEach(product => {
                     work.OrderDetailRepository.Add(newOrder.Id, product.Id, product.Price, data.Quantity[product.Id], 1);

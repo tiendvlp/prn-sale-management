@@ -38,7 +38,7 @@ namespace Desktop.Products
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lvProduct = new System.Windows.Forms.ListView();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnBuyProducts = new System.Windows.Forms.Button();
+            this.btnCreateOrder = new System.Windows.Forms.Button();
             this.chkUnitFilter = new System.Windows.Forms.CheckBox();
             this.chkPriceFilter = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -131,7 +131,7 @@ namespace Desktop.Products
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.btnBuyProducts);
+            this.panel1.Controls.Add(this.btnCreateOrder);
             this.panel1.Controls.Add(this.chkUnitFilter);
             this.panel1.Controls.Add(this.chkPriceFilter);
             this.panel1.Controls.Add(this.tableLayoutPanel3);
@@ -151,15 +151,15 @@ namespace Desktop.Products
             this.panel1.Size = new System.Drawing.Size(763, 123);
             this.panel1.TabIndex = 2;
             // 
-            // btnBuyProducts
+            // btnCreateOrder
             // 
-            this.btnBuyProducts.Location = new System.Drawing.Point(634, 18);
-            this.btnBuyProducts.Name = "btnBuyProducts";
-            this.btnBuyProducts.Size = new System.Drawing.Size(98, 36);
-            this.btnBuyProducts.TabIndex = 18;
-            this.btnBuyProducts.Text = "Buy";
-            this.btnBuyProducts.UseVisualStyleBackColor = true;
-            this.btnBuyProducts.Click += new System.EventHandler(this.btnBuyProducts_Click);
+            this.btnCreateOrder.Location = new System.Drawing.Point(634, 45);
+            this.btnCreateOrder.Name = "btnCreateOrder";
+            this.btnCreateOrder.Size = new System.Drawing.Size(98, 26);
+            this.btnCreateOrder.TabIndex = 18;
+            this.btnCreateOrder.Text = "Create order";
+            this.btnCreateOrder.UseVisualStyleBackColor = true;
+            this.btnCreateOrder.Click += new System.EventHandler(this.btnCreateOrder_Click);
             // 
             // chkUnitFilter
             // 
@@ -321,7 +321,7 @@ namespace Desktop.Products
             // 
             // btnFilter
             // 
-            this.btnFilter.Location = new System.Drawing.Point(537, 45);
+            this.btnFilter.Location = new System.Drawing.Point(539, 70);
             this.btnFilter.Name = "btnFilter";
             this.btnFilter.Size = new System.Drawing.Size(78, 26);
             this.btnFilter.TabIndex = 2;
@@ -331,9 +331,9 @@ namespace Desktop.Products
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(634, 60);
+            this.btnDelete.Location = new System.Drawing.Point(634, 77);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(98, 36);
+            this.btnDelete.Size = new System.Drawing.Size(98, 26);
             this.btnDelete.TabIndex = 1;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
@@ -341,9 +341,9 @@ namespace Desktop.Products
             // 
             // btnCreate
             // 
-            this.btnCreate.Location = new System.Drawing.Point(634, 18);
+            this.btnCreate.Location = new System.Drawing.Point(634, 13);
             this.btnCreate.Name = "btnCreate";
-            this.btnCreate.Size = new System.Drawing.Size(98, 36);
+            this.btnCreate.Size = new System.Drawing.Size(98, 26);
             this.btnCreate.TabIndex = 0;
             this.btnCreate.Text = "New Product";
             this.btnCreate.UseVisualStyleBackColor = true;
@@ -397,6 +397,6 @@ namespace Desktop.Products
         private System.Windows.Forms.TextBox txtPriceMax;
         private System.Windows.Forms.CheckBox chkUnitFilter;
         private System.Windows.Forms.CheckBox chkPriceFilter;
-        private System.Windows.Forms.Button btnBuyProducts;
+        private System.Windows.Forms.Button btnCreateOrder;
     }
 }
