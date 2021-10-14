@@ -5,7 +5,7 @@ using BusinessObject;
 
 namespace DataAccess.Dao.OrderDetails
 {
-    public interface IOrderDetailsDao : IDao<Order>
+    public interface IOrderDetailsDao : IDao<OrderDetail>
     {
         public IEnumerable<OrderDetail> getByOrderId(String orderId);
     }

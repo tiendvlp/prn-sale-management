@@ -48,14 +48,14 @@ namespace Desktop.Orders
             this.tbnMain.Controls.Add(this.mainLayoutContainer, 0, 1);
             this.tbnMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbnMain.Location = new System.Drawing.Point(0, 0);
-            this.tbnMain.MaximumSize = new System.Drawing.Size(621, 541);
+            this.tbnMain.MaximumSize = new System.Drawing.Size(671, 600);
             this.tbnMain.MinimumSize = new System.Drawing.Size(621, 541);
             this.tbnMain.Name = "tbnMain";
             this.tbnMain.RowCount = 3;
             this.tbnMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7.886043F));
             this.tbnMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 86.25166F));
             this.tbnMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5.8623F));
-            this.tbnMain.Size = new System.Drawing.Size(621, 541);
+            this.tbnMain.Size = new System.Drawing.Size(655, 600);
             this.tbnMain.TabIndex = 0;
             // 
             // btnConfirm
@@ -64,10 +64,10 @@ namespace Desktop.Orders
             this.btnConfirm.BackColor = System.Drawing.Color.Maroon;
             this.btnConfirm.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnConfirm.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnConfirm.Location = new System.Drawing.Point(220, 511);
+            this.btnConfirm.Location = new System.Drawing.Point(220, 569);
             this.btnConfirm.Margin = new System.Windows.Forms.Padding(220, 3, 220, 3);
             this.btnConfirm.Name = "btnConfirm";
-            this.btnConfirm.Size = new System.Drawing.Size(181, 26);
+            this.btnConfirm.Size = new System.Drawing.Size(215, 26);
             this.btnConfirm.TabIndex = 75;
             this.btnConfirm.Text = "Confirm Order";
             this.btnConfirm.UseVisualStyleBackColor = false;
@@ -79,7 +79,7 @@ namespace Desktop.Orders
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(615, 36);
+            this.panel1.Size = new System.Drawing.Size(649, 41);
             this.panel1.TabIndex = 76;
             // 
             // btnCancel
@@ -95,16 +95,16 @@ namespace Desktop.Orders
             // mainLayoutContainer
             // 
             this.mainLayoutContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainLayoutContainer.Location = new System.Drawing.Point(3, 45);
+            this.mainLayoutContainer.Location = new System.Drawing.Point(3, 50);
             this.mainLayoutContainer.Name = "mainLayoutContainer";
-            this.mainLayoutContainer.Size = new System.Drawing.Size(615, 460);
+            this.mainLayoutContainer.Size = new System.Drawing.Size(649, 511);
             this.mainLayoutContainer.TabIndex = 77;
             // 
             // FormCreateOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(605, 561);
+            this.ClientSize = new System.Drawing.Size(655, 611);
             this.ControlBox = false;
             this.Controls.Add(this.tbnMain);
             this.Name = "FormCreateOrder";

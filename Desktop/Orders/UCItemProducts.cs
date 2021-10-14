@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using Desktop.common.MessageBoxHelper;
 namespace Desktop.Products
 {
     public partial class UCItemProducts : UserControl
@@ -24,6 +24,15 @@ namespace Desktop.Products
             }
         }
         public DataBinding Data { get; private set; }
+        public enum EVENT_TYPE
+        {
+            DELETE
+        }
+
+        public delegate void OnEvent(EVENT_TYPE type, DataBinding Data);
+
+        public OnEvent Callback { get; set; }
+
         public UCItemProducts()
         {
             InitializeComponent();
@@ -31,12 +40,18 @@ namespace Desktop.Products
 
         private void txtQuantity_TextChanged(object sender, EventArgs e)
         {
-
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-
+            if (Callback != null)
+            {
+                DialogResult result = MessageBox.Show("Are you sure to delete " + Data.Data.Name + " !", "Confirm remove", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (result == DialogResult.Yes)
+                {
+                    Callback(EVENT_TYPE.DELETE, Data);
+                }
+            }
         }
 
         public void Bind (Product product)
@@ -64,8 +79,24 @@ namespace Desktop.Products
             {
                 e.Handled = true;
             }
+        }
 
+        private void txtQuantity_TextChanged_1(object sender, EventArgs e)
+        {
+            if (Data == null) { return; }
             Data.Quantity = int.Parse(txtQuantity.Text);
+
+            if (Data.Quantity == 0)
+            {
+                DialogResult result = MessageBox.Show("Are you sure to delete " + Data.Data.Name + " !", "Confirm remove", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (result == DialogResult.Yes)
+                {
+                    if (Callback != null)
+                    {
+                        Callback(EVENT_TYPE.DELETE, Data);
+                    }
+                }
+            }
         }
     }
 }

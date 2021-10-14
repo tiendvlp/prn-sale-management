@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace DataAccess.Dao.OrderDetails
 {
-    public class OrderDetailDao : Dao<Order>, IOrderDetailsDao
+    public class OrderDetailDao : Dao<OrderDetail>, IOrderDetailsDao
     {
         private readonly ApplicationDbContext _dbContext;
 
