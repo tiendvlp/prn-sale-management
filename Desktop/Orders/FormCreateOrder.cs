@@ -24,7 +24,6 @@ namespace Desktop.Orders
         private UCOrderInfo OrderInfo;
         private DateTime _shippedDate;
         private DateTime _orderDate;
-        private double _freight;
 
         public FormCreateOrder(IServiceProvider serviceProvider, UnitOfWorkFactory unitOfWorkFactory, AppSetting appSetting, AppRoles appRole, List<Product> boughtProducts)
         {
@@ -69,8 +68,6 @@ namespace Desktop.Orders
             OrderInfo.Dock = DockStyle.Fill;
         }
 
-
-
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -80,15 +77,11 @@ namespace Desktop.Orders
         {
             var data = OrderInfo.getData();
 
-            data.Products.ForEach(p => {
-                _freight += p.Weight * 0.5;
-            });
-
             // create orders
 
             using (var work = _unitOfWorkFactory.UnitOfWork)
             {
-                Order newOrder = work.OrderRepository.Add((_appRole.CurrentRole as UserRole.Member).Info.Id, _orderDate, data.RequiredDate,_shippedDate,_freight);
+                Order newOrder = work.OrderRepository.Add((_appRole.CurrentRole as UserRole.Member).Info.Id, _orderDate, data.RequiredDate,_shippedDate,data.freight);
 
                 data.Products.ForEach(product => {
                     work.OrderDetailRepository.Add(newOrder.Id, product.Id, product.Price, data.Quantity[product.Id], 1);
@@ -98,6 +91,7 @@ namespace Desktop.Orders
             }
 
             MessageBox.Show("Thank you ! Your order has been processed", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            this.Close();
         }
 
         private void ucOrderInfo1_Load(object sender, EventArgs e)

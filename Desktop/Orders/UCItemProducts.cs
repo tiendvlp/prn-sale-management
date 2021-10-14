@@ -26,7 +26,7 @@ namespace Desktop.Products
         public DataBinding Data { get; private set; }
         public enum EVENT_TYPE
         {
-            DELETE
+            DELETE, UPDATE_QUANTITY
         }
 
         public delegate void OnEvent(EVENT_TYPE type, DataBinding Data);
@@ -96,7 +96,10 @@ namespace Desktop.Products
                         Callback(EVENT_TYPE.DELETE, Data);
                     }
                 }
+
+                return;
             }
+            Callback(EVENT_TYPE.UPDATE_QUANTITY, Data);
         }
     }
 }

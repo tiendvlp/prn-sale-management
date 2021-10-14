@@ -56,6 +56,8 @@ namespace Desktop.Orders
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.lblFreight = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -76,6 +78,8 @@ namespace Desktop.Orders
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.lblFreight);
+            this.panel2.Controls.Add(this.label13);
             this.panel2.Controls.Add(this.lvProduct);
             this.panel2.Controls.Add(this.lblShippedDate);
             this.panel2.Controls.Add(this.label16);
@@ -336,6 +340,26 @@ namespace Desktop.Orders
             this.textBox1.Size = new System.Drawing.Size(146, 23);
             this.textBox1.TabIndex = 0;
             // 
+            // lblFreight
+            // 
+            this.lblFreight.AutoSize = true;
+            this.lblFreight.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblFreight.Location = new System.Drawing.Point(173, 410);
+            this.lblFreight.Name = "lblFreight";
+            this.lblFreight.Size = new System.Drawing.Size(36, 20);
+            this.lblFreight.TabIndex = 88;
+            this.lblFreight.Text = "20$";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label13.Location = new System.Drawing.Point(88, 414);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(47, 15);
+            this.label13.TabIndex = 87;
+            this.label13.Text = "Freight";
+            // 
             // UCOrderInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -380,5 +404,7 @@ namespace Desktop.Orders
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.FlowLayoutPanel lvProduct;
+        private System.Windows.Forms.Label lblFreight;
+        private System.Windows.Forms.Label label13;
     }
 }

@@ -20,12 +20,14 @@ namespace Desktop.Orders
            public List<Product> Products { get; internal set; }
            public DateTime RequiredDate { get; internal set; }
            public Dictionary<String, int> Quantity { get; internal set; }
+            public double freight;
 
-            public DataBinding(List<Product> Products, Dictionary<String, int> Quantity)
-            {
+            public DataBinding(List<Product> Products, Dictionary<String, int> Quantity, double freight)
+           {
+                this.freight = freight;
                 this.Products = Products;
                 this.Quantity = Quantity;
-            }
+           }
         }
         double totalPrice = 0;
         public UCOrderInfo()
@@ -39,6 +41,7 @@ namespace Desktop.Orders
             CANCEL
         }
         private Dictionary<String, int> Quantity = new Dictionary<string, int>();
+        private double _freight = 0;
         public delegate void OnEvent (EVENT_TYPE type, Object data);
 
         public OnEvent CallBack { get; set; }
@@ -58,27 +61,35 @@ namespace Desktop.Orders
 
             _boughtProduct.ForEach(product => AddProduct(product));
 
-            lblPrice.Text = totalPrice + "";
+            _calculateFreightAndPrice();
+        }
 
+        private void _reload ()
+        {
+            SetProducts(_boughtProduct);
         }
 
         public DataBinding getData ()
         {
-
             foreach (var c in lvProduct.Controls)
             {
                 UCItemProducts uc = c as UCItemProducts;
-                Quantity.Add(uc.Data.Data.Id, uc.Data.Quantity);
+                if (!Quantity.ContainsKey(uc.Data.Data.Id))
+                {
+                    Quantity.Add(uc.Data.Data.Id, uc.Data.Quantity);
+                } else
+                {
+                    Quantity[uc.Data.Data.Id] = uc.Data.Quantity;
+                }
             }
 
-            var result = new DataBinding(_boughtProduct, Quantity);
+            var result = new DataBinding(_boughtProduct, Quantity, _freight);
             result.RequiredDate = datePickerRequiredDate.Value;
             return result;
         }
 
         public void AddProduct(Product product)
-        {
-                totalPrice += product.Price;
+        {       
                 UCItemProducts newItem = new UCItemProducts();
                 newItem.Bind(product);
                 newItem.Callback = OnItemEvent;
@@ -90,13 +101,44 @@ namespace Desktop.Orders
             if (type == UCItemProducts.EVENT_TYPE.DELETE)
             {
                 _boughtProduct.RemoveAll(p => p.Id.Equals(data.Data.Id));
-                SetProducts(_boughtProduct);
+                _reload();
+            }
+
+            if (type == UCItemProducts.EVENT_TYPE.UPDATE_QUANTITY)
+            {
+                _calculateFreightAndPrice();
             }
 
             if (_boughtProduct.Count == 0)
             {
                 CallBack(EVENT_TYPE.CANCEL, null);
             }
+        }
+
+        private void _calculateFreightAndPrice()
+        {
+            // call getData to refresh the Quantity dictionary
+            getData();
+            totalPrice = 0;
+            _freight = 0;
+            _boughtProduct.ForEach(p =>
+           {
+               if (Quantity.ContainsKey(p.Id))
+               {
+                   totalPrice += p.Price * Quantity[p.Id];
+                   _freight += p.Weight * 0.1 * Quantity[p.Id];
+               } else
+               {
+                   totalPrice += p.Price;
+                   _freight += p.Weight * 0.1;
+               }
+              
+           });
+            totalPrice += _freight;
+            _freight = Math.Round(_freight, 2);
+            totalPrice = Math.Round(totalPrice, 2);
+            lblPrice.Text = totalPrice + "$";
+            lblFreight.Text = _freight + "$";
         }
 
         internal void SetUserInfo(String city, String company, String country, String email)
