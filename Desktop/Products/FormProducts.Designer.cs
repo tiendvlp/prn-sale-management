@@ -38,6 +38,7 @@ namespace Desktop.Products
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lvProduct = new System.Windows.Forms.ListView();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnBuyProducts = new System.Windows.Forms.Button();
             this.chkUnitFilter = new System.Windows.Forms.CheckBox();
             this.chkPriceFilter = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -130,6 +131,7 @@ namespace Desktop.Products
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnBuyProducts);
             this.panel1.Controls.Add(this.chkUnitFilter);
             this.panel1.Controls.Add(this.chkPriceFilter);
             this.panel1.Controls.Add(this.tableLayoutPanel3);
@@ -148,6 +150,16 @@ namespace Desktop.Products
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(763, 123);
             this.panel1.TabIndex = 2;
+            // 
+            // btnBuyProducts
+            // 
+            this.btnBuyProducts.Location = new System.Drawing.Point(634, 18);
+            this.btnBuyProducts.Name = "btnBuyProducts";
+            this.btnBuyProducts.Size = new System.Drawing.Size(98, 36);
+            this.btnBuyProducts.TabIndex = 18;
+            this.btnBuyProducts.Text = "Buy";
+            this.btnBuyProducts.UseVisualStyleBackColor = true;
+            this.btnBuyProducts.Click += new System.EventHandler(this.btnBuyProducts_Click);
             // 
             // chkUnitFilter
             // 
@@ -385,5 +397,6 @@ namespace Desktop.Products
         private System.Windows.Forms.TextBox txtPriceMax;
         private System.Windows.Forms.CheckBox chkUnitFilter;
         private System.Windows.Forms.CheckBox chkPriceFilter;
+        private System.Windows.Forms.Button btnBuyProducts;
     }
 }

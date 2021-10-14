@@ -156,5 +156,10 @@ namespace Desktop.Products
         {
 
         }
+
+        private void txtProductQuantity_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

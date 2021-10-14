@@ -57,10 +57,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="backgroundWorker1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <metadata name="$this.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="btnDelete.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABGdBTUEAALGPC/xhBQAAATNJREFUSEvt
+        lbFNBDEQRVeCNoAWbJ/IQLoIcTYgkkugAohB4hqACqACqAAqgAqgAuhgI269Pt0yK/3IGulmzImEfdIL
+        HMxb7QR2NSAlmslpY8MJjn9Ha30kGxzXS/9HfZzslDZF22hNeGNiZVIL2dWs9cPWvyI7wEMrqrOVlVgj
+        J4eGPrJIie/IyYnOvzAhldH4Z+TktDY8cDGVzt8jJycZP2NjCpP1N8jJobv4nItppFWfIScnubDPxTSm
+        0eEecnLmo+NtLqbxe/dgCzk53XS6QcMpjylM3Xi8iZwOGv7KYho/kdHzy8ei/HGg4acsJteFR2T0ROvv
+        2KhAmr1FRg+t+pKLypxcIKNn4fwRH13twoSAjJ659TsUWeZRgct+Fpky6M6+ppDmba6TCVcYH/i3VNUP
+        +KVA4puLcF0AAAAASUVORK5CYII=
+</value>
+  </data>
 </root>

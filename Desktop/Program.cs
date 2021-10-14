@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Desktop.common.Roles;
 using Desktop.Products;
 using Desktop.Members;
+using Desktop.Orders;
 
 namespace Desktop
 {
@@ -24,6 +25,7 @@ namespace Desktop
             services.AddTransient<FormUpdateProduct>();
             services.AddTransient<FormCreateMember>();
             services.AddTransient<FormUpdateMember>();
+            services.AddTransient<FormCreateOrder>();
             services.AddTransient<FormMembers>();
             services.AddSingleton<UnitOfWorkFactory>();
             services.AddSingleton<AppRoles>();

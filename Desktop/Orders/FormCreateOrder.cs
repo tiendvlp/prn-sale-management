@@ -20,16 +20,41 @@ namespace Desktop.Orders
         private AppSetting _appSetting;
         private AppRoles _appRole;
         private IServiceProvider _serviceProvider;
-        public FormCreateOrder(IServiceProvider serviceProvider, UnitOfWorkFactory unitOfWorkFactory, AppSetting appSetting, AppRoles appRole)
+        private List<Product> _boughtProducts;
+        private UCOrderInfo OrderInfo;
+
+
+        public FormCreateOrder(IServiceProvider serviceProvider, UnitOfWorkFactory unitOfWorkFactory, AppSetting appSetting, AppRoles appRole, List<Product> boughtProducts)
         {
             _serviceProvider = serviceProvider;
+            _boughtProducts = boughtProducts;
             _unitOfWorkFactory = unitOfWorkFactory;
             _appSetting = appSetting;
             _appRole = appRole;
             InitializeComponent();
-
             _setCategories();
-            _setWeightUnit();
+            _initOrder();
+        }
+
+        private void _initOrder()
+        {
+            _initUcLayout();
+            if (_appRole.IsAdmin)
+            {
+
+            } else
+            {
+                OrderInfo.SetProducts(_boughtProducts);
+                Member m = (_appRole.CurrentRole as UserRole.Member).Info;
+                OrderInfo.SetUserInfo(m.City,m.CompanyName, m.Country, m.Email);
+            }
+        }
+
+        private void _initUcLayout ()
+        {
+            OrderInfo = new UCOrderInfo();
+            mainLayoutContainer.Controls.Add(OrderInfo);
+            OrderInfo.Dock = DockStyle.Fill;
         }
 
         private void _setCategories()
@@ -37,13 +62,7 @@ namespace Desktop.Orders
             using (var work = _unitOfWorkFactory.UnitOfWork)
             {
                 var categories = work.CategoryRepository.GetAll();
-                ucProductInfo.SetCategories(categories);
             }
-        }
-
-        private void _setWeightUnit()
-        {
-            ucProductInfo.SetWeightUnit(Enum.GetValues(typeof(WeightUnit)).Cast<WeightUnit>());
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -51,24 +70,13 @@ namespace Desktop.Orders
             this.Hide();
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
+        private void btnConfirm_Click(object sender, EventArgs e)
         {
-            var productInfo = ucProductInfo.GetProductInput();
 
-            if (productInfo != null)
-            {
-                var value = productInfo.Value;
+        }
 
-                using (var work = _unitOfWorkFactory.UnitOfWork)
-                {
-                    work.ProductRepository.Add(value.category.Id, value.name, value.weight, value.unit, value.quantity, value.price);
-                    work.Save();
-                }
-
-                MessageBox.Show("Add product successfully !!", "Create product", MessageBoxButtons.OK);
-
-                ucProductInfo.ClearInput();
-            }
+        private void ucOrderInfo1_Load(object sender, EventArgs e)
+        {
 
         }
     }

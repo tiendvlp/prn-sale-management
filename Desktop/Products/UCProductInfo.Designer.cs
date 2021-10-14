@@ -125,6 +125,7 @@ namespace Desktop.Products
             this.txtProductQuantity.Name = "txtProductQuantity";
             this.txtProductQuantity.Size = new System.Drawing.Size(216, 23);
             this.txtProductQuantity.TabIndex = 9;
+            this.txtProductQuantity.TextChanged += new System.EventHandler(this.txtProductQuantity_TextChanged);
             this.txtProductQuantity.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnTxtProductQuantity_KeyDown);
             // 
             // label5

@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Desktop.common.MessageBoxHelper;
+using Desktop.Orders;
 
 namespace Desktop.Products
 {
@@ -37,15 +38,24 @@ namespace Desktop.Products
         {
             _unitOfWorkFactory = unitOfWorkFactory;
             this.serviceProvider = serviceProvider;
+            InitializeComponent();
+
             if (appRoles.IsAdmin)
             {
                 _mode = ADMIN_MODE;
+                btnBuyProducts.Enabled = false;
+                btnBuyProducts.Visible = false;
+                btnCreate.Enabled = true;
+                btnCreate.Visible = true;
             } else
             {
+                btnBuyProducts.Enabled = true;
+                btnBuyProducts.Visible = true;
+                btnCreate.Enabled = false;
+                btnCreate.Visible = false;
                 _mode = MEMBER_MODE;
             }
 
-            InitializeComponent();
             _initListView();
             _initLayoutFilter();
             _reloadProduct();
@@ -269,12 +279,6 @@ namespace Desktop.Products
 
         private void btnCreate_Click(object sender, EventArgs e)
         {
-            List<Product> selectedProduct = new List<Product>();
-            for (int i = 0; i < lvProduct.SelectedItems.Count; i++)
-            {
-                var item = lvProduct.SelectedItems[i];
-                selectedProduct.Add((Product)item.Tag);
-            }
             FormCreateProduct createProductForm = serviceProvider.GetRequiredService<FormCreateProduct>();
             createProductForm.ShowDialog();
             _reloadProduct();
@@ -396,6 +400,18 @@ namespace Desktop.Products
                 txtUnitMin.ForeColor = Color.Black;
                 txtUnitMax.ForeColor = Color.Black;
             }
+        }
+
+        private void btnBuyProducts_Click(object sender, EventArgs e)
+        {
+            List<Product> selectedProduct = new List<Product>();
+            for (int i = 0; i < lvProduct.CheckedItems.Count; i++)
+            {
+                var item = lvProduct.CheckedItems[i];
+                selectedProduct.Add((Product)item.Tag);
+            }
+            FormCreateOrder formCreateOrder = ActivatorUtilities.CreateInstance<FormCreateOrder>(serviceProvider, selectedProduct);
+            formCreateOrder.ShowDialog();
         }
     }
 }

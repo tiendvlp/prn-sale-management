@@ -1,4 +1,5 @@
 ﻿using BusinessObject;
+using Desktop.Products;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,188 +14,64 @@ namespace Desktop.Orders
 {
     public partial class UCOrderInfo : UserControl
     {
+        private List<Product> _boughtProduct;
+
+        double totalPrice = 0;
         public UCOrderInfo()
         {
             InitializeComponent();
-            _initUnitComboBox();
+            _initListView();
         }
 
-        private void _initUnitComboBox()
+        private void _initListView()
         {
-            cbxWeightUnits.DataSource = new List<String>() { "Kg", "Gram", "" };
         }
 
-        private void OnTxtProductName_KeyDown(object sender, KeyPressEventArgs e)
+     
+        internal void SetProducts(List<Product> boughtProducts)
         {
+            _boughtProduct = boughtProducts;
+            _boughtProduct.ForEach(product => {
+                AddProduct(product);
+                totalPrice += product.Price;
+            });
 
+            lvProduct.AutoScroll = true;
+            lvProduct.FlowDirection = FlowDirection.TopDown;
+            lvProduct.WrapContents = false; // Vertical rather than horizontal scrolling
+
+            _boughtProduct.ForEach(product => AddProduct(product));
         }
 
-        public (string name, Category category, double price, double weight, WeightUnit unit, int quantity)? GetProductInput()
+        public void AddProduct(Product product)
         {
-            if (String.IsNullOrWhiteSpace(txtProductName.Text))
-            {
-                MessageBox.Show("Your product name can not be empty", "Missing info", MessageBoxButtons.OK);
-                return null;
-            }
-            if (String.IsNullOrWhiteSpace(txtProductQuantity.Text))
-            {
-                MessageBox.Show("Your product quantity can not be empty", "Missing info", MessageBoxButtons.OK);
-                return null;
-            }
-            if (String.IsNullOrWhiteSpace(txtProductWeight.Text))
-            {
-                MessageBox.Show("Your product weight can not be empty", "Missing info", MessageBoxButtons.OK);
-                return null;
-            }
-            if (String.IsNullOrWhiteSpace(txtProductPrice.Text))
-            {
-                MessageBox.Show("Your product price can not be empty", "Missing info", MessageBoxButtons.OK);
-                return null;
-            }
-
-            string name = txtProductName.Text;
-            int quantity = int.Parse(txtProductQuantity.Text);
-            WeightUnit unit = (WeightUnit)cbxWeightUnits.SelectedItem;
-            double weight = double.Parse(txtProductWeight.Text);
-            double price = double.Parse(txtProductPrice.Text);
-            Category category = (Category)cbxCategories.SelectedItem;
-
-            return (name, category, price, weight, unit, quantity);
+                UCItemProducts newItem = new UCItemProducts();
+                newItem.Bind(product);
+                lvProduct.Controls.Add(newItem);
         }
 
-        internal void ClearInput()
+        internal void SetUserInfo(String city, String company, String country, String email)
         {
-            txtProductName.Focus();
-            txtProductPrice.Clear();
-            txtProductQuantity.Clear();
-            txtProductWeight.Clear();
+            lblCity.Text = city;
+            lblCompany.Text = company;
+            lblCountry.Text = country;
+            lblEmail.Text = email;
         }
 
-        internal void SetContent(Product product)
+        internal void SetOrderInfo (DateTime orderDate, DateTime shippedDate )
         {
-            txtProductName.Text = product.Name;
-            txtProductWeight.Text = product.Weight + "";
-            txtProductQuantity.Text = product.Quantity + "";
-            txtProductPrice.Text = product.Price + "";
-            cbxCategories.SelectedItem = product.Category;
-            ///    for (int i = 0; i < cbxCategories.Items.Count; i++)
-            //    {
-            //        if (cbxCategories.Items[i].Equals(product.Category.Name))
-            //       {
-            //           cbxCategories.SelectedIndex = i;
-            //       }
-            //    }
+            lblOrderDate.Text = orderDate.ToString("yyyy-dd-MM");
+            lblShippedDate.Text = shippedDate.ToString("yyyy-dd-MM");
+            datePickerRequiredDate.Value = shippedDate;
         }
 
-        internal void SetWeightUnit(IEnumerable<WeightUnit> units)
+        internal DateTime getRequiredDate ()
         {
-            cbxWeightUnits.DataSource = units;
+            return datePickerRequiredDate.Value;
         }
 
-        internal void SetCategories(IEnumerable<Category> categories)
+        private void datePickerRequiredDate_ValueChanged(object sender, EventArgs e)
         {
-            cbxCategories.DataSource = categories;
-            cbxCategories.DisplayMember = "Name";
-        }
-
-        private void OnTxtProductWeight_KeyDown(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == '-')
-            {
-                e.Handled = true;
-            }
-
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
-            {
-                e.Handled = true;
-            }
-
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void OnTxtProductQuantity_KeyDown(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == '-')
-            {
-                e.Handled = true;
-            }
-
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
-            {
-                e.Handled = true;
-            }
-
-            // only allow one decimal point
-            if ((e.KeyChar == '.'))
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void OnTxtProductPrice_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == '-')
-            {
-                e.Handled = true;
-            }
-
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
-            {
-                e.Handled = true;
-            }
-
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void txtProductWeight_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label4_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox3_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void label13_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label9_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
