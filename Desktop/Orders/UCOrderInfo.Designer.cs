@@ -31,6 +31,8 @@ namespace Desktop.Orders
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.txtFrieght = new System.Windows.Forms.TextBox();
+            this.dateTimeShippedDatePicker = new System.Windows.Forms.DateTimePicker();
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
@@ -50,8 +52,6 @@ namespace Desktop.Orders
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.dateTimeShippedDatePicker = new System.Windows.Forms.DateTimePicker();
-            this.txtFrieght = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -94,6 +94,23 @@ namespace Desktop.Orders
             this.panel2.Size = new System.Drawing.Size(646, 590);
             this.panel2.TabIndex = 6;
             this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
+            // 
+            // txtFrieght
+            // 
+            this.txtFrieght.Location = new System.Drawing.Point(141, 411);
+            this.txtFrieght.Name = "txtFrieght";
+            this.txtFrieght.Size = new System.Drawing.Size(100, 23);
+            this.txtFrieght.TabIndex = 92;
+            this.txtFrieght.TextChanged += new System.EventHandler(this.txtFrieght_TextChanged);
+            this.txtFrieght.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.lblFreight_KeyPress);
+            // 
+            // dateTimeShippedDatePicker
+            // 
+            this.dateTimeShippedDatePicker.Location = new System.Drawing.Point(367, 408);
+            this.dateTimeShippedDatePicker.Name = "dateTimeShippedDatePicker";
+            this.dateTimeShippedDatePicker.Size = new System.Drawing.Size(200, 23);
+            this.dateTimeShippedDatePicker.TabIndex = 91;
+            this.dateTimeShippedDatePicker.ValueChanged += new System.EventHandler(this.dateTimeShippedDatePicker_ValueChanged);
             // 
             // txtEmail
             // 
@@ -271,22 +288,6 @@ namespace Desktop.Orders
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(146, 23);
             this.textBox1.TabIndex = 0;
-            // 
-            // dateTimeShippedDatePicker
-            // 
-            this.dateTimeShippedDatePicker.Location = new System.Drawing.Point(367, 408);
-            this.dateTimeShippedDatePicker.Name = "dateTimeShippedDatePicker";
-            this.dateTimeShippedDatePicker.Size = new System.Drawing.Size(200, 23);
-            this.dateTimeShippedDatePicker.TabIndex = 91;
-            // 
-            // txtFrieght
-            // 
-            this.txtFrieght.Location = new System.Drawing.Point(141, 411);
-            this.txtFrieght.Name = "txtFrieght";
-            this.txtFrieght.Size = new System.Drawing.Size(100, 23);
-            this.txtFrieght.TabIndex = 92;
-            this.txtFrieght.TextChanged += new System.EventHandler(this.txtFrieght_TextChanged);
-            this.txtFrieght.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.lblFreight_KeyPress);
             // 
             // UCOrderInfo
             // 

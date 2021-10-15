@@ -30,5 +30,15 @@ namespace DataAccess.Dao.Orders
             return result;
         }
 
+        public void RemoveOrderContainsNoOrderDetails()
+        {
+            List<String> AllOrderId = (from orderDetails in _dbContext.OrderDetails select orderDetails.OrderId).ToList();
+            _dbContext.Orders.RemoveRange(
+                from order in _dbContext.Orders
+                where
+                !(AllOrderId
+                .Contains(order.Id))
+                select order);
+        }
     }
 }

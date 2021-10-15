@@ -36,5 +36,10 @@ namespace DataAccess.repositories.OrderDetails
         {
             _orderDetailDao.RemoveByOrderId(id);
         }
+
+        public void RemoveByProductId(string id)
+        {
+            _orderDetailDao.RemoveByProductId(id);
+        }
     }
 }

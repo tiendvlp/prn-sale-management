@@ -23,6 +23,7 @@ namespace Desktop
             services.AddTransient<FormCreateProduct>();
             services.AddTransient<FormProducts>();
             services.AddTransient<FormUpdateProduct>();
+            services.AddTransient<FormUpdateOrder>();
             services.AddTransient<FormCreateMember>();
             services.AddTransient<FormUpdateMember>();
             services.AddTransient<FormCreateOrder>();

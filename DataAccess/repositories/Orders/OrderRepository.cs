@@ -38,5 +38,20 @@ namespace DataAccess.repositories.Orders
         {
             _orderDao.Remove(id);
         }
+
+        public void RemoveOrderContainsNoOrderDetails()
+        {
+            _orderDao.RemoveOrderContainsNoOrderDetails();
+        }
+
+        public void Update(string orderId, string memberId, DateTime orderDate, DateTime requiredDate, DateTime shippedDate, double freight)
+        {
+           Order target = _orderDao.Get(orderId);
+            target.MemberId = memberId;
+            target.OrderDate = orderDate;
+            target.RequiredDate = requiredDate;
+            target.ShippedDate = shippedDate;
+            target.Freight = freight;
+        }
     }
 }

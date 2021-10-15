@@ -144,7 +144,13 @@ namespace Desktop.Orders
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-
+            ItemDataBinding focusedItem = (ItemDataBinding)lvOrders.FocusedItem.Tag;
+            if (focusedItem != null)
+            {
+                focusedItem.Order.Member = focusedItem.Member;
+                FormUpdateOrder formUpdateOrder = ActivatorUtilities.CreateInstance<FormUpdateOrder>(serviceProvider, focusedItem.Order);
+                formUpdateOrder.ShowDialog();
+            }
         }
 
         private void _reloadOrders()

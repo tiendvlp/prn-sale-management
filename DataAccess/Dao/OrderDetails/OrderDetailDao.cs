@@ -25,5 +25,10 @@ namespace DataAccess.Dao.OrderDetails
         {
             RemoveRange(_dbContext.OrderDetails.Where(x => x.OrderId.Equals(id)));
         }
+
+        public void RemoveByProductId(string id)
+        {
+            RemoveRange(_dbContext.OrderDetails.Where(x => x.ProductId.Equals(id)));
+        }
     }
 }

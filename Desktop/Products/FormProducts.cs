@@ -196,6 +196,8 @@ namespace Desktop.Products
                     {
                         using (var work = _unitOfWorkFactory.UnitOfWork)
                         {
+                            work.OrderDetailRepository.RemoveByProductId(focusedProduct.Id);
+                            work.OrderRepository.RemoveOrderContainsNoOrderDetails();
                             work.ProductRepository.RemoveById(focusedProduct.Id);
                             work.Save();
                         }
@@ -230,8 +232,17 @@ namespace Desktop.Products
                 // delete all selected products
                 using (var work = _unitOfWorkFactory.UnitOfWork)
                 {
-                    selectedProduct.ForEach(p => work.ProductRepository.RemoveById(p.Id));
+                    selectedProduct.ForEach(p => {
+                        work.OrderDetailRepository.RemoveByProductId(p.Id);
+                        work.ProductRepository.RemoveById(p.Id);
+                    });
 
+                    work.Save();
+                }
+
+                using (var work = _unitOfWorkFactory.UnitOfWork)
+                {
+                    work.OrderRepository.RemoveOrderContainsNoOrderDetails();
                     work.Save();
                 }
 

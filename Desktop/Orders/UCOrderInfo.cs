@@ -38,7 +38,6 @@ namespace Desktop.Orders
         public UCOrderInfo()
         {
             InitializeComponent();
-            _initListView();
         }
 
         public enum EVENT_TYPE
@@ -50,10 +49,6 @@ namespace Desktop.Orders
         public delegate void OnEvent (EVENT_TYPE type, Object data);
 
         public OnEvent CallBack { get; set; }
-
-        private void _initListView()
-        {
-        }
      
         internal void SetProducts(List<Product> boughtProducts)
         {
@@ -92,6 +87,10 @@ namespace Desktop.Orders
             return result;
         }
 
+        public void SetMemberInfo (String memberEmail)
+        {
+            txtEmail.Text = memberEmail;
+        }
         public void AddProduct(Product product)
         {       
                 UCItemProducts newItem = new UCItemProducts();
@@ -150,12 +149,22 @@ namespace Desktop.Orders
         }
 
 
-        internal void SetOrderInfo (DateTime orderDate, DateTime shippedDate )
+        internal void SetOrderInfo (DateTime orderDate, DateTime shippedDate, DateTime? requiredDate = null, double freight = -1 )
         {
             lblOrderDate.Text = orderDate.ToString("yyyy-dd-MM");
             dateTimeShippedDatePicker.Value = shippedDate;
-            // by default the required date is equals to shipped date
-            datePickerRequiredDate.Value = shippedDate;
+            if (requiredDate == null)
+            {
+                // by default the required date is equals to shipped date
+                datePickerRequiredDate.Value = shippedDate;
+            } else
+            {
+                datePickerRequiredDate.Value = requiredDate.Value;
+            }
+            if (freight != -1)
+            {
+                txtFrieght.Text = freight + "$";
+            }
         }
 
         internal DateTime getRequiredDate ()
@@ -198,6 +207,11 @@ namespace Desktop.Orders
             {
                 _calculateFreightAndPrice(f);
             }
+        }
+
+        private void dateTimeShippedDatePicker_ValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

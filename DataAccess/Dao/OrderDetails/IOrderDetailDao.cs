@@ -9,5 +9,6 @@ namespace DataAccess.Dao.OrderDetails
     {
         public IEnumerable<OrderDetail> getByOrderId(String orderId);
         void RemoveByOrderId(string id);
+        void RemoveByProductId(string id);
     }
 }

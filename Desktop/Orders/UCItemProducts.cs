@@ -84,7 +84,17 @@ namespace Desktop.Products
         private void txtQuantity_TextChanged_1(object sender, EventArgs e)
         {
             if (Data == null) { return; }
-            Data.Quantity = int.Parse(txtQuantity.Text);
+            int previousQuantity = Data.Quantity;
+            int quantity = 0;
+            bool parseResult = int.TryParse(txtQuantity.Text, out quantity );
+
+            if (parseResult)
+            {
+                Data.Quantity = quantity;
+            } else
+            {
+                return;
+            }
 
             if (Data.Quantity == 0)
             {
@@ -95,6 +105,10 @@ namespace Desktop.Products
                     {
                         Callback(EVENT_TYPE.DELETE, Data);
                     }
+                } else
+                {
+                    Data.Quantity = 1;
+                    txtQuantity.Text = Data.Quantity + "";
                 }
 
                 return;

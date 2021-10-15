@@ -9,5 +9,6 @@ namespace DataAccess.repositories.OrderDetails
         public OrderDetail Add(string orderId, string productId, double unitPrice, int quantity, float discount);
         List<OrderDetail> GetByOrderId(string id);
         void RemoveByOrderId(string id);
+        void RemoveByProductId(string id);
     }
 }

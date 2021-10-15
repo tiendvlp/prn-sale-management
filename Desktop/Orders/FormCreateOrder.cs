@@ -41,19 +41,9 @@ namespace Desktop.Orders
             _orderDate = DateTime.Now;
             _shippedDate = DateTime.Now.AddDays(3);
             _initUcLayout();
-            if (_appRole.IsAdmin)
-            {
                 OrderInfo.SetProducts(_boughtProducts);
                 OrderInfo.CallBack = _onUcCEvent;
                 OrderInfo.SetOrderInfo(_orderDate, _shippedDate);
-            }
-            else
-            {
-                OrderInfo.SetProducts(_boughtProducts);
-                OrderInfo.CallBack = _onUcCEvent;
-                Member m = (_appRole.CurrentRole as UserRole.Member).Info;
-                OrderInfo.SetOrderInfo(_orderDate, _shippedDate);
-            }
         }
 
         private void _onUcCEvent (UCOrderInfo.EVENT_TYPE type, Object data)
@@ -104,9 +94,5 @@ namespace Desktop.Orders
             this.Close();
         }
 
-        private void ucOrderInfo1_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }
