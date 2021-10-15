@@ -161,5 +161,10 @@ namespace Desktop.Products
         {
 
         }
+
+        private void cbxCategories_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

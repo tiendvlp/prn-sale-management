@@ -144,13 +144,11 @@ namespace Desktop.Orders
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            ItemDataBinding focusedItem = (ItemDataBinding)lvOrders.FocusedItem.Tag;
-            if (focusedItem != null)
-            {
-                focusedItem.Order.Member = focusedItem.Member;
-                FormUpdateOrder formUpdateOrder = ActivatorUtilities.CreateInstance<FormUpdateOrder>(serviceProvider, focusedItem.Order);
-                formUpdateOrder.ShowDialog();
-            }
+            if (lvOrders.FocusedItem == null) { return; }
+            ItemDataBinding focusedItem = (ItemDataBinding) lvOrders.FocusedItem.Tag;
+            focusedItem.Order.Member = focusedItem.Member;
+            FormUpdateOrder formUpdateOrder = ActivatorUtilities.CreateInstance<FormUpdateOrder>(serviceProvider, focusedItem.Order);
+            formUpdateOrder.ShowDialog();
         }
 
         private void _reloadOrders()
@@ -195,6 +193,11 @@ namespace Desktop.Orders
             {
                 var item = lvOrders.CheckedItems[i];
                 selectedOrders.Add((ItemDataBinding)item.Tag);
+            }
+
+            if (selectedOrders.Count == 0)
+            {
+                return;
             }
             DialogResult result = this.ShowYesNoInfoMessageBox("Are you sure to delete " + selectedOrders.Count + " orders", "Confirm");
 

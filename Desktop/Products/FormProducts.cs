@@ -31,7 +31,7 @@ namespace Desktop.Products
         private UnitOfWorkFactory _unitOfWorkFactory;
         private IServiceProvider serviceProvider;
 
-        private static (string id, string name, int unitMax, int unitMin, double priceMax, double priceMin) Filters = ("", "", 1000, 0, 1000, 0);
+        private static (string id, string name, int unitMax, int unitMin, double priceMax, double priceMin) Filters = ("", "", 100000, 0, 100000, 0);
         private static List<Product> CurrentProducts = new List<Product>();
         public FormProducts(UnitOfWorkFactory unitOfWorkFactory, IServiceProvider serviceProvider, AppRoles appRoles)
         {
@@ -197,11 +197,14 @@ namespace Desktop.Products
                         using (var work = _unitOfWorkFactory.UnitOfWork)
                         {
                             work.OrderDetailRepository.RemoveByProductId(focusedProduct.Id);
-                            work.OrderRepository.RemoveOrderContainsNoOrderDetails();
                             work.ProductRepository.RemoveById(focusedProduct.Id);
                             work.Save();
                         }
-
+                        using (var work = _unitOfWorkFactory.UnitOfWork)
+                        {
+                            work.OrderRepository.RemoveOrderContainsNoOrderDetails();
+                            work.Save();
+                        }
                         _reloadProduct();
                     }
                 }
@@ -391,6 +394,11 @@ namespace Desktop.Products
             }
             FormCreateOrder formCreateOrder = ActivatorUtilities.CreateInstance<FormCreateOrder>(serviceProvider, selectedProduct);
             formCreateOrder.ShowDialog();
+        }
+
+        private void txtPriceMax_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

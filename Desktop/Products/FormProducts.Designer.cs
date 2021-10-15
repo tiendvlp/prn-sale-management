@@ -267,6 +267,7 @@ namespace Desktop.Products
             this.txtPriceMax.Name = "txtPriceMax";
             this.txtPriceMax.Size = new System.Drawing.Size(63, 23);
             this.txtPriceMax.TabIndex = 2;
+            this.txtPriceMax.TextChanged += new System.EventHandler(this.txtPriceMax_TextChanged);
             this.txtPriceMax.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.onPriceKeyDown);
             // 
             // label4

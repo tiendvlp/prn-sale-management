@@ -32,7 +32,6 @@ namespace Desktop.Products
             this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtProductWeight = new System.Windows.Forms.TextBox();
-            this.txtProductName = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.txtProductQuantity = new System.Windows.Forms.TextBox();
@@ -42,6 +41,7 @@ namespace Desktop.Products
             this.txtProductPrice = new System.Windows.Forms.TextBox();
             this.cbxWeightUnits = new System.Windows.Forms.ComboBox();
             this.cbxCategories = new System.Windows.Forms.ComboBox();
+            this.txtProductName = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -79,19 +79,6 @@ namespace Desktop.Products
             this.txtProductWeight.TabIndex = 1;
             this.txtProductWeight.TextChanged += new System.EventHandler(this.txtProductWeight_TextChanged);
             this.txtProductWeight.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnTxtProductWeight_KeyDown);
-            // 
-            // txtProductName
-            // 
-            this.txtProductName.CharacterCasing = System.Windows.Forms.CharacterCasing.Lower;
-            this.txtProductName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtProductName.Location = new System.Drawing.Point(124, 81);
-            this.txtProductName.Margin = new System.Windows.Forms.Padding(3, 40, 3, 40);
-            this.txtProductName.Multiline = true;
-            this.txtProductName.Name = "txtProductName";
-            this.txtProductName.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtProductName.Size = new System.Drawing.Size(216, 43);
-            this.txtProductName.TabIndex = 0;
-            this.txtProductName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnTxtProductName_KeyDown);
             // 
             // label2
             // 
@@ -161,6 +148,7 @@ namespace Desktop.Products
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 9.901209F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 22.55495F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5.500671F));
+            this.tableLayoutPanel1.Controls.Add(this.txtProductName, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.txtProductPrice, 4, 3);
             this.tableLayoutPanel1.Controls.Add(this.label6, 3, 3);
             this.tableLayoutPanel1.Controls.Add(this.label5, 3, 1);
@@ -168,7 +156,6 @@ namespace Desktop.Products
             this.tableLayoutPanel1.Controls.Add(this.cbxWeightUnits, 4, 2);
             this.tableLayoutPanel1.Controls.Add(this.label3, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.label2, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.txtProductName, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.txtProductWeight, 2, 2);
             this.tableLayoutPanel1.Controls.Add(this.label1, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.cbxCategories, 4, 1);
@@ -211,6 +198,16 @@ namespace Desktop.Products
             this.cbxCategories.Name = "cbxCategories";
             this.cbxCategories.Size = new System.Drawing.Size(119, 23);
             this.cbxCategories.TabIndex = 6;
+            this.cbxCategories.SelectedIndexChanged += new System.EventHandler(this.cbxCategories_SelectedIndexChanged);
+            // 
+            // txtProductName
+            // 
+            this.txtProductName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtProductName.Location = new System.Drawing.Point(124, 91);
+            this.txtProductName.MaxLength = 35;
+            this.txtProductName.Name = "txtProductName";
+            this.txtProductName.Size = new System.Drawing.Size(216, 23);
+            this.txtProductName.TabIndex = 17;
             // 
             // UCProductInfo
             // 
@@ -230,7 +227,6 @@ namespace Desktop.Products
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtProductWeight;
-        private System.Windows.Forms.TextBox txtProductName;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtProductQuantity;
@@ -240,5 +236,6 @@ namespace Desktop.Products
         private System.Windows.Forms.TextBox txtProductPrice;
         private System.Windows.Forms.ComboBox cbxWeightUnits;
         private System.Windows.Forms.ComboBox cbxCategories;
+        private System.Windows.Forms.TextBox txtProductName;
     }
 }

@@ -38,10 +38,10 @@ namespace Desktop.Members
             this.txtCountry = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.txtName = new System.Windows.Forms.TextBox();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.txtName = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,6 +54,7 @@ namespace Desktop.Members
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 32.5F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 2.5F));
+            this.tableLayoutPanel1.Controls.Add(this.txtName, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.txtCity, 4, 2);
             this.tableLayoutPanel1.Controls.Add(this.txtCompanyName, 4, 3);
             this.tableLayoutPanel1.Controls.Add(this.txtEmail, 4, 1);
@@ -62,7 +63,6 @@ namespace Desktop.Members
             this.tableLayoutPanel1.Controls.Add(this.txtCountry, 2, 3);
             this.tableLayoutPanel1.Controls.Add(this.label3, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.label2, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.txtName, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.txtPassword, 2, 2);
             this.tableLayoutPanel1.Controls.Add(this.label1, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.label4, 3, 2);
@@ -161,19 +161,6 @@ namespace Desktop.Members
             this.label2.Text = "Password";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // txtName
-            // 
-            this.txtName.CharacterCasing = System.Windows.Forms.CharacterCasing.Lower;
-            this.txtName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtName.Location = new System.Drawing.Point(99, 81);
-            this.txtName.Margin = new System.Windows.Forms.Padding(3, 40, 3, 40);
-            this.txtName.MinimumSize = new System.Drawing.Size(100, 32);
-            this.txtName.Multiline = true;
-            this.txtName.Name = "txtName";
-            this.txtName.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtName.Size = new System.Drawing.Size(174, 43);
-            this.txtName.TabIndex = 0;
-            // 
             // txtPassword
             // 
             this.txtPassword.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -207,6 +194,15 @@ namespace Desktop.Members
             this.label4.Text = "City";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // txtName
+            // 
+            this.txtName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtName.Location = new System.Drawing.Point(99, 91);
+            this.txtName.MaxLength = 35;
+            this.txtName.Name = "txtName";
+            this.txtName.Size = new System.Drawing.Size(174, 23);
+            this.txtName.TabIndex = 16;
+            // 
             // UCMemberInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -231,9 +227,9 @@ namespace Desktop.Members
         private System.Windows.Forms.TextBox txtCountry;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtName;
     }
 }
