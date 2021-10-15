@@ -8,5 +8,6 @@ namespace DataAccess.Dao.Orders
     {
         IQueryable<Order> GetWithFilter(DateTime startDate, DateTime endDate);
         void RemoveOrderContainsNoOrderDetails();
+        void RemoveByMemberId(string id);
     }
 }

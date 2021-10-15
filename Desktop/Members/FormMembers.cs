@@ -148,6 +148,7 @@ namespace Desktop.Members
                         using (var work = _unitOfWorkFactory.UnitOfWork)
                         {
                             work.MemberRepository.RemoveById(focusedMember.Id);
+                            work.OrderRepository.RemoveByMemberId(focusedMember.Id);
                             work.Save();
                         }
 
@@ -180,15 +181,17 @@ namespace Desktop.Members
             {
                 // delete all selected members
                 using (var work = _unitOfWorkFactory.UnitOfWork)
-                {
-                    selectedMember.ForEach(p => work.MemberRepository.RemoveById(p.Id));
-
+                {   
+                    selectedMember.ForEach(p => {
+                        work.MemberRepository.RemoveById(p.Id);
+                        work.OrderRepository.RemoveByMemberId(p.Id);
+                    });
+                                         
                     work.Save();
                 }
 
                 _reloadMembers();
                 return;
-
             }
         }
 

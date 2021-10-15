@@ -30,6 +30,16 @@ namespace DataAccess.Dao.Orders
             return result;
         }
 
+        public void RemoveByMemberId(string id)
+        {
+            IQueryable<Order> targets = (from order in _dbContext.Orders where order.MemberId.Equals(id) select order);
+            targets.ToList().ForEach(t => {
+                _dbContext.OrderDetails.RemoveRange(from orderdetail in _dbContext.OrderDetails where orderdetail.OrderId.Equals(t.Id) select orderdetail);
+            });
+
+            _dbContext.Orders.RemoveRange(targets);
+        }
+
         public void RemoveOrderContainsNoOrderDetails()
         {
             List<String> AllOrderId = (from orderDetails in _dbContext.OrderDetails select orderDetails.OrderId).ToList();
