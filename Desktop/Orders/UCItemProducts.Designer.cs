@@ -69,7 +69,7 @@ namespace Desktop.Products
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(542, 35);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(457, 35);
             this.tableLayoutPanel2.TabIndex = 2;
             // 
             // lblTitle
@@ -78,7 +78,7 @@ namespace Desktop.Products
             this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblTitle.Location = new System.Drawing.Point(3, 0);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(210, 35);
+            this.lblTitle.Size = new System.Drawing.Size(176, 35);
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "Sapiens";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -88,9 +88,9 @@ namespace Desktop.Products
             this.lblPrice.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblPrice.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblPrice.ForeColor = System.Drawing.Color.Maroon;
-            this.lblPrice.Location = new System.Drawing.Point(219, 0);
+            this.lblPrice.Location = new System.Drawing.Point(185, 0);
             this.lblPrice.Name = "lblPrice";
-            this.lblPrice.Size = new System.Drawing.Size(129, 35);
+            this.lblPrice.Size = new System.Drawing.Size(108, 35);
             this.lblPrice.TabIndex = 1;
             this.lblPrice.Text = "12.99$";
             this.lblPrice.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -103,9 +103,9 @@ namespace Desktop.Products
             this.btnDelete.FlatAppearance.BorderSize = 0;
             this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDelete.Image = ((System.Drawing.Image)(resources.GetObject("btnDelete.Image")));
-            this.btnDelete.Location = new System.Drawing.Point(489, 3);
+            this.btnDelete.Location = new System.Drawing.Point(413, 3);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(50, 29);
+            this.btnDelete.Size = new System.Drawing.Size(41, 29);
             this.btnDelete.TabIndex = 3;
             this.btnDelete.UseVisualStyleBackColor = false;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
@@ -113,10 +113,10 @@ namespace Desktop.Products
             // txtQuantity
             // 
             this.txtQuantity.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtQuantity.Location = new System.Drawing.Point(354, 8);
+            this.txtQuantity.Location = new System.Drawing.Point(299, 8);
             this.txtQuantity.Margin = new System.Windows.Forms.Padding(3, 8, 3, 3);
             this.txtQuantity.Name = "txtQuantity";
-            this.txtQuantity.Size = new System.Drawing.Size(129, 23);
+            this.txtQuantity.Size = new System.Drawing.Size(108, 23);
             this.txtQuantity.TabIndex = 2;
             this.txtQuantity.TextChanged += new System.EventHandler(this.txtQuantity_TextChanged_1);
             this.txtQuantity.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtQuantity_KeyPress);
@@ -127,7 +127,7 @@ namespace Desktop.Products
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel2);
             this.Name = "UCItemProducts";
-            this.Size = new System.Drawing.Size(542, 35);
+            this.Size = new System.Drawing.Size(457, 35);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             this.ResumeLayout(false);

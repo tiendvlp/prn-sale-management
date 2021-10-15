@@ -91,7 +91,7 @@ namespace Desktop.Orders
                     return;
                 }
 
-                Order newOrder = work.OrderRepository.Add(member.Id, _orderDate, data.RequiredDate,_shippedDate,data.freight);
+                Order newOrder = work.OrderRepository.Add(member.Id, _orderDate, data.RequiredDate, data.ShippedDate, data.freight);
 
                 data.Products.ForEach(product => {
                     work.OrderDetailRepository.Add(newOrder.Id, product.Id, product.Price, data.Quantity[product.Id], 1);
@@ -100,7 +100,7 @@ namespace Desktop.Orders
                 work.Save();
             }
 
-            MessageBox.Show("Thank you ! Your order has been processed", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Success", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
         }
 

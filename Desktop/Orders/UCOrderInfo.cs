@@ -20,16 +20,19 @@ namespace Desktop.Orders
            public List<Product> Products { get; internal set; }
            public String memberEmail { get; internal set; }
            public DateTime RequiredDate { get; internal set; }
+           public DateTime ShippedDate { get; internal set; }
            public Dictionary<String, int> Quantity { get; internal set; }
             public double freight;
 
-            public DataBinding(List<Product> Products, Dictionary<String, int> Quantity, double freight, String email)
-           {
+            public DataBinding(List<Product> Products, Dictionary<String, int> Quantity, double freight, String email, DateTime shippedDate, DateTime requiredDate)
+            {
                 this.memberEmail = email;
                 this.freight = freight;
                 this.Products = Products;
                 this.Quantity = Quantity;
-           }
+                ShippedDate = shippedDate;
+                RequiredDate = requiredDate;
+            }
         }
         double totalPrice = 0;
         public UCOrderInfo()
@@ -85,8 +88,7 @@ namespace Desktop.Orders
                 }
             }
 
-            var result = new DataBinding(_boughtProduct, Quantity, _freight, txtEmail.Text);
-            result.RequiredDate = datePickerRequiredDate.Value;
+            var result = new DataBinding(_boughtProduct, Quantity, _freight, txtEmail.Text, dateTimeShippedDatePicker.Value, datePickerRequiredDate.Value);
             return result;
         }
 
@@ -117,7 +119,7 @@ namespace Desktop.Orders
             }
         }
 
-        private void _calculateFreightAndPrice()
+        private void _calculateFreightAndPrice(double overrideFreight = -1)
         {
             // call getData to refresh the Quantity dictionary
             getData();
@@ -136,18 +138,23 @@ namespace Desktop.Orders
                }
               
            });
+            if (overrideFreight != -1)
+            {
+                _freight = overrideFreight;
+            }
             totalPrice += _freight;
             _freight = Math.Round(_freight, 2);
             totalPrice = Math.Round(totalPrice, 2);
             lblPrice.Text = totalPrice + "$";
-            lblFreight.Text = _freight + "$";
+            txtFrieght.Text = _freight + "$";
         }
 
 
         internal void SetOrderInfo (DateTime orderDate, DateTime shippedDate )
         {
             lblOrderDate.Text = orderDate.ToString("yyyy-dd-MM");
-            lblShippedDate.Text = shippedDate.ToString("yyyy-dd-MM");
+            dateTimeShippedDatePicker.Value = shippedDate;
+            // by default the required date is equals to shipped date
             datePickerRequiredDate.Value = shippedDate;
         }
 
@@ -158,6 +165,39 @@ namespace Desktop.Orders
 
         private void datePickerRequiredDate_ValueChanged(object sender, EventArgs e)
         {
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void lblFreight_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == '-')
+            {
+                e.Handled = true;
+            }
+
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtFrieght_TextChanged(object sender, EventArgs e)
+        {
+            double f = 0;
+            bool result = double.TryParse(txtFrieght.Text.Replace("$",""), out f);
+            if (result)
+            {
+                _calculateFreightAndPrice(f);
+            }
         }
     }
 }

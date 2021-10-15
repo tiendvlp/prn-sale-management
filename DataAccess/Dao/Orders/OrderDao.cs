@@ -17,8 +17,16 @@ namespace DataAccess.Dao.Orders
 
         public IQueryable<Order> GetWithFilter(DateTime startDate, DateTime endDate)
         {
-            IQueryable<Order> result = from order in _dbContext.Orders where order.OrderDate >= startDate && order.OrderDate <= endDate select order;
-
+            IQueryable<Order> result = from order in _dbContext.Orders
+                                       where
+                                       order.OrderDate.Year >= startDate.Year &&
+                                       order.OrderDate.Month >= startDate.Month &&
+                                       order.OrderDate.Day >= startDate.Day
+                                       &&
+                                       order.OrderDate.Year <= endDate.Year &&
+                                       order.OrderDate.Month <= endDate.Month &&
+                                       order.OrderDate.Day <= endDate.Day
+                                       select order;
             return result;
         }
 

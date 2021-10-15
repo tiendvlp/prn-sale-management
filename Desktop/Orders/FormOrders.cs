@@ -45,6 +45,7 @@ namespace Desktop.Orders
         private IServiceProvider serviceProvider;
 
         private static (DateTime startDate, DateTime endDate) CurrentFilter = (new DateTime(2001, 1, 1), DateTime.Now);
+        private static (int totalSales, double totalEarn) currentStatistic;
         private static List<ItemDataBinding> CurrentItems = new List<ItemDataBinding>();
         public FormOrders(UnitOfWorkFactory unitOfWorkFactory, IServiceProvider serviceProvider)
         {
@@ -58,8 +59,10 @@ namespace Desktop.Orders
                 _reloadOrders();
             } else
             {
-                ClearOrders();
+                lvOrders.Items.Clear();
                 AddOrders(CurrentItems);
+                lblTotalEarn.Text = currentStatistic.totalEarn + "$";
+                lblTotalSales.Text = currentStatistic.totalSales + "";
             }
         }
 
@@ -167,6 +170,7 @@ namespace Desktop.Orders
 
             lblTotalEarn.Text = totalEarns + "$";
             lblTotalSales.Text = totalSales + "";
+            currentStatistic = (totalSales, totalEarns);
             AddOrders(CurrentItems);
         }
 

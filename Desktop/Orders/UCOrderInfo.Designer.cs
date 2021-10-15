@@ -31,10 +31,10 @@ namespace Desktop.Orders
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.lblFreight = new System.Windows.Forms.Label();
+            this.txtEmail = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.lvProduct = new System.Windows.Forms.FlowLayoutPanel();
-            this.lblShippedDate = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.lblPrice = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -50,8 +50,8 @@ namespace Desktop.Orders
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtEmail = new System.Windows.Forms.TextBox();
+            this.dateTimeShippedDatePicker = new System.Windows.Forms.DateTimePicker();
+            this.txtFrieght = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -72,12 +72,12 @@ namespace Desktop.Orders
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.txtFrieght);
+            this.panel2.Controls.Add(this.dateTimeShippedDatePicker);
             this.panel2.Controls.Add(this.txtEmail);
             this.panel2.Controls.Add(this.label4);
-            this.panel2.Controls.Add(this.lblFreight);
             this.panel2.Controls.Add(this.label13);
             this.panel2.Controls.Add(this.lvProduct);
-            this.panel2.Controls.Add(this.lblShippedDate);
             this.panel2.Controls.Add(this.label16);
             this.panel2.Controls.Add(this.lblPrice);
             this.panel2.Controls.Add(this.label9);
@@ -93,16 +93,23 @@ namespace Desktop.Orders
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(646, 590);
             this.panel2.TabIndex = 6;
+            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
-            // lblFreight
+            // txtEmail
             // 
-            this.lblFreight.AutoSize = true;
-            this.lblFreight.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblFreight.Location = new System.Drawing.Point(173, 410);
-            this.lblFreight.Name = "lblFreight";
-            this.lblFreight.Size = new System.Drawing.Size(36, 20);
-            this.lblFreight.TabIndex = 88;
-            this.lblFreight.Text = "20$";
+            this.txtEmail.Location = new System.Drawing.Point(182, 49);
+            this.txtEmail.Name = "txtEmail";
+            this.txtEmail.Size = new System.Drawing.Size(190, 23);
+            this.txtEmail.TabIndex = 90;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(88, 52);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(84, 15);
+            this.label4.TabIndex = 89;
+            this.label4.Text = "Member email";
             // 
             // label13
             // 
@@ -120,15 +127,6 @@ namespace Desktop.Orders
             this.lvProduct.Name = "lvProduct";
             this.lvProduct.Size = new System.Drawing.Size(481, 224);
             this.lvProduct.TabIndex = 86;
-            // 
-            // lblShippedDate
-            // 
-            this.lblShippedDate.AutoSize = true;
-            this.lblShippedDate.Location = new System.Drawing.Point(367, 414);
-            this.lblShippedDate.Name = "lblShippedDate";
-            this.lblShippedDate.Size = new System.Drawing.Size(65, 15);
-            this.lblShippedDate.TabIndex = 85;
-            this.lblShippedDate.Text = "09/01/2001";
             // 
             // label16
             // 
@@ -206,9 +204,9 @@ namespace Desktop.Orders
             this.label7.ForeColor = System.Drawing.Color.Maroon;
             this.label7.Location = new System.Drawing.Point(88, 353);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(86, 15);
+            this.label7.Size = new System.Drawing.Size(66, 15);
             this.label7.TabIndex = 70;
-            this.label7.Text = "Confirm order";
+            this.label7.Text = "Order Info";
             // 
             // label14
             // 
@@ -274,21 +272,21 @@ namespace Desktop.Orders
             this.textBox1.Size = new System.Drawing.Size(146, 23);
             this.textBox1.TabIndex = 0;
             // 
-            // label4
+            // dateTimeShippedDatePicker
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(88, 52);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(84, 15);
-            this.label4.TabIndex = 89;
-            this.label4.Text = "Member email";
+            this.dateTimeShippedDatePicker.Location = new System.Drawing.Point(367, 408);
+            this.dateTimeShippedDatePicker.Name = "dateTimeShippedDatePicker";
+            this.dateTimeShippedDatePicker.Size = new System.Drawing.Size(200, 23);
+            this.dateTimeShippedDatePicker.TabIndex = 91;
             // 
-            // txtEmail
+            // txtFrieght
             // 
-            this.txtEmail.Location = new System.Drawing.Point(182, 49);
-            this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(190, 23);
-            this.txtEmail.TabIndex = 90;
+            this.txtFrieght.Location = new System.Drawing.Point(141, 411);
+            this.txtFrieght.Name = "txtFrieght";
+            this.txtFrieght.Size = new System.Drawing.Size(100, 23);
+            this.txtFrieght.TabIndex = 92;
+            this.txtFrieght.TextChanged += new System.EventHandler(this.txtFrieght_TextChanged);
+            this.txtFrieght.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.lblFreight_KeyPress);
             // 
             // UCOrderInfo
             // 
@@ -314,7 +312,6 @@ namespace Desktop.Orders
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Label lblShippedDate;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label lblPrice;
         private System.Windows.Forms.Label label9;
@@ -326,9 +323,10 @@ namespace Desktop.Orders
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.FlowLayoutPanel lvProduct;
-        private System.Windows.Forms.Label lblFreight;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtFrieght;
+        private System.Windows.Forms.DateTimePicker dateTimeShippedDatePicker;
     }
 }
