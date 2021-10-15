@@ -27,6 +27,7 @@ namespace Desktop
             services.AddTransient<FormUpdateMember>();
             services.AddTransient<FormCreateOrder>();
             services.AddTransient<FormMembers>();
+            services.AddTransient<FormOrders>();
             services.AddSingleton<UnitOfWorkFactory>();
             services.AddSingleton<AppRoles>();
         }

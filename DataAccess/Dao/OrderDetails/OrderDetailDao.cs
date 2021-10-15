@@ -20,5 +20,10 @@ namespace DataAccess.Dao.OrderDetails
             IQueryable<OrderDetail> result = (from x in _dbContext.OrderDetails where x.Id == orderId select x);
             return result.ToList();
         }
+
+        public void RemoveByOrderId(string id)
+        {
+            RemoveRange(_dbContext.OrderDetails.Where(x => x.OrderId.Equals(id)));
+        }
     }
 }

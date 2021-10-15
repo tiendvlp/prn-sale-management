@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using BusinessObject;
 using DataAccess.Dao.OrderDetails;
 using DataAccess.UnitOfWork;
@@ -7,7 +10,7 @@ namespace DataAccess.repositories.OrderDetails
 {
     public class OrderDetailRespository : IOrderDetailRepository
     {
-        private OrderDetailDao _orderDetailDao;
+        private IOrderDetailsDao _orderDetailDao;
 
         public OrderDetailRespository(OrderDetailDao orderDetailDao)
         {
@@ -21,6 +24,17 @@ namespace DataAccess.repositories.OrderDetails
             _orderDetailDao.Add(newOrderDetail);
 
             return newOrderDetail;
+        }
+
+        public List<OrderDetail> GetByOrderId(string id)
+        {
+            IQueryable<OrderDetail> queryResult = _orderDetailDao.GetAll (filter: orderDetail => orderDetail.OrderId.Equals(id));
+            return queryResult.ToList();
+        }
+
+        public void RemoveByOrderId(string id)
+        {
+            _orderDetailDao.RemoveByOrderId(id);
         }
     }
 }

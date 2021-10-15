@@ -32,7 +32,7 @@ namespace Desktop.Products
         private IServiceProvider serviceProvider;
 
         private static (string id, string name, int unitMax, int unitMin, double priceMax, double priceMin) Filters = ("", "", 1000, 0, 1000, 0);
-        
+        private static List<Product> CurrentProducts = new List<Product>();
         public FormProducts(UnitOfWorkFactory unitOfWorkFactory, IServiceProvider serviceProvider, AppRoles appRoles)
         {
             _unitOfWorkFactory = unitOfWorkFactory;
@@ -41,21 +41,20 @@ namespace Desktop.Products
 
             _initListView();
             _initLayoutFilter();
-            _reloadProduct();
-            _setupLayoutDependOnRole();
-        }
-
-        private void _setupLayoutDependOnRole ()
-        {
-           
-                btnCreate.Enabled = true;
-                btnCreate.Visible = true;
-                btnDelete.Visible = true;
-                btnDelete.Enabled = true;
+            if (CurrentProducts.Count == 0)
+            {
+                _reloadProduct();
+            } else
+            {
+                ClearProducts();
+                AddProduct(CurrentProducts);
+            }
         }
 
         private void _initLayoutFilter ()
         {
+            txtProductName.Text = Filters.name;
+            txtProductId.Text = Filters.id;
             txtPriceMax.Text = Filters.priceMax + "";
             txtPriceMin.Text = Filters.priceMin + "";
             txtUnitMax.Text = Filters.unitMax + "";
@@ -103,6 +102,7 @@ namespace Desktop.Products
 
         public void AddProduct(List<Product> product)
         {
+            CurrentProducts = product;
             product.ForEach(product => AddProduct(product));
         }
 

@@ -14,6 +14,7 @@ using System.Windows.Forms;
 using Desktop.common.MessageBoxHelper;
 using Desktop.Members;
 using Desktop.common.Roles;
+using Desktop.Orders;
 
 namespace Desktop.MainForm
 {
@@ -131,6 +132,11 @@ namespace Desktop.MainForm
             tbnContainer.Tag = childForm;
             childForm.BringToFront();
             childForm.Show();
+        }
+
+        private void btnOrders_Click(object sender, EventArgs e)
+        {
+            _openChildForm(serviceProvider.GetRequiredService<FormOrders>());
         }
     }
 }

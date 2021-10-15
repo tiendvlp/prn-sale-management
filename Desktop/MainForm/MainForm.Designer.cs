@@ -31,7 +31,9 @@ namespace Desktop.MainForm
         {
             this.tableMember = new System.Windows.Forms.TableLayoutPanel();
             this.tableUser = new System.Windows.Forms.TableLayoutPanel();
+            this.btnUserInfo = new System.Windows.Forms.Button();
             this.lblUserName = new System.Windows.Forms.Label();
+            this.btnSignout = new System.Windows.Forms.Button();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.btnOrders = new System.Windows.Forms.Button();
             this.btnProducts = new System.Windows.Forms.Button();
@@ -41,8 +43,6 @@ namespace Desktop.MainForm
             this.label1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.tbnContainer = new System.Windows.Forms.Panel();
-            this.btnSignout = new System.Windows.Forms.Button();
-            this.btnUserInfo = new System.Windows.Forms.Button();
             this.tableMember.SuspendLayout();
             this.tableUser.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -85,6 +85,22 @@ namespace Desktop.MainForm
             this.tableUser.Size = new System.Drawing.Size(165, 172);
             this.tableUser.TabIndex = 2;
             // 
+            // btnUserInfo
+            // 
+            this.btnUserInfo.BackColor = System.Drawing.Color.Maroon;
+            this.btnUserInfo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnUserInfo.FlatAppearance.BorderSize = 0;
+            this.btnUserInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUserInfo.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnUserInfo.Location = new System.Drawing.Point(10, 78);
+            this.btnUserInfo.Margin = new System.Windows.Forms.Padding(10);
+            this.btnUserInfo.Name = "btnUserInfo";
+            this.btnUserInfo.Size = new System.Drawing.Size(145, 26);
+            this.btnUserInfo.TabIndex = 2;
+            this.btnUserInfo.Text = "View Info";
+            this.btnUserInfo.UseVisualStyleBackColor = false;
+            this.btnUserInfo.Click += new System.EventHandler(this.btnUserInfo_Click);
+            // 
             // lblUserName
             // 
             this.lblUserName.AutoSize = true;
@@ -98,6 +114,22 @@ namespace Desktop.MainForm
             this.lblUserName.TabIndex = 0;
             this.lblUserName.Text = "Name";
             this.lblUserName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnSignout
+            // 
+            this.btnSignout.BackColor = System.Drawing.Color.Gray;
+            this.btnSignout.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnSignout.FlatAppearance.BorderSize = 0;
+            this.btnSignout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSignout.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnSignout.Location = new System.Drawing.Point(10, 129);
+            this.btnSignout.Margin = new System.Windows.Forms.Padding(10);
+            this.btnSignout.Name = "btnSignout";
+            this.btnSignout.Size = new System.Drawing.Size(145, 26);
+            this.btnSignout.TabIndex = 1;
+            this.btnSignout.Text = "Sign out";
+            this.btnSignout.UseVisualStyleBackColor = false;
+            this.btnSignout.Click += new System.EventHandler(this.btnSignout_Click);
             // 
             // tableLayoutPanel3
             // 
@@ -130,6 +162,7 @@ namespace Desktop.MainForm
             this.btnOrders.TabIndex = 4;
             this.btnOrders.Text = "Orders";
             this.btnOrders.UseVisualStyleBackColor = false;
+            this.btnOrders.Click += new System.EventHandler(this.btnOrders_Click);
             // 
             // btnProducts
             // 
@@ -222,38 +255,6 @@ namespace Desktop.MainForm
             this.tbnContainer.Name = "tbnContainer";
             this.tbnContainer.Size = new System.Drawing.Size(757, 505);
             this.tbnContainer.TabIndex = 0;
-            // 
-            // btnSignout
-            // 
-            this.btnSignout.BackColor = System.Drawing.Color.Gray;
-            this.btnSignout.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnSignout.FlatAppearance.BorderSize = 0;
-            this.btnSignout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSignout.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnSignout.Location = new System.Drawing.Point(10, 129);
-            this.btnSignout.Margin = new System.Windows.Forms.Padding(10);
-            this.btnSignout.Name = "btnSignout";
-            this.btnSignout.Size = new System.Drawing.Size(145, 26);
-            this.btnSignout.TabIndex = 1;
-            this.btnSignout.Text = "Sign out";
-            this.btnSignout.UseVisualStyleBackColor = false;
-            this.btnSignout.Click += new System.EventHandler(this.btnSignout_Click);
-            // 
-            // btnUserInfo
-            // 
-            this.btnUserInfo.BackColor = System.Drawing.Color.Maroon;
-            this.btnUserInfo.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnUserInfo.FlatAppearance.BorderSize = 0;
-            this.btnUserInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUserInfo.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnUserInfo.Location = new System.Drawing.Point(10, 78);
-            this.btnUserInfo.Margin = new System.Windows.Forms.Padding(10);
-            this.btnUserInfo.Name = "btnUserInfo";
-            this.btnUserInfo.Size = new System.Drawing.Size(145, 26);
-            this.btnUserInfo.TabIndex = 2;
-            this.btnUserInfo.Text = "View Info";
-            this.btnUserInfo.UseVisualStyleBackColor = false;
-            this.btnUserInfo.Click += new System.EventHandler(this.btnUserInfo_Click);
             // 
             // MainForm
             // 

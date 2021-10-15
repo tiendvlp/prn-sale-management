@@ -91,7 +91,7 @@ namespace Desktop.Orders
                     return;
                 }
 
-                Order newOrder = work.OrderRepository.Add(member.Email, _orderDate, data.RequiredDate,_shippedDate,data.freight);
+                Order newOrder = work.OrderRepository.Add(member.Id, _orderDate, data.RequiredDate,_shippedDate,data.freight);
 
                 data.Products.ForEach(product => {
                     work.OrderDetailRepository.Add(newOrder.Id, product.Id, product.Price, data.Quantity[product.Id], 1);

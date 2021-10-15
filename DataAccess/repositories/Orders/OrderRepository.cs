@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using BusinessObject;
 using DataAccess.Dao.Orders;
 
@@ -6,7 +8,7 @@ namespace DataAccess.repositories.Orders
 {
     public class OrderRepository : IOrderRepository
     {
-        private readonly OrderDao _orderDao;
+        private readonly IOrderDao _orderDao;
 
         public OrderRepository(OrderDao orderDao)
         {
@@ -21,6 +23,20 @@ namespace DataAccess.repositories.Orders
             _orderDao.Add(newOrder);
 
             return newOrder;
+        }
+
+        public List<Order> GetWithFilter(DateTime startDate, DateTime endDate)
+        {
+            IQueryable<Order> queryResult = _orderDao.GetWithFilter(startDate, endDate);
+
+            List<Order> result = queryResult.OrderByDescending(o => o.OrderDate).ToList();
+
+            return result;
+        }
+
+        public void RemoveById(string id)
+        {
+            _orderDao.Remove(id);
         }
     }
 }

@@ -8,6 +8,8 @@ namespace BusinessObject
     {
         [ForeignKey("Member")]
         public String MemberId { get; set; }
+        [ForeignKey("MemberId")]
+        public virtual Member Member { get; private set; }
         public DateTime OrderDate { get; set; }
         public DateTime RequiredDate { get; set; }
         public DateTime ShippedDate { get; set; }
