@@ -12,5 +12,6 @@ namespace DataAccess.repositories.Orders
         void Update(string id1, string id2, DateTime orderDate, DateTime requiredDate, DateTime shippedDate, double freight);
         void RemoveOrderContainsNoOrderDetails();
         void RemoveByMemberId(string id);
+        List<Order> GetByMemberId(string id);
     }
 }

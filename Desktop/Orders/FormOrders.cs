@@ -9,8 +9,6 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Desktop.common.MessageBoxHelper;
 
@@ -31,9 +29,6 @@ namespace Desktop.Orders
             }
         }
 
-        public static int ADMIN_MODE = 1;
-        public static int MEMBER_MODE = 2;
-        private int _mode;
         private ColumnHeader IdColumn = new ColumnHeader("Id") { Text = "Id" };
         private ColumnHeader MemberEmail = new ColumnHeader("Member email") { Text = "Member email" };
         private ColumnHeader OrderDateColumn = new ColumnHeader("Order date") { Text = "Order date" };
@@ -44,18 +39,22 @@ namespace Desktop.Orders
         private UnitOfWorkFactory _unitOfWorkFactory;
         private IServiceProvider serviceProvider;
 
-        private static (DateTime startDate, DateTime endDate) CurrentFilter = (new DateTime(2001, 1, 1), DateTime.Now);
-        private static (int totalSales, double totalEarn) currentStatistic;
-        private static List<ItemDataBinding> CurrentItems = new List<ItemDataBinding>();
-        public FormOrders(UnitOfWorkFactory unitOfWorkFactory, IServiceProvider serviceProvider)
+        public static (DateTime startDate, DateTime endDate) CurrentFilter = (new DateTime(2001, 1, 1), DateTime.Now);
+        public static (int totalSales, double totalEarn) currentStatistic;
+        public static List<ItemDataBinding> CurrentItems = new List<ItemDataBinding>();
+        private AppRoles _appRoles;
+        public FormOrders(UnitOfWorkFactory unitOfWorkFactory, IServiceProvider serviceProvider, AppRoles appRoles)
         {
+            _appRoles = appRoles;
             _unitOfWorkFactory = unitOfWorkFactory;
             this.serviceProvider = serviceProvider;
             InitializeComponent();
             _initFilter();
             _initListView();
+            _setupLayoutByRole();
             if (CurrentItems.Count == 0)
             {
+                CurrentFilter = (new DateTime(2001, 1, 1), DateTime.Now);
                 _reloadOrders();
             } else
             {
@@ -63,6 +62,42 @@ namespace Desktop.Orders
                 AddOrders(CurrentItems);
                 lblTotalEarn.Text = currentStatistic.totalEarn + "$";
                 lblTotalSales.Text = currentStatistic.totalSales + "";
+            }
+        }
+
+        private void _setupLayoutByRole() {
+            if (_appRoles.IsAdmin) {
+                dateTimeFromPicker.Enabled = true;
+                dateTimeToPicker.Enabled = true;
+                btnCreateStatistic.Enabled = true;
+                btnDelete.Enabled = true;
+                btnUpdate.Enabled = true;
+                lblTotalEarn.Enabled = true;
+                lblTotalSales.Enabled = true;
+                dateTimeFromPicker.Visible = true;
+                dateTimeToPicker.Visible = true;
+                btnCreateStatistic.Visible = true;
+                btnDelete.Visible = true;
+                btnUpdate.Visible = true;
+            } else
+            {
+                dateTimeFromPicker.Enabled = false;
+                dateTimeToPicker.Enabled = false;
+                btnCreateStatistic.Enabled = false;
+                btnDelete.Enabled = false;
+                btnUpdate.Enabled = false;
+                lblTotalEarn.Enabled = false;
+                lblTotalEarn.Visible = false;
+                lblTotalSales.Visible = false;
+                label1.Visible = false;
+                label2.Visible = false;
+                label3.Visible = false;
+                label4.Visible = false;
+                dateTimeFromPicker.Visible = false;
+                dateTimeToPicker.Visible = false;
+                btnCreateStatistic.Visible = false;
+                btnDelete.Visible = false;
+                btnUpdate.Visible = false;
             }
         }
 
@@ -158,8 +193,13 @@ namespace Desktop.Orders
             int totalSales = 0;
             using (var work = _unitOfWorkFactory.UnitOfWork)
             {
-                List<Order> queryOrder = work.OrderRepository.GetWithFilter(CurrentFilter.startDate, CurrentFilter.endDate).ToList();
-               
+                List<Order> queryOrder;
+                if (_appRoles.IsAdmin) { 
+                    queryOrder = work.OrderRepository.GetWithFilter(CurrentFilter.startDate, CurrentFilter.endDate).ToList();
+                } else
+                {
+                    queryOrder = work.OrderRepository.GetByMemberId((_appRoles.CurrentRole as UserRole.Member).Info.Id);
+                }
                 List<OrderDetail> orderDetails = new List<OrderDetail>();
                 queryOrder.ForEach(order =>
                 {
@@ -177,7 +217,6 @@ namespace Desktop.Orders
             currentStatistic = (totalSales, totalEarns);
             AddOrders(CurrentItems);
         }
-
 
         private void btnCreateStatistic_Click(object sender, EventArgs e)
         {

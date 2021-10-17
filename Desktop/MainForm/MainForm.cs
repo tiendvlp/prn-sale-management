@@ -65,6 +65,7 @@ namespace Desktop.MainForm
                 btnProducts.Enabled = false;
                 btnUserInfo.Enabled = true;
                 btnUserInfo.Visible = true;
+                lblUserName.Text = (appRoles.CurrentRole as UserRole.Member).Info.Name;
             }
         }
 
@@ -88,6 +89,8 @@ namespace Desktop.MainForm
         {
             // clear app roles
             appRoles.CurrentRole = null;
+            FormProducts.CurrentProducts.Clear();
+            FormOrders.CurrentItems.Clear();
             // go back to login screen
             this.Hide();
             appRoles.CurrentRole = null;

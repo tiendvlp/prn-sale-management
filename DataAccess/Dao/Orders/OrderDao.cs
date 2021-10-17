@@ -15,6 +15,11 @@ namespace DataAccess.Dao.Orders
             _dbContext = dbContext;
         }
 
+        public IQueryable<Order> GetByMemberId(string id)
+        {
+            return from order in _dbContext.Orders where order.MemberId.Equals(id) select order;
+        }
+
         public IQueryable<Order> GetWithFilter(DateTime startDate, DateTime endDate)
         {
             IQueryable<Order> result = from order in _dbContext.Orders

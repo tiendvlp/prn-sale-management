@@ -31,8 +31,8 @@ namespace Desktop.Products
         private UnitOfWorkFactory _unitOfWorkFactory;
         private IServiceProvider serviceProvider;
 
-        private static (string id, string name, int unitMax, int unitMin, double priceMax, double priceMin) Filters = ("", "", 100000, 0, 100000, 0);
-        private static List<Product> CurrentProducts = new List<Product>();
+        public static (string id, string name, int unitMax, int unitMin, double priceMax, double priceMin) Filters = ("", "", 100000, 0, 100000, 0);
+        public static List<Product> CurrentProducts = new List<Product>();
         public FormProducts(UnitOfWorkFactory unitOfWorkFactory, IServiceProvider serviceProvider, AppRoles appRoles)
         {
             _unitOfWorkFactory = unitOfWorkFactory;
@@ -43,6 +43,7 @@ namespace Desktop.Products
             _initLayoutFilter();
             if (CurrentProducts.Count == 0)
             {
+                Filters = ("", "", 100000, 0, 100000, 0);
                 _reloadProduct();
             } else
             {

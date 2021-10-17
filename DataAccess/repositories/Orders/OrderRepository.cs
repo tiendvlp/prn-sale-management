@@ -25,6 +25,13 @@ namespace DataAccess.repositories.Orders
             return newOrder;
         }
 
+        public List<Order> GetByMemberId(string id)
+        {
+            IQueryable<Order> queryResult =  _orderDao.GetByMemberId(id);
+
+            return queryResult.ToList();
+        }
+
         public List<Order> GetWithFilter(DateTime startDate, DateTime endDate)
         {
             IQueryable<Order> queryResult = _orderDao.GetWithFilter(startDate, endDate);
