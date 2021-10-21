@@ -129,13 +129,12 @@ namespace Desktop.Products
 
             newItem.SubItems.Add(new ListViewItem.ListViewSubItem()
             {
-                Text = product.Weight + " " + product.Unit
+                Text = product.Quantity + ""
             });
             newItem.SubItems.Add(new ListViewItem.ListViewSubItem()
             {
-                Text = product.Quantity + ""
+                Text = product.Weight + " " + product.Unit
             });
-
             lvProduct.Items.Add(newItem);
         }
 

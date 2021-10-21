@@ -111,11 +111,6 @@ namespace Desktop.Orders
             {
                 _calculateFreightAndPrice();
             }
-
-            if (_boughtProduct.Count == 0)
-            {
-                CallBack(EVENT_TYPE.CANCEL, null);
-            }
         }
 
         private void _calculateFreightAndPrice(double overrideFreight = -1)

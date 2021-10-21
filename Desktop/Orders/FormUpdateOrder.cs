@@ -81,6 +81,14 @@ namespace Desktop.Orders
         {
             var data = OrderInfo.getData();
 
+            if (data.Products.Count == 0)
+            {
+                DialogResult result = MessageBox.Show("If you confirm your order will be deleted, because there is no products, press dismiss to undo", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                if (result == DialogResult.Cancel)
+                {
+                    return;
+                }
+            }
             // update order
 
             using (var work = _unitOfWorkFactory.UnitOfWork)
@@ -93,14 +101,16 @@ namespace Desktop.Orders
                     return;
                 }
 
-                work.OrderRepository.Update(CurrentOrder.Id, member.Id, CurrentOrder.OrderDate, data.RequiredDate, data.ShippedDate, data.freight);
-                
                 work.OrderDetailRepository.RemoveByOrderId(CurrentOrder.Id);
 
-                data.Products.ForEach(product => {
-                    work.OrderDetailRepository.Add(CurrentOrder.Id, product.Id, product.Price, data.Quantity[product.Id], 1);
-                });
-
+                if (data.Products.Count == 0) {
+                    work.OrderRepository.RemoveById(CurrentOrder.Id);
+                } else { 
+                    work.OrderRepository.Update(CurrentOrder.Id, member.Id, CurrentOrder.OrderDate, data.RequiredDate, data.ShippedDate, data.freight);
+                    data.Products.ForEach(product => {
+                        work.OrderDetailRepository.Add(CurrentOrder.Id, product.Id, product.Price, data.Quantity[product.Id], 1);
+                    });
+                }
                 work.Save();
             }
 

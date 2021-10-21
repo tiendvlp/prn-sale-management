@@ -27,15 +27,11 @@ namespace Desktop
             _appRole = appRole;
             InitializeComponent();
             LoadLoginLayout();
-            AllocConsole();
         }
-
-        [DllImport("kernel32.dll", SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool AllocConsole();
 
         private void LoadLoginLayout ()
         {
+            txtPassword.PasswordChar = '*';
             txtUserName.AutoSize = false;
         }
 
